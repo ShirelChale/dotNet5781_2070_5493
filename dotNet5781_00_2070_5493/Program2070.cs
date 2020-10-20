@@ -17,7 +17,7 @@ namespace dotNet5781_00_2070_5493
 
         static partial void Welcome5493();
 
-        private static void Welcome2070() 
+        private static void Welcome2070()
         {
             Console.Write("Enter your name: ");
             string name = Console.ReadLine();
