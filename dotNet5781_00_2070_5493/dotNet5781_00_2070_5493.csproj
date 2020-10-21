@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Program5493.cs" />
     <Compile Include="Program2070.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
