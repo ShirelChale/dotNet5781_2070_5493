@@ -29,7 +29,7 @@ namespace dotNet5781_02_2070_5493
        
         // Properties:
         public double BusStationKey
-        {
+        { 
             get => busStationKey;
             set => busStationKey = value;
         }
