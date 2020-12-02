@@ -53,7 +53,7 @@ namespace dotNet5781_02_2070_5493
         {
             string stationProperties = "Bus Station Code: " +
                 this.busStationKey.ToString() + ", " + this.Latitude.ToString() +
-                "°N " + this.Longitude.ToString() + "°E\n";
+                "°N  " + this.Longitude.ToString() + "°E";
             return stationProperties;
         }
     }

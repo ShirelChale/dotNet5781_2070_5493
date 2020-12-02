@@ -27,9 +27,8 @@ namespace dotNet5781_02_2070_5493
             this.Distance = 0;
             this.TimeRide = 0;
         }
-
-        public LineStation( LineStation station)
-       {
+        public LineStation(LineStation station)
+        {
             BusStationKey = station.BusStationKey;
             Latitude = station.Latitude;
             Longitude = station.Longitude;
@@ -38,16 +37,14 @@ namespace dotNet5781_02_2070_5493
             TimeRide = station.timeRide;
         }
 
-
         // Properties:
         public double Distance { get => distance; set => distance = value; }
         public double TimeRide { get => timeRide; set => timeRide = value; }
-
-        //override public string ToString()
-        //{
-        //    TimeSpan time = new TimeSpan(0,(int)this.timeRide,0);
-        //    return base.ToString() + " " + time + "\n";
-        //}
+        override public string ToString()
+        {
+            TimeSpan time = new TimeSpan(0, (int)this.timeRide, 0);
+            return base.ToString() + " " + time + "\n";
+        }
     }
 
 }

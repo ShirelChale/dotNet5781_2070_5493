@@ -286,7 +286,7 @@ namespace dotNet5781_02_2070_5493
             List<LineStation> rode = new List<LineStation>();
             for (int i = 0; i < 10; i++)
             {
-                _area = randomArea.Next(0, 2);
+                _area = randomArea.Next(0, 3);
                 BusesLine bus = new BusesLine(_busLine + i, stationsList[i], _area);
                 busCollection.addLine(bus);
             }

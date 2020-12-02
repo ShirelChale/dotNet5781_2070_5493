@@ -7,16 +7,19 @@ using System.Threading.Tasks;
 
 namespace dotNet5781_02_2070_5493
 {
+    public enum AreaNum { Jerusalem, Har_Nof, Givat_Shaul };
     /// <summary>
     /// Initializing Bus line with line number, its first and last station, 
     /// its area and rode (of stations).
     /// </summary>
     public class BusesLine : IComparable<BusesLine>
     {
+        
+
         private double busLine;
         private LineStation firstStation;
         private LineStation lastStation;
-        private int area;
+        private AreaNum area;
         List<LineStation> stations;
         public BusesLine()
         { // Default constructor.
@@ -27,28 +30,28 @@ namespace dotNet5781_02_2070_5493
             this.Stations = new List<LineStation>();
         }
 
-        public BusesLine(double _busLine, LineStation _firstStation, LineStation _lastStation, int _area)
+        public BusesLine(double _busLine, LineStation _firstStation, LineStation _lastStation, AreaNum _area)
         { // Constructor without last station and rode.
             this.busLine = _busLine;
             this.firstStation = _firstStation;
             this.Stations = new List<LineStation>();
             stations.Add(firstStation);
-            this.area = _area;
+            this.Area = _area;
             this.LastStation = _lastStation;
             stations.Add(lastStation);
         }
-        public BusesLine(double _busLine, LineStation _firstStation, int _area)
+        public BusesLine(double _busLine, LineStation _firstStation, AreaNum _area)
         { // Constructor without last station and rode.
             this.busLine = _busLine;
             this.firstStation = _firstStation;
             this.Stations = new List<LineStation>();
             stations.Add(firstStation);
-            this.area = _area;
+            this.Area = _area;
             this.LastStation = this.firstStation;
         }
 
         public BusesLine(double _busLine, LineStation _firstStation,
-            LineStation _lastStation, int _area, List<LineStation> _stations)
+            LineStation _lastStation, AreaNum _area, List<LineStation> _stations)
         { // Constuctor
             this.BusLine = _busLine;
             this.FirstStation = _firstStation;
@@ -58,11 +61,6 @@ namespace dotNet5781_02_2070_5493
         }
 
         // Properties:
-        public int Area
-        {
-            get => area;
-            set => area = value;
-        }
         public double BusLine
         {
             get => busLine;
@@ -83,11 +81,15 @@ namespace dotNet5781_02_2070_5493
             get => lastStation;
             set => lastStation = value;
         }
+        public AreaNum Area { 
+            get => area; 
+            set => area = value; 
+        }
 
         public override string ToString()
         {
             string busLineProperties = "Bus number: " +
-                 this.busLine.ToString() + "\nBus area: " + this.area + "\nStations List for "
+                 this.busLine.ToString() + "\nBus area: " + this.Area + "\nStations List for "
                  + this.busLine.ToString() + "\n";
             foreach (LineStation station in stations)
             {
@@ -137,7 +139,7 @@ namespace dotNet5781_02_2070_5493
             if (distanceCalculation(newStation, stations.First()) < distanceCalculation(newStation, stations.Last()))
             { // In case that the new station needs to be the first station.
                 stations.First().Distance = distanceCalculation(newStation, stations.First());
-                stations.First().TimeRide = timeRideCalculation(newStation, stations.First()); 
+                stations.First().TimeRide = timeRideCalculation(newStation, stations.First());
                 stations.Insert(Stations.IndexOf(stations.First()), newStation);
             }
             else
@@ -213,7 +215,7 @@ namespace dotNet5781_02_2070_5493
         public double timeRideCalculation(LineStation stationA, LineStation stationB)
         {
             double dis = this.distanceCalculation(stationA, stationB);
-            double totalSeconds = dis *1000 / 20;
+            double totalSeconds = dis*1000 / 20;
             return totalSeconds / 60;
         }
 
@@ -239,7 +241,7 @@ namespace dotNet5781_02_2070_5493
                     }
                 }
             }
-            return new BusesLine(this.busLine, stationA, stationB, this.area, subList);
+            return new BusesLine(this.busLine, stationA, stationB, this.Area, subList);
         }
         /// <summary>
         /// Compares between 2 bus line by time.
