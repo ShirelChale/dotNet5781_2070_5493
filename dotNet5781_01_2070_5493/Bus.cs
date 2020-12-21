@@ -10,16 +10,16 @@ namespace dotNet5781_01_2070_5493
     {
         private string licenseNumber;
         private DateTime startingDate;
-        private double kilometers;
+        private double totalKilometers;
         private double fuel;
 
 
         public Bus(string _licenseNumber, DateTime _startingDate,
-            double _kilometers = 0, double _fuel = 0)
+            double _totalKilometers = 0, double _fuel = 0)
         { // A constructor.
             this.licenseNumber = _licenseNumber;
             this.startingDate = _startingDate;
-            this.kilometers = _kilometers;
+            this.totalKilometers = _totalKilometers;
             this.fuel = _fuel;
         }
         public string getLicenseNumber()
@@ -28,9 +28,9 @@ namespace dotNet5781_01_2070_5493
         }
 
 
-        public double getKilometers()
+        public double gettotalKilometers()
         { // Getter.
-            return kilometers;
+            return totalKilometers;
         }
 
         public int integrityCheck(double ride)
@@ -38,9 +38,9 @@ namespace dotNet5781_01_2070_5493
             if (this.fuel - ride < 0)
                 return 1; // There's not enough fuel for the ride.
             System.TimeSpan resultDate = DateTime.Now.Subtract(this.startingDate);
-            if (resultDate.TotalDays >= 365 || (this.kilometers != 0 && this.kilometers % 20000 == 0))
+            if (resultDate.TotalDays >= 365 || (this.totalKilometers != 0 && this.totalKilometers % 20000 == 0))
                 return 2; // It's been a year and the bus needs treatment.
-            this.kilometers += ride; // Add ride to kilometer.
+            this.totalKilometers += ride; // Add ride to kilometer.
             this.fuel -= ride; // Substract fuel of ride.
             return 0;
         }

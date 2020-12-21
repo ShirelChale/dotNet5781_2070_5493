@@ -1,0 +1,27 @@
+﻿<Window x:Class="dotNet5781_04_2070_5493.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:dotNet5781_04_2070_5493"
+        mc:Ignorable="d"
+        Title="MainWindow" Name="Main" Height="400" Width="500" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <DataTemplate x:Key="busData">
+            <StackPanel x:Name="spBusData" Background="{Binding Path=BusStatusColor}" Orientation="Horizontal">
+                <TextBlock x:Name="tbLicenseNumber" Text="{Binding Path=LicenseNumber}" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="100" Height="30" FontSize="14"/>
+                <Button Name="driveButton"  Content="Drive"  FontFamily="Tahoma" FontSize="14" Height="30" Width="80" Margin="10"  Click="driveButton_Click"  />
+                <Button Name="refuelButton" Content="Refuel" FontFamily="Tahoma" FontSize="14" Height="30" Width="80" Margin="10" Click="refuelButton_Click"/>
+                <TextBlock x:Name="timerTB"  Margin="0,0,0,0" Text="{Binding Path=TimerText}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <ListBox Name="displayedBusesList" ItemTemplate="{StaticResource busData}"  HorizontalAlignment="Center" Height="300" Margin="0,50,0,0" VerticalAlignment="Center" Width="450" FontFamily="Tahoma" FontSize="22" MouseDoubleClick="displayedBusesList_MouseDoubleClick"/>
+        <Grid HorizontalAlignment="Center" Height="30" Margin="22,30,321.6,0" VerticalAlignment="Top" Width="150">
+            <Label Content="License Number" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" FontFamily="Tahoma" FontSize="14"/>
+        </Grid>
+        <Button Name="addButton" Content="Add new bus" HorizontalAlignment="Left" Margin="364,15,0,0" VerticalAlignment="Top" FontFamily="Tahoma" FontSize="14" Height="30" Width="100" Click="addButton_Click"/>
+
+    </Grid>
+</Window>

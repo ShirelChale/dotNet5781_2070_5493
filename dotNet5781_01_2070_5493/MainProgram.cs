@@ -88,7 +88,7 @@ namespace dotNet5781_01_2070_5493
                         {
                             Console.WriteLine("Viacle:");
                             printlicenseNumberForm(myBus.getLicenseNumber());
-                            Console.WriteLine("Kilometer:\n" + myBus.getKilometers());
+                            Console.WriteLine("Kilometer:\n" + myBus.gettotalKilometers());
                         }
                         break;
                     case choices.exit:
