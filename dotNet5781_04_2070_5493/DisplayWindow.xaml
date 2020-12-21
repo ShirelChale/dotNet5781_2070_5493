@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:dotNet5781_04_2070_5493"
         mc:Ignorable="d"
-        Title="DisplayWindow" Height="320" Width="300" WindowStartupLocation="CenterScreen">
+        Title="DisplayWindow" Height="330" Width="300" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid x:Name="grid1"  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
@@ -20,6 +20,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                
             </Grid.RowDefinitions>
             <Label Content="Bus Status:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
             <Label x:Name="busStatusLabel" Content="{Binding BusStatus}" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
@@ -35,6 +37,8 @@
             <Label x:Name="startingDateLabel" Content="{Binding StartingDate}" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="5" VerticalAlignment="Center"/>
             <Label Content="Total Kilometers:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="6" VerticalAlignment="Center"/>
             <Label x:Name="totalKilometersLabel" Content="{Binding TotalKilometers}" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="6" VerticalAlignment="Center"/>
+            <Label Content="Time left till ready:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="7" VerticalAlignment="Center"/>
+            <Label x:Name="timerTextLabel" Content="{Binding TimerText}" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="7" VerticalAlignment="Center"/>
         </Grid>
         <Button  Name="btnRefueling" Content="Refueling" HorizontalAlignment="Left" Margin="40,0,0,20" VerticalAlignment="Bottom" Width="75" Click="btnRefueling_Click"/>
         <Button Name="btnTreatment" Content="Treatment" HorizontalAlignment="Right" Margin="0,0,40,20" VerticalAlignment="Bottom" Width="75" Click="btnTreatment_Click"/>

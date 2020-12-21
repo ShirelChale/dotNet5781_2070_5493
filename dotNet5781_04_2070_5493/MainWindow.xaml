@@ -9,10 +9,10 @@
     <Window.Resources>
         <DataTemplate x:Key="busData">
             <StackPanel x:Name="spBusData" Background="{Binding Path=BusStatusColor}" Orientation="Horizontal">
-                <TextBlock x:Name="tbLicenseNumber" Text="{Binding Path=LicenseNumber}" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="100" Height="30" FontSize="14"/>
+                <TextBlock x:Name="tbLicenseNumber" Margin="10,0,0,0" Width="110" Text="{Binding Path=LicenseNumber}" HorizontalAlignment="Left" VerticalAlignment="Stretch" Height="30" FontSize="14"/>
                 <Button Name="driveButton"  Content="Drive"  FontFamily="Tahoma" FontSize="14" Height="30" Width="80" Margin="10"  Click="driveButton_Click"  />
                 <Button Name="refuelButton" Content="Refuel" FontFamily="Tahoma" FontSize="14" Height="30" Width="80" Margin="10" Click="refuelButton_Click"/>
-                <TextBlock x:Name="timerTB"  Margin="0,0,0,0" Text="{Binding Path=TimerText}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock x:Name="timerTB" Width="130" Margin="0,0,0,0" Text="{Binding Path=TimerText}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </StackPanel>
         </DataTemplate>
     </Window.Resources>

@@ -37,11 +37,13 @@ namespace dotNet5781_04_2070_5493
 
         private void tbKilometersAmount_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+            // Allow errows, Back and delete keys:
             if (e.Key == Key.Back || e.Key == Key.Delete || e.Key == Key.Right || e.Key == Key.Left)
             {
                 busToUpdate.Counter = -1;
                 return;
             }
+            // Press enter to exit:
             if (e.Key == Key.Enter)
             {
                 TextBox text = sender as TextBox;
@@ -65,7 +67,7 @@ namespace dotNet5781_04_2070_5493
                 this.Close();
                 return;
             }
-
+            // Allow only digits:
             char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
             if (char.IsDigit(c))
                 if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightAlt)))
@@ -98,8 +100,6 @@ namespace dotNet5781_04_2070_5493
                 MessageBox.Show("Bus isn't ready for a ride.");
                 return false;
             }
-            //Thread drivingTimerThread = new Thread(;
-            //Need to check if bus needs refueling and treatment.
             return true;
         }
     }

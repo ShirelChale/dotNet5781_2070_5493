@@ -28,28 +28,39 @@ namespace dotNet5781_04_2070_5493
             DataContext = displayedBus;
         }
 
+        /// <summary>
+        /// Refueling button click event.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRefueling_Click(object sender, RoutedEventArgs e)
         {
             Bus busToUpdate = (sender as Button).DataContext as Bus;
-            busToUpdate.Counter = 12;
-            busToUpdate.BusStatusColor = "#FFF98F8F";
+            busToUpdate.Counter = 12; // Time for refueling.
+            busToUpdate.BusStatusColor = "#FFF98F8F"; // Color change (red).
             busToUpdate.StopWatch = new DispatcherTimer(new TimeSpan(0, 0, busToUpdate.Counter),
                 DispatcherPriority.Normal, delegate { }, Application.Current.Dispatcher);
             busToUpdate.StopWatch.Start();
             busToUpdate.BusStatus = status.onRefueling;
-            busToUpdate.Timerworker.RunWorkerAsync();
+            busToUpdate.Timerworker.RunWorkerAsync(); // Run thread.
         }
 
+        /// <summary>
+        /// Treatment button click event.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnTreatment_Click(object sender, RoutedEventArgs e)
         {
             Bus busToUpdate = (sender as Button).DataContext as Bus;
-            busToUpdate.Counter = 144;
-            busToUpdate.BusStatusColor = "#FFF98F8F";
+            busToUpdate.Counter = 144; // Time for treatment.
+            busToUpdate.BusStatusColor = "#FFF98F8F"; // Color change (red).
             busToUpdate.StopWatch = new DispatcherTimer(new TimeSpan(0, 0, busToUpdate.Counter),
                 DispatcherPriority.Normal, delegate { }, Application.Current.Dispatcher);
             busToUpdate.StopWatch.Start();
             busToUpdate.BusStatus = status.onTreatment;
-            busToUpdate.Timerworker.RunWorkerAsync();
+            busToUpdate.Timerworker.RunWorkerAsync(); // Run thread.
         }
+
     }
 }

@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
-using static System.Windows.Forms;
+//using  System.Windows.Forms;
 
 
 namespace dotNet5781_04_2070_5493
@@ -21,13 +21,7 @@ namespace dotNet5781_04_2070_5493
         private DateTime startingDate;
         private DispatcherTimer stopWatch;
         BackgroundWorker timerworker;
-        //private double totalKilometers;
-        //private double fuel;
-        //private status busStatus;
-        //private DateTime dateTreatment;
-        //private double kilometersAfterTreatment;
-
-
+       
         public Bus(string _licenseNumber, DateTime _startingDate,
             double _totalKilometers = 0, double _fuel = 1200)
         { // A constructor.
@@ -49,6 +43,7 @@ namespace dotNet5781_04_2070_5493
         {
 
         }
+        // Properties:
         public string LicenseNumber
         {
             get => licenseNumber;
@@ -170,45 +165,67 @@ namespace dotNet5781_04_2070_5493
         { // Refuel.
             this.Fuel = 1200;
         }
+
+        //--------
+        // Thread:
+        //--------
+
+        /// <summary>
+        /// Thread DoWork
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             for (int i = 1; i <= this.Counter; i++)
-            {
+            { // Going down through seconds counter.
                 Timerworker.ReportProgress(1);
-                Thread.Sleep(1000);
+                Thread.Sleep(1000); // Sleep for a second.
             }
 
         }
-
+        /// <summary>
+        /// Thread ProgressChange
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            TimeSpan time = new TimeSpan(0, 0, -1);
-            StopWatch.Interval += time;
+            StopWatch.Interval += new TimeSpan(0, 0, -1); // Reduces 1 second from stop watch.
             string timerText = StopWatch.Interval.ToString();
             this.TimerText = timerText;
         }
 
+        /// <summary>
+        /// Thread RunWorkerCompleted
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Timerworker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            System.Windows.Forms.MessageBox = "Bus number " + this.LicenseNumber + " finish and ready";
-            //Forms.MessageBox.Show("Bus number " + this.LicenseNumber + " finish and ready");
-            //("Bus number "/* + this.LicenseNumber + " finish and ready"*/);
             StopWatch.Stop();
+            MessageBox.Show("Bus number " + this.LicenseNumber + " finish and ready"); 
+            // Status checks for appropriate operation:
             if (this.BusStatus == status.duringRide)
             {
                 this.TotalKilometers += this.KilometerPerRide; // Add ride to kilometer.
                 this.Fuel -= this.KilometerPerRide; // Substract fuel of ride.
-                this.KilometersAfterTreatment += this.KilometerPerRide;
+                this.KilometersAfterTreatment += this.KilometerPerRide; // Add ride to Kilometers After Treatment
             }
             else if (this.BusStatus == status.onRefueling)
-                this.afterRefueling();
+                this.afterRefueling(); // Refueling.
             else if (this.BusStatus == status.onTreatment)
-                this.afterTreatment();
+                this.afterTreatment(); // Treat
             this.BusStatus = status.ready;
-            this.BusStatusColor = "";
+            this.BusStatusColor = ""; // Reset color of line on buses list.
             this.KilometerPerRide = 0;
             this.Counter = 0;
         }
+
+        //---------------
+        // End of Thread.
+        //---------------
+
         public override string ToString()
         {
             return this.LicenseNumber;
