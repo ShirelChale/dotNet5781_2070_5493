@@ -1,0 +1,49 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:dotNet5781_PR01_2070_5493"
+        xmlns:BO="clr-namespace:BL.BO;assembly=BL" x:Class="dotNet5781_PR01_2070_5493.ShowLineRodeWindow"
+        mc:Ignorable="d"
+        Title="ShowLineRodeWindow"  Height="400" Width="400" WindowStartupLocation="CenterScreen" >
+    <Window.Resources>
+        <CollectionViewSource x:Key="lineStationViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:LineStation}, CreateList=True}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource lineStationViewSource}">
+
+        <DataGrid x:Name="lineStationDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="0,0,0,0" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn x:Name="lineStationIndexColumn" Width="30" Header="No.">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding LineStationIndex}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="stationColumn" Width="226" Header="Station">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Station}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="distanceFromColumn" Width="60" Header="Distance">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding DistanceFrom}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="timeFromColumn" Width="60" Header="Time">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding TimeFrom}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>
