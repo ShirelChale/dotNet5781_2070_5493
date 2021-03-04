@@ -30,17 +30,11 @@ namespace dotNet5781_PR01_2070_5493
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (codeTextBox.Text != "" && lattitudeTextBox.Text != ""
+            if (lattitudeTextBox.Text != ""
                 && longitudeTextBox.Text != "" && nameTextBox.Text != "")
             {
-                this.newStation.Code = int.Parse(codeTextBox.Text);
-                if (codeTextBox.Text.Length != 6)
-                {
-                    MessageBox.Show("Code must be 6 digits long");
-                    return;
-                }
-                    this.newStation.Lattitude = int.Parse(lattitudeTextBox.Text);
-                this.newStation.Longitude = int.Parse(longitudeTextBox.Text);
+                this.newStation.Lattitude = double.Parse(lattitudeTextBox.Text);
+                this.newStation.Longitude = double.Parse(longitudeTextBox.Text);
                 if (!(this.newStation.Lattitude >= 31 && this.newStation.Lattitude <= 33.3) ||
                     (this.newStation.Longitude >= 34.3 && this.newStation.Longitude <= 35.5))
                 {
@@ -63,15 +57,11 @@ namespace dotNet5781_PR01_2070_5493
 
         }
 
-        private void codeTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            this.integrityInputCheck(e);
-        }
 
         private void integrityInputCheck(KeyEventArgs e)
         {
             // Allow errows, Back and delete keys:
-            if (e.Key == Key.Back || e.Key == Key.Delete || e.Key == Key.Right || e.Key == Key.Left)
+            if (e.Key == Key.Back || e.Key == Key.Delete || e.Key == Key.Right || e.Key == Key.Left || e.Key==Key.Decimal)
                 return;
             // Allow only digits:
             char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);

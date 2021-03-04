@@ -6,25 +6,45 @@
         xmlns:local="clr-namespace:dotNet5781_PR01_2070_5493"
         mc:Ignorable="d"
         Title="WorkerWindow" Height="550" Width="800" WindowStartupLocation="CenterScreen">
-
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid x:Name="liftGrid" Grid.Column="0" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
-            <Image Source="BusLogo.png" Height="150" Margin="0,0,0,0"/>
-            <Button Name="btnBusesDisplay" Content="Display buses" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Center" Background="#3A54A5"  Margin="0,250,0,0" VerticalAlignment="Center" Width="150" Click="btnBusesDisplay_Click" />
-        </Grid>
-        <Grid x:Name="midGrid" Grid.Column="1" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
-            <Image Source="LineLogo.png" Height="150" Margin="0,0,0,0"/>
-            <Button Name="btnLinesDisplay" Content="Display lines" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Center" Background="#3A54A5"  Margin="0,250,0,0" VerticalAlignment="Center" Width="150" Click="btnLinesDisplay_Click" />
-        </Grid>
-        <Grid x:Name="rightGrid" Grid.Column="2" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
-            <Image Source="StationLogo.png" Height="150" Margin="0,0,0,0"/>
-            <Button Name="btnStationsDisplay" Content="Display stations" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Center" Background="#3A54A5"  Margin="0,250,0,0" VerticalAlignment="Center" Width="150" Click="btnStationsDisplay_Click" />
+        <Grid>
             <Button Name="btnSignOut" Content="Sign out" FontSize="16" Background="#ED6D25" Foreground="White" Height="30" HorizontalAlignment="right" Margin="0,30,30,0" VerticalAlignment="Top" Width="75" Click="btnSignOut_Click" />
+            <Grid Height="250" Width="700" VerticalAlignment="Top" Margin="0,50,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid x:Name="leftGrid" Grid.Column="0" HorizontalAlignment="Stretch" Height="225" VerticalAlignment="top" Width="auto">
+                    <Image Source="BusLogo.png" Height="110" Margin="0,0,0,20"/>
+                    <Button Name="btnBusesDisplay" Content="Display buses" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Center" Background="#3A54A5"  Margin="0,0,0,20" VerticalAlignment="Bottom" Width="160" Click="btnBusesDisplay_Click" />
+                </Grid>
+                <Grid x:Name="MiddleGrid" Grid.Column="1" HorizontalAlignment="Stretch" Height="225" VerticalAlignment="Top" Width="auto">
+                    <Image Source="LineLogo.png" Height="100" Margin="0,0,0,20"/>
+                    <Button Name="btnLinesDisplay" Content="Display lines" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Center" Background="#3A54A5"  Margin="0,0,0,20" VerticalAlignment="Bottom" Width="160" Click="btnLinesDisplay_Click" />
+                </Grid>
+                <Grid x:Name="rightGrid" Grid.Column="2" HorizontalAlignment="Stretch" Height="225" VerticalAlignment="Top" Width="auto">
+                    <Image Source="Users.png" Height="100" Margin="0,0,0,20"/>
+                    <Button Name="btnUserManagment" Content="Manage Users" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Center" Background="#3A54A5"  Margin="0,0,0,20" VerticalAlignment="Bottom" Width="160" Click="btnUserManagment_Click"  />
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid>
+            <Grid Height="225" Width="450" VerticalAlignment="Bottom" Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid x:Name="leftBottomGrid" Grid.Column="0" HorizontalAlignment="Stretch" Height="225" VerticalAlignment="Bottom" Width="auto">
+                    <Image Source="StationLogo.png" Height="100" Margin="0,0,0,20"/>
+                    <Button Name="btnStationsDisplay" Content="Display stations" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Center" Background="#3A54A5"  Margin="0,0,0,20" VerticalAlignment="Bottom" Width="160" Click="btnStationsDisplay_Click" />
+                </Grid>
+                <Grid x:Name="rightBottomGrid" Grid.Column="1" HorizontalAlignment="Stretch" Height="225" VerticalAlignment="Bottom" Width="auto">
+                    <Image Source="Schedule.png" Height="110" Margin="0,0,0,20"/>
+                    <Button Name="btnScheduleDisplay" Content="Display Schedule" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Center" Background="#3A54A5"  Margin="0,0,0,20" VerticalAlignment="Bottom" Width="160" Click="btnScheduleDisplay_Click"/>
+                </Grid>
+            </Grid>
+
         </Grid>
     </Grid>
 </Window>

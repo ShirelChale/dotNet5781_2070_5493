@@ -132,7 +132,7 @@ namespace dotNet5781_PR01_2070_5493
 
         private void chbTermsAgreement_Checked(object sender, RoutedEventArgs e)
         {
-            if (this.userName != "" && this.password != "" && this.redoPassword!="")
+            if (this.userName != "" && this.password != "" && this.redoPassword != "")
                 btnSignUp.IsEnabled = true;
         }
     }

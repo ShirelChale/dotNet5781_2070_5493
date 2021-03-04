@@ -1,886 +1,622 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
 using DLAPI;
 using DLAPI.DO;
-
+using DLXML;
 
 namespace DL
 {
 
-    //sealed class DLXML : IDL    //internal
-    //{
-    //    //#region singelton
-    //    //static readonly DLXML instance = new DLXML();
-    //    //static DLXML() { }// static ctor to ensure instance init is done just before first usage
-    //    //DLXML() { } // default => private
-    //    //public static DLXML Instance { get => instance; }// The public Instance property to use
-    //    //#endregion
-
-    //    //#region DS XML Files
-
-    //    //string personsPath = @"PersonsXml.xml"; //XElement
-
-    //    //string studentsPath = @"StudentsXml.xml"; //XMLSerializer
-    //    //string coursesPath = @"CoursesXml.xml"; //XMLSerializer
-    //    //string lecturersPath = @"LecturersXml.xml"; //XMLSerializer
-    //    //string lectInCoursesPath = @"LecturerInCourseXml.xml"; //XMLSerializer
-    //    //string studInCoursesPath = @"StudentInCoureseXml.xml"; //XMLSerializer
-
-
-    //    //#endregion
-
-    //    //#region Person
-    //    //public DO.Person GetPerson(int id)
-    //    //{
-    //    //    XElement personsRootElem = XMLTools.LoadListFromXMLElement(personsPath);
-
-    //    //    Person p =  (from per in personsRootElem.Elements()
-    //    //                    where int.Parse(per.Element("ID").Value) == id
-    //    //                    select new Person()
-    //    //                    {
-    //    //                        ID = Int32.Parse(per.Element("ID").Value),
-    //    //                        Name = per.Element("Name").Value,
-    //    //                        Street = per.Element("Street").Value,
-    //    //                        HouseNumber = Int32.Parse(per.Element("HouseNumber").Value),
-    //    //                        City = per.Element("City").Value,
-    //    //                        BirthDate = DateTime.Parse(per.Element("BirthDate").Value),
-    //    //                        PersonalStatus = (PersonalStatus)Enum.Parse(typeof(PersonalStatus), per.Element("PersonalStatus").Value)
-    //    //                    }
-    //    //                ).FirstOrDefault();
-
-    //    //    if (p == null)
-    //    //        throw new DO.BadPersonIdException(id, $"bad person id: {id}");
-
-    //    //    return p;
-    //    //}
-    //    //public IEnumerable<DO.Person> GetAllPersons()
-    //    //{
-    //    //    XElement personsRootElem = XMLTools.LoadListFromXMLElement(personsPath);
-
-    //    //    return (from p in personsRootElem.Elements()
-    //    //            select new Person()
-    //    //            {
-    //    //                ID = Int32.Parse(p.Element("ID").Value),
-    //    //                Name = p.Element("Name").Value,
-    //    //                Street = p.Element("Street").Value,
-    //    //                HouseNumber = Int32.Parse(p.Element("HouseNumber").Value),
-    //    //                City = p.Element("City").Value,
-    //    //                BirthDate = DateTime.Parse(p.Element("BirthDate").Value),
-    //    //                PersonalStatus = (PersonalStatus)Enum.Parse(typeof(PersonalStatus), p.Element("PersonalStatus").Value)
-    //    //            }
-    //    //           );
-    //    //}
-    //    //public IEnumerable<DO.Person> GetAllPersonsBy(Predicate<DO.Person> predicate)
-    //    //{
-    //    //    XElement personsRootElem = XMLTools.LoadListFromXMLElement(personsPath);
-
-    //    //    return from p in personsRootElem.Elements()
-    //    //           let p1 = new Person()
-    //    //           {
-    //    //               ID = Int32.Parse(p.Element("ID").Value),
-    //    //               Name = p.Element("Name").Value,
-    //    //               Street = p.Element("Street").Value,
-    //    //               HouseNumber = Int32.Parse(p.Element("HouseNumber").Value),
-    //    //               City = p.Element("City").Value,
-    //    //               BirthDate = DateTime.Parse(p.Element("BirthDate").Value),
-    //    //               PersonalStatus = (PersonalStatus)Enum.Parse(typeof(PersonalStatus), p.Element("PersonalStatus").Value)
-    //    //           }
-    //    //           where predicate(p1)
-    //    //           select p1;
-    //    //}
-    //    //public void AddPerson(DO.Person person)
-    //    //{
-    //    //    XElement personsRootElem = XMLTools.LoadListFromXMLElement(personsPath);
-
-    //    //    XElement per1 = (from p in personsRootElem.Elements()
-    //    //                     where int.Parse(p.Element("ID").Value) == person.ID
-    //    //                     select p).FirstOrDefault();
-
-    //    //    if (per1 != null)
-    //    //        throw new DO.BadPersonIdException(person.ID, "Duplicate person ID");
-
-    //    //    XElement personElem = new XElement("Person",
-    //    //                           new XElement("ID", person.ID),
-    //    //                           new XElement("Name", person.Name),
-    //    //                           new XElement("Street", person.Street),
-    //    //                           new XElement("HouseNumber", person.HouseNumber.ToString()),
-    //    //                           new XElement("City", person.City),
-    //    //                           new XElement("BirthDate", person.BirthDate),
-    //    //                           new XElement("PersonalStatus", person.PersonalStatus.ToString()));
-
-    //    //    personsRootElem.Add(personElem);
-
-    //    //    XMLTools.SaveListToXMLElement(personsRootElem, personsPath);
-    //    //}
-
-    //    //public void DeletePerson(int id)
-    //    //{
-    //    //    XElement personsRootElem = XMLTools.LoadListFromXMLElement(personsPath);
-
-    //    //    XElement per = (from p in personsRootElem.Elements()
-    //    //                            where int.Parse(p.Element("ID").Value) == id
-    //    //                            select p).FirstOrDefault();
-
-    //    //    if (per != null)
-    //    //    {
-    //    //        per.Remove();
-    //    //        XMLTools.SaveListToXMLElement(personsRootElem, personsPath);
-    //    //    }
-    //    //    else
-    //    //        throw new DO.BadPersonIdException(id, $"bad person id: {id}");
-    //    //}
-
-    //    //public void UpdatePerson(DO.Person person)
-    //    //{
-    //    //    XElement personsRootElem = XMLTools.LoadListFromXMLElement(personsPath);
-
-    //    //    XElement per = (from p in personsRootElem.Elements()
-    //    //                            where int.Parse(p.Element("ID").Value) == person.ID
-    //    //                            select p).FirstOrDefault();
-
-    //    //    if (per != null)
-    //    //    {
-    //    //        per.Element("ID").Value = person.ID.ToString();
-    //    //        per.Element("Name").Value = person.Name;
-    //    //        per.Element("Street").Value = person.Street;
-    //    //        per.Element("HouseNumber").Value = person.HouseNumber.ToString();
-    //    //        per.Element("City").Value = person.City;
-    //    //        per.Element("BirthDate").Value = person.BirthDate.ToString();
-    //    //        per.Element("PersonalStatus").Value = person.PersonalStatus.ToString();
-
-    //    //        XMLTools.SaveListToXMLElement(personsRootElem, personsPath);
-    //    //    }
-    //    //    else
-    //    //        throw new DO.BadPersonIdException(person.ID, $"bad person id: {person.ID}");
-    //    //}
-
-    //    //public void UpdatePerson(int id, Action<DO.Person> update)
-    //    //{
-    //    //    throw new NotImplementedException();
-    //    //}
-
-    //    //#endregion Person
-
-    //    //#region Student
-    //    //public DO.Student GetStudent(int id)
-    //    //{
-    //    //    List<Student> ListStudents = XMLTools.LoadListFromXMLSerializer<Student>(studentsPath);
-
-    //    //    DO.Student stu = ListStudents.Find(p => p.ID == id);
-    //    //    if (stu != null)
-    //    //        return stu; //no need to Clone()
-    //    //    else
-    //    //        throw new DO.BadPersonIdException(id, $"bad student id: {id}");
-    //    //}
-    //    //public void AddStudent(DO.Student student)
-    //    //{
-    //    //    List<Student> ListStudents = XMLTools.LoadListFromXMLSerializer<Student>(studentsPath);
-
-    //    //    if (ListStudents.FirstOrDefault(s => s.ID == student.ID) != null)
-    //    //        throw new DO.BadPersonIdException(student.ID, "Duplicate student ID");
-
-    //    //    if (GetPerson(student.ID) == null)
-    //    //        throw new DO.BadPersonIdException(student.ID, "Missing person ID");
-
-    //    //    ListStudents.Add(student); //no need to Clone()
-
-    //    //    XMLTools.SaveListToXMLSerializer(ListStudents, studentsPath);
-
-    //    //}
-    //    //public IEnumerable<DO.Student> GetAllStudents()
-    //    //{
-    //    //    List<Student> ListStudents = XMLTools.LoadListFromXMLSerializer<Student>(studentsPath);
-
-    //    //    return from student in ListStudents
-    //    //           select student; //no need to Clone()
-    //    //}
-    //    //public IEnumerable<object> GetStudentFields(Func<int, string, object> generate)
-    //    //{
-    //    //    List<Student> ListStudents = XMLTools.LoadListFromXMLSerializer<Student>(studentsPath);
-
-    //    //    return from student in ListStudents
-    //    //           select generate(student.ID, GetPerson(student.ID).Name);
-    //    //}
-
-    //    //public IEnumerable<object> GetStudentListWithSelectedFields(Func<DO.Student, object> generate)
-    //    //{
-    //    //    List<Student> ListStudents = XMLTools.LoadListFromXMLSerializer<Student>(studentsPath);
-
-    //    //    return from student in ListStudents
-    //    //           select generate(student);
-    //    //}
-    //    //public void UpdateStudent(DO.Student student)
-    //    //{
-    //    //    List<Student> ListStudents = XMLTools.LoadListFromXMLSerializer<Student>(studentsPath);
-
-    //    //    DO.Student stu = ListStudents.Find(p => p.ID == student.ID);
-    //    //    if (stu != null)
-    //    //    {
-    //    //        ListStudents.Remove(stu);
-    //    //        ListStudents.Add(student); //no nee to Clone()
-    //    //    }
-    //    //    else
-    //    //        throw new DO.BadPersonIdException(student.ID, $"bad student id: {student.ID}");
-
-    //    //    XMLTools.SaveListToXMLSerializer(ListStudents, studentsPath);
-    //    //}
-
-    //    //public void UpdateStudent(int id, Action<DO.Student> update)
-    //    //{
-    //    //    throw new NotImplementedException();
-    //    //}
-
-    //    //public void DeleteStudent(int id)
-    //    //{
-    //    //    List<Student> ListStudents = XMLTools.LoadListFromXMLSerializer<Student>(studentsPath);
-
-    //    //    DO.Student stu = ListStudents.Find(p => p.ID == id);
-
-    //    //    if (stu != null)
-    //    //    {
-    //    //        ListStudents.Remove(stu);
-    //    //    }
-    //    //    else
-    //    //        throw new DO.BadPersonIdException(id, $"bad student id: {id}");
-
-    //    //    XMLTools.SaveListToXMLSerializer(ListStudents, studentsPath);
-    //    //}
-    //    //#endregion Student
-
-    //    //#region StudentInCourse
-    //    //public IEnumerable<DO.StudentInCourse> GetStudentsInCourseList(Predicate<DO.StudentInCourse> predicate)
-    //    //{
-    //    //    List<StudentInCourse> ListStudInCourses = XMLTools.LoadListFromXMLSerializer<StudentInCourse>(studInCoursesPath);
-
-    //    //    return from sic in ListStudInCourses
-    //    //           where predicate(sic)
-    //    //           select sic; //no need to Clone()
-    //    //}
-    //    //public void AddStudentInCourse(int perID, int courseID, float grade = 0)
-    //    //{
-    //    //    List<StudentInCourse> ListStudInCourses = XMLTools.LoadListFromXMLSerializer<StudentInCourse>(studInCoursesPath);
-
-    //    //    if (ListStudInCourses.FirstOrDefault(cis => (cis.PersonId == perID && cis.CourseId == courseID)) != null)
-    //    //        throw new DO.BadPersonIdCourseIDException(perID, courseID, "person ID is already registered to course ID");
-
-    //    //    DO.StudentInCourse sic = new DO.StudentInCourse() { PersonId = perID, CourseId = courseID, Grade = grade };
-
-    //    //    ListStudInCourses.Add(sic);
-
-    //    //    XMLTools.SaveListToXMLSerializer(ListStudInCourses, studInCoursesPath);
-    //    //}
-
-    //    //public void UpdateStudentGradeInCourse(int perID, int courseID, float grade)
-    //    //{
-    //    //    List<StudentInCourse> ListStudInCourses = XMLTools.LoadListFromXMLSerializer<StudentInCourse>(studInCoursesPath);
-
-    //    //    DO.StudentInCourse sic = ListStudInCourses.Find(cis => (cis.PersonId == perID && cis.CourseId == courseID));
-
-    //    //    if (sic != null)
-    //    //    {
-    //    //        sic.Grade = grade;
-    //    //    }
-    //    //    else
-    //    //        throw new DO.BadPersonIdCourseIDException(perID, courseID, "person ID is NOT registered to course ID");
-
-    //    //    XMLTools.SaveListToXMLSerializer(ListStudInCourses, studInCoursesPath);
-    //    //}
-
-    //    //public void DeleteStudentInCourse(int perID, int courseID)
-    //    //{
-    //    //    List<StudentInCourse> ListStudInCourses = XMLTools.LoadListFromXMLSerializer<StudentInCourse>(studInCoursesPath);
-
-    //    //    DO.StudentInCourse sic = ListStudInCourses.Find(cis => (cis.PersonId == perID && cis.CourseId == courseID));
-
-    //    //    if (sic != null)
-    //    //    {
-    //    //        ListStudInCourses.Remove(sic);
-    //    //    }
-    //    //    else
-    //    //        throw new DO.BadPersonIdCourseIDException(perID, courseID, "person ID is NOT registered to course ID");
-
-    //    //    XMLTools.SaveListToXMLSerializer(ListStudInCourses, studInCoursesPath);
-
-    //    //}
-    //    //public void DeleteStudentFromAllCourses(int perID)
-    //    //{
-    //    //    List<StudentInCourse> ListStudInCourses = XMLTools.LoadListFromXMLSerializer<StudentInCourse>(studInCoursesPath);
-
-    //    //    ListStudInCourses.RemoveAll(p => p.PersonId == perID);
-
-    //    //    XMLTools.SaveListToXMLSerializer(ListStudInCourses, studInCoursesPath);
-
-    //    //}
-
-    //    //#endregion StudentInCourse
-
-    //    //#region Course
-    //    //public DO.Course GetCourse(int id)
-    //    //{            
-    //    //    List<Course> ListCourses = XMLTools.LoadListFromXMLSerializer<Course>(coursesPath);
-
-    //    //    return ListCourses.Find(c => c.ID == id); //no need to Clone()
-
-    //    //    //if not exist throw exception etc.
-    //    //}
-
-    //    //public IEnumerable<DO.Course> GetAllCourses()
-    //    //{
-    //    //    List<Course> ListCourses = XMLTools.LoadListFromXMLSerializer<Course>(coursesPath);
-
-    //    //    return from course in ListCourses
-    //    //           select course; //no need to Clone()
-    //    //}
-
-    //    //#endregion Course
-
-    //    //#region Lecturer
-    //    //public IEnumerable<DO.LecturerInCourse> GetLecturersInCourseList(Predicate<DO.LecturerInCourse> predicate)
-    //    //{
-    //    //    List<LecturerInCourse> ListLectInCourses = XMLTools.LoadListFromXMLSerializer<LecturerInCourse>(lectInCoursesPath);
-
-    //    //    return from sic in ListLectInCourses
-    //    //           where predicate(sic)
-    //    //           select sic; //no need to Clone()
-    //    //}
-    //    //#endregion
-
-    //    #region singelton
-    //    static readonly DLXML instance = new DLXML();
-    //    static DLXML() { }// static ctor to ensure instance init is done just before first usage
-    //    DLXML() { } // default => private
-    //    public static DLXML Instance { get => instance; }// The public Instance property to use
-    //    #endregion
-
-    //    #region DS XML Files
-
-    //    string linesPath = @"LinesXml.xml"; //XElement
-    //    string stationsPath = @"StationsXml.xml"; //XMLSerializer
-    //    string lineStationsPath = @"LineStationsXml.xml"; //XMLSerializer
-    //    string busesPath = @"BusesXml.xml"; //XMLSerializer
-    //    string usersCoursesPath = @"UsersXml.xml"; //XMLSerializer
-    //    string adjacentStationsPath = @"AdjacentStationsXml.xml"; //XMLSerializer
-    //    string busOnTripPath = @"BusOnTripXml.xml"; //XMLSerializer
-    //    string tripPath = @"TripXml.xml"; //XMLSerializer
-    //    string lineTripPath = @"LineTripXml.xml"; //XMLSerializer
-
-    //    #endregion
-
-    //    //#region person
-    //    //public DO.Line GetLine(int id)
-    //    //{
-    //    //    XElement personsRootElem = XMLTools.LoadListFromXMLElement(personsPath);
-
-    //    //    Person p = (from per in personsRootElem.Elements()
-    //    //                where int.Parse(per.Element("ID").Value) == id
-    //    //                select new Person()
-    //    //                {
-    //    //                    ID = Int32.Parse(per.Element("ID").Value),
-    //    //                    Name = per.Element("Name").Value,
-    //    //                    Street = per.Element("Street").Value,
-    //    //                    HouseNumber = Int32.Parse(per.Element("HouseNumber").Value),
-    //    //                    City = per.Element("City").Value,
-    //    //                    BirthDate = DateTime.Parse(per.Element("BirthDate").Value),
-    //    //                    PersonalStatus = (PersonalStatus)Enum.Parse(typeof(PersonalStatus), per.Element("PersonalStatus").Value)
-    //    //                }
-    //    //                ).FirstOrDefault();
-
-    //    //    if (p == null)
-    //    //        throw new DO.BadPersonIdException(id, $"bad person id: {id}");
-
-    //    //    return p;
-    //    //}
-    //    //public IEnumerable<DO.Person> GetAllPersons()
-    //    //{
-    //    //    XElement personsRootElem = XMLTools.LoadListFromXMLElement(personsPath);
-
-    //    //    return (from p in personsRootElem.Elements()
-    //    //            select new Person()
-    //    //            {
-    //    //                ID = Int32.Parse(p.Element("ID").Value),
-    //    //                Name = p.Element("Name").Value,
-    //    //                Street = p.Element("Street").Value,
-    //    //                HouseNumber = Int32.Parse(p.Element("HouseNumber").Value),
-    //    //                City = p.Element("City").Value,
-    //    //                BirthDate = DateTime.Parse(p.Element("BirthDate").Value),
-    //    //                PersonalStatus = (PersonalStatus)Enum.Parse(typeof(PersonalStatus), p.Element("PersonalStatus").Value)
-    //    //            }
-    //    //           );
-    //    //}
-    //    //public IEnumerable<DO.Person> GetAllPersonsBy(Predicate<DO.Person> predicate)
-    //    //{
-    //    //    XElement personsRootElem = XMLTools.LoadListFromXMLElement(personsPath);
-
-    //    //    return from p in personsRootElem.Elements()
-    //    //           let p1 = new Person()
-    //    //           {
-    //    //               ID = Int32.Parse(p.Element("ID").Value),
-    //    //               Name = p.Element("Name").Value,
-    //    //               Street = p.Element("Street").Value,
-    //    //               HouseNumber = Int32.Parse(p.Element("HouseNumber").Value),
-    //    //               City = p.Element("City").Value,
-    //    //               BirthDate = DateTime.Parse(p.Element("BirthDate").Value),
-    //    //               PersonalStatus = (PersonalStatus)Enum.Parse(typeof(PersonalStatus), p.Element("PersonalStatus").Value)
-    //    //           }
-    //    //           where predicate(p1)
-    //    //           select p1;
-    //    //}
-    //    //public void AddPerson(DO.Person person)
-    //    //{
-    //    //    XElement personsRootElem = XMLTools.LoadListFromXMLElement(personsPath);
-
-    //    //    XElement per1 = (from p in personsRootElem.Elements()
-    //    //                     where int.Parse(p.Element("ID").Value) == person.ID
-    //    //                     select p).FirstOrDefault();
-
-    //    //    if (per1 != null)
-    //    //        throw new DO.BadPersonIdException(person.ID, "Duplicate person ID");
-
-    //    //    XElement personElem = new XElement("Person",
-    //    //                           new XElement("ID", person.ID),
-    //    //                           new XElement("Name", person.Name),
-    //    //                           new XElement("Street", person.Street),
-    //    //                           new XElement("HouseNumber", person.HouseNumber.ToString()),
-    //    //                           new XElement("City", person.City),
-    //    //                           new XElement("BirthDate", person.BirthDate),
-    //    //                           new XElement("PersonalStatus", person.PersonalStatus.ToString()));
-
-    //    //    personsRootElem.Add(personElem);
-
-    //    //    XMLTools.SaveListToXMLElement(personsRootElem, personsPath);
-    //    //}
-
-    //    //public void DeletePerson(int id)
-    //    //{
-    //    //    XElement personsRootElem = XMLTools.LoadListFromXMLElement(personsPath);
-
-    //    //    XElement per = (from p in personsRootElem.Elements()
-    //    //                    where int.Parse(p.Element("ID").Value) == id
-    //    //                    select p).FirstOrDefault();
-
-    //    //    if (per != null)
-    //    //    {
-    //    //        per.Remove();
-    //    //        XMLTools.SaveListToXMLElement(personsRootElem, personsPath);
-    //    //    }
-    //    //    else
-    //    //        throw new DO.BadPersonIdException(id, $"bad person id: {id}");
-    //    //}
-
-    //    //public void UpdatePerson(DO.Person person)
-    //    //{
-    //    //    XElement personsRootElem = XMLTools.LoadListFromXMLElement(personsPath);
-
-    //    //    XElement per = (from p in personsRootElem.Elements()
-    //    //                    where int.Parse(p.Element("ID").Value) == person.ID
-    //    //                    select p).FirstOrDefault();
-
-    //    //    if (per != null)
-    //    //    {
-    //    //        per.Element("ID").Value = person.ID.ToString();
-    //    //        per.Element("Name").Value = person.Name;
-    //    //        per.Element("Street").Value = person.Street;
-    //    //        per.Element("HouseNumber").Value = person.HouseNumber.ToString();
-    //    //        per.Element("City").Value = person.City;
-    //    //        per.Element("BirthDate").Value = person.BirthDate.ToString();
-    //    //        per.Element("PersonalStatus").Value = person.PersonalStatus.ToString();
-
-    //    //        XMLTools.SaveListToXMLElement(personsRootElem, personsPath);
-    //    //    }
-    //    //    else
-    //    //        throw new DO.BadPersonIdException(person.ID, $"bad person id: {person.ID}");
-    //    //}
-
-    //    //public void UpdatePerson(int id, Action<DO.Person> update)
-    //    //{
-    //    //    throw new NotImplementedException();
-    //    //}
-
-    //    //#endregion Person
-
-    //    //#region Student
-    //    //public DO.Student GetStudent(int id)
-    //    //{
-    //    //    List<Student> ListStudents = XMLTools.LoadListFromXMLSerializer<Student>(studentsPath);
-
-    //    //    DO.Student stu = ListStudents.Find(p => p.ID == id);
-    //    //    if (stu != null)
-    //    //        return stu; //no need to Clone()
-    //    //    else
-    //    //        throw new DO.BadPersonIdException(id, $"bad student id: {id}");
-    //    //}
-    //    //public void AddStudent(DO.Student student)
-    //    //{
-    //    //    List<Student> ListStudents = XMLTools.LoadListFromXMLSerializer<Student>(studentsPath);
-
-    //    //    if (ListStudents.FirstOrDefault(s => s.ID == student.ID) != null)
-    //    //        throw new DO.BadPersonIdException(student.ID, "Duplicate student ID");
-
-    //    //    if (GetPerson(student.ID) == null)
-    //    //        throw new DO.BadPersonIdException(student.ID, "Missing person ID");
-
-    //    //    ListStudents.Add(student); //no need to Clone()
-
-    //    //    XMLTools.SaveListToXMLSerializer(ListStudents, studentsPath);
-
-    //    //}
-    //    //public IEnumerable<DO.Student> GetAllStudents()
-    //    //{
-    //    //    List<Student> ListStudents = XMLTools.LoadListFromXMLSerializer<Student>(studentsPath);
-
-    //    //    return from student in ListStudents
-    //    //           select student; //no need to Clone()
-    //    //}
-    //    //public IEnumerable<object> GetStudentFields(Func<int, string, object> generate)
-    //    //{
-    //    //    List<Student> ListStudents = XMLTools.LoadListFromXMLSerializer<Student>(studentsPath);
-
-    //    //    return from student in ListStudents
-    //    //           select generate(student.ID, GetPerson(student.ID).Name);
-    //    //}
-
-    //    //public IEnumerable<object> GetStudentListWithSelectedFields(Func<DO.Student, object> generate)
-    //    //{
-    //    //    List<Student> ListStudents = XMLTools.LoadListFromXMLSerializer<Student>(studentsPath);
-
-    //    //    return from student in ListStudents
-    //    //           select generate(student);
-    //    //}
-    //    //public void UpdateStudent(DO.Student student)
-    //    //{
-    //    //    List<Student> ListStudents = XMLTools.LoadListFromXMLSerializer<Student>(studentsPath);
-
-    //    //    DO.Student stu = ListStudents.Find(p => p.ID == student.ID);
-    //    //    if (stu != null)
-    //    //    {
-    //    //        ListStudents.Remove(stu);
-    //    //        ListStudents.Add(student); //no nee to Clone()
-    //    //    }
-    //    //    else
-    //    //        throw new DO.BadPersonIdException(student.ID, $"bad student id: {student.ID}");
-
-    //    //    XMLTools.SaveListToXMLSerializer(ListStudents, studentsPath);
-    //    //}
-
-    //    //public void UpdateStudent(int id, Action<DO.Student> update)
-    //    //{
-    //    //    throw new NotImplementedException();
-    //    //}
-
-    //    //public void DeleteStudent(int id)
-    //    //{
-    //    //    List<Student> ListStudents = XMLTools.LoadListFromXMLSerializer<Student>(studentsPath);
-
-    //    //    DO.Student stu = ListStudents.Find(p => p.ID == id);
-
-    //    //    if (stu != null)
-    //    //    {
-    //    //        ListStudents.Remove(stu);
-    //    //    }
-    //    //    else
-    //    //        throw new DO.BadPersonIdException(id, $"bad student id: {id}");
-
-    //    //    XMLTools.SaveListToXMLSerializer(ListStudents, studentsPath);
-    //    //}
-    //    //#endregion Student
-
-    //    //#region StudentInCourse
-    //    //public IEnumerable<DO.StudentInCourse> GetStudentsInCourseList(Predicate<DO.StudentInCourse> predicate)
-    //    //{
-    //    //    List<StudentInCourse> ListStudInCourses = XMLTools.LoadListFromXMLSerializer<StudentInCourse>(studInCoursesPath);
-
-    //    //    return from sic in ListStudInCourses
-    //    //           where predicate(sic)
-    //    //           select sic; //no need to Clone()
-    //    //}
-    //    //public void AddStudentInCourse(int perID, int courseID, float grade = 0)
-    //    //{
-    //    //    List<StudentInCourse> ListStudInCourses = XMLTools.LoadListFromXMLSerializer<StudentInCourse>(studInCoursesPath);
-
-    //    //    if (ListStudInCourses.FirstOrDefault(cis => (cis.PersonId == perID && cis.CourseId == courseID)) != null)
-    //    //        throw new DO.BadPersonIdCourseIDException(perID, courseID, "person ID is already registered to course ID");
-
-    //    //    DO.StudentInCourse sic = new DO.StudentInCourse() { PersonId = perID, CourseId = courseID, Grade = grade };
-
-    //    //    ListStudInCourses.Add(sic);
-
-    //    //    XMLTools.SaveListToXMLSerializer(ListStudInCourses, studInCoursesPath);
-    //    //}
-
-    //    //public void UpdateStudentGradeInCourse(int perID, int courseID, float grade)
-    //    //{
-    //    //    List<StudentInCourse> ListStudInCourses = XMLTools.LoadListFromXMLSerializer<StudentInCourse>(studInCoursesPath);
-
-    //    //    DO.StudentInCourse sic = ListStudInCourses.Find(cis => (cis.PersonId == perID && cis.CourseId == courseID));
-
-    //    //    if (sic != null)
-    //    //    {
-    //    //        sic.Grade = grade;
-    //    //    }
-    //    //    else
-    //    //        throw new DO.BadPersonIdCourseIDException(perID, courseID, "person ID is NOT registered to course ID");
-
-    //    //    XMLTools.SaveListToXMLSerializer(ListStudInCourses, studInCoursesPath);
-    //    //}
-
-    //    //public void DeleteStudentInCourse(int perID, int courseID)
-    //    //{
-    //    //    List<StudentInCourse> ListStudInCourses = XMLTools.LoadListFromXMLSerializer<StudentInCourse>(studInCoursesPath);
-
-    //    //    DO.StudentInCourse sic = ListStudInCourses.Find(cis => (cis.PersonId == perID && cis.CourseId == courseID));
-
-    //    //    if (sic != null)
-    //    //    {
-    //    //        ListStudInCourses.Remove(sic);
-    //    //    }
-    //    //    else
-    //    //        throw new DO.BadPersonIdCourseIDException(perID, courseID, "person ID is NOT registered to course ID");
-
-    //    //    XMLTools.SaveListToXMLSerializer(ListStudInCourses, studInCoursesPath);
-
-    //    //}
-    //    //public void DeleteStudentFromAllCourses(int perID)
-    //    //{
-    //    //    List<StudentInCourse> ListStudInCourses = XMLTools.LoadListFromXMLSerializer<StudentInCourse>(studInCoursesPath);
-
-    //    //    ListStudInCourses.RemoveAll(p => p.PersonId == perID);
-
-    //    //    XMLTools.SaveListToXMLSerializer(ListStudInCourses, studInCoursesPath);
-
-    //    //}
-
-    //    //#endregion StudentInCourse
-
-    //    //#region Course
-    //    //public DO.Course GetCourse(int id)
-    //    //{
-    //    //    List<Course> ListCourses = XMLTools.LoadListFromXMLSerializer<Course>(coursesPath);
-
-    //    //    return ListCourses.Find(c => c.ID == id); //no need to Clone()
-
-    //    //    //if not exist throw exception etc.
-    //    //}
-
-    //    //public IEnumerable<DO.Course> GetAllCourses()
-    //    //{
-    //    //    List<Course> ListCourses = XMLTools.LoadListFromXMLSerializer<Course>(coursesPath);
-
-    //    //    return from course in ListCourses
-    //    //           select course; //no need to Clone()
-    //    //}
-
-    //    //#endregion Course
-
-    //    //#region Lecturer
-    //    //public IEnumerable<DO.LecturerInCourse> GetLecturersInCourseList(Predicate<DO.LecturerInCourse> predicate)
-    //    //{
-    //    //    List<LecturerInCourse> ListLectInCourses = XMLTools.LoadListFromXMLSerializer<LecturerInCourse>(lectInCoursesPath);
-
-    //    //    return from sic in ListLectInCourses
-    //    //           where predicate(sic)
-    //    //           select sic; //no need to Clone()
-    //    //}
-    //    //#endregion
-
-    //    #region Bus
-    //    public DLAPI.DO.Bus GetBus(int _licenseNum)
-    //    {
-    //        return new DLAPI.DO.Bus();
-    //    }
-    //    public void AddBus(DLAPI.DO.Bus _bus) { }
-    //    public void UpdateBus(DLAPI.DO.Bus _bus) { }
-    //    public void UpdateBus(int _licenseNum, Action<DLAPI.DO.Bus> update) { } // Method that knows to updt specific fields in Bus.
-    //    public void DeleteBus(int _licenseNum) { }
-    //    public IEnumerable<DLAPI.DO.Bus> GetAllBuses()
-    //    {
-    //        return new List<DLAPI.DO.Bus>();
-    //    }
-    //    public IEnumerable<DLAPI.DO.Bus> GetAllBuses(Predicate<DLAPI.DO.Bus> predicate)
-    //    {
-    //        return new List<DLAPI.DO.Bus>();
-    //    }
-    //    #endregion
-
-    //    #region Station
-    //    public DLAPI.DO.Station GetStation(int _code)
-    //    {
-    //        return new DLAPI.DO.Station();
-    //    }
-    //    public void AddStation(DLAPI.DO.Station _station) { }
-    //    public void UpdateStation(DLAPI.DO.Station _station) { }
-    //    public void UpdateStation(int _code, Action<DLAPI.DO.Station> update) { } // Method that knows to updt specific fields in Station.
-    //    public void DeleteStation(int _code) { }
-    //    public IEnumerable<DLAPI.DO.Station> GetAllStations()
-    //    {
-    //        return new List<DLAPI.DO.Station>();
-    //    }
-    //    public IEnumerable<DLAPI.DO.Station> GetAllStations(Predicate<DLAPI.DO.Station> predicate)
-    //    {
-    //        return new List<DLAPI.DO.Station>();
-    //    }
-    //    #endregion
-
-    //    #region Line
-    //    public DLAPI.DO.Line GetLine(int _lineID, int _firstStationCode, int _lastStationCode)
-    //    {
-    //        return new DLAPI.DO.Line();
-    //    }
-    //    public void AddLine(DLAPI.DO.Line _line) { }
-    //    public void UpdateLine(DLAPI.DO.Line _line)
-    //    {
-    //    }
-    //    public void UpdateLine(int _lineID, int _firstStationCode, int _lastStationCode, Action<DLAPI.DO.Line> update) { } // Method that knows to updt specific fields in Line.
-    //    public void DeleteLine(int _lineID, int _firstStationCode, int _lastStationCode) { }
-    //    public IEnumerable<DLAPI.DO.Line> GetAllLines()
-    //    {
-    //        return new List<DLAPI.DO.Line>();
-    //    }
-    //    public IEnumerable<DLAPI.DO.Line> GetAllLines(Predicate<DLAPI.DO.Line> predicate)
-    //    {
-    //        return new List<DLAPI.DO.Line>();
-    //    }
-    //    #endregion
-
-    //    #region LineStation
-    //    public DLAPI.DO.LineStation GetLineStation(int _station, int _stationCode, int _prevStationCode, int _nextStationCode)
-    //    {
-    //        return new DLAPI.DO.LineStation();
-    //    }
-    //    public void AddLineStation(DLAPI.DO.LineStation _station) { }
-    //    public void UpdateLineStation(DLAPI.DO.LineStation _station) { }
-    //    public void UpdateLineStation(int _station, int _stationCode, int _prevStationCode, int _nextStationCode, Action<DLAPI.DO.LineStation> update) { } // Method that knows to updt specific fields in LineStation.
-    //    public void DeleteLineStation(int _station, int _stationCode, int _prevStationCode, int _nextStationCode) { }
-    //    public IEnumerable<DLAPI.DO.LineStation> GetAllLineStations()
-    //    {
-    //        return new List<DLAPI.DO.LineStation>();
-    //    }
-    //    public IEnumerable<DLAPI.DO.LineStation> GetAllLineStations(Predicate<DLAPI.DO.LineStation> predicate)
-    //    {
-    //        return new List<DLAPI.DO.LineStation>();
-    //    }
-    //    #endregion
-
-    //    #region AdjacentStations
-    //    public DLAPI.DO.AdjacentStations GetAdjacentStations(int _station1, int _station2)
-    //    {
-    //        return new DLAPI.DO.AdjacentStations();
-    //    }
-    //    public void AddAdjacentStations(DLAPI.DO.AdjacentStations _adjacentStations) { }
-    //    public void UpdateAdjacentStations(DLAPI.DO.AdjacentStations _adjacentStations) { }
-    //    public void UpdateAdjacentStations(int _station1, int _station2, Action<DLAPI.DO.AdjacentStations> update) { } // Method that knows to updt specific fields in AdjacentStations.
-    //    public void DeleteAdjacentStations(int _station1, int _station2) { }
-    //    public IEnumerable<DLAPI.DO.AdjacentStations> GetAllAdjacentStations()
-    //    {
-    //        return new List<DLAPI.DO.AdjacentStations>();
-    //    }
-    //    public IEnumerable<DLAPI.DO.AdjacentStations> GetAllAdjacentStations(Predicate<DLAPI.DO.AdjacentStations> predicate)
-    //    {
-    //        return new List<DLAPI.DO.AdjacentStations>();
-    //    }
-    //    #endregion
-
-    //    #region BusOnTrip
-    //    public DLAPI.DO.BusOnTrip GetBusOnTrip(int _licenseNum)
-    //    {
-    //        return new DLAPI.DO.BusOnTrip();
-    //    }
-    //    public void AddBusOnTrip(DLAPI.DO.BusOnTrip _busOnTrip) { }
-    //    public void UpdateBusOnTrip(DLAPI.DO.BusOnTrip _busOnTrip) { }
-    //    public void UpdateBusOnTrip(int _licenseNum, Action<DLAPI.DO.BusOnTrip> update) { } // Method that knows to updt specific fields in BusOnTrip.
-    //    public void DeleteBusOnTrip(int _licenseNum) { }
-    //    public IEnumerable<DLAPI.DO.BusOnTrip> GetAllBusesOnTrip()
-    //    {
-    //        return new List<DLAPI.DO.BusOnTrip>();
-    //    }
-    //    public IEnumerable<DLAPI.DO.BusOnTrip> GetAllBusesOnTrip(Predicate<DLAPI.DO.BusOnTrip> predicate)
-    //    {
-    //        return new List<DLAPI.DO.BusOnTrip>();
-    //    }
-    //    #endregion
-
-    //    #region LineTrip
-    //    public DLAPI.DO.LineTrip GetLineTrip(int _lineID)
-    //    {
-    //        return new DLAPI.DO.LineTrip();
-    //    }
-    //    public void AddLineTrip(DLAPI.DO.LineTrip _lineTrip) { }
-    //    public void UpdateLineTrip(DLAPI.DO.LineTrip _lineTrip) { }
-    //    public void UpdateLineTrip(int _lineID, Action<DLAPI.DO.LineTrip> update) { } // Method that knows to updt specific fields in LineTrip.
-    //    public void DeleteLineTrip(int _lineID) { }
-    //    public IEnumerable<DLAPI.DO.LineTrip> GetAllLinesTrip()
-    //    {
-    //        return new List<DLAPI.DO.LineTrip>();
-    //    }
-    //    public IEnumerable<DLAPI.DO.LineTrip> GetAllLinesTrip(Predicate<DLAPI.DO.LineTrip> predicate)
-    //    {
-    //        return new List<DLAPI.DO.LineTrip>();
-    //    }
-    //    #endregion
-
-    //    #region Trip
-    //    public DLAPI.DO.Trip GetTrip(string _userName, int _inStationCode, int _outStationCode)
-    //    {
-    //        return new DLAPI.DO.Trip();
-    //    }
-    //    public void AddTrip(DLAPI.DO.Trip _trip) { }
-    //    public void UpdateTrip(DLAPI.DO.Trip _trip) { }
-    //    public void UpdateTrip(string _userName, int _inStationCode, int _outStationCode, Action<DLAPI.DO.Trip> update) { }// Method that knows to updt specific fields in Trip.
-    //    public void DeleteTrip(string _userName, int _inStationCode, int _outStationCode) { }
-    //    public IEnumerable<DLAPI.DO.Trip> GetAllTrips()
-    //    {
-    //        return new List<DLAPI.DO.Trip>();
-    //    }
-    //    public IEnumerable<DLAPI.DO.Trip> GetAllTrips(Predicate<DLAPI.DO.Trip> predicate)
-    //    {
-    //        return new List<DLAPI.DO.Trip>();
-    //    }
-    //    #endregion
-
-    //    #region User
-    //    public DLAPI.DO.User GetUser(string _userName)
-    //    {
-    //        return new DLAPI.DO.User();
-    //        //DLAPI.DO.User currUser = DataSource.ListUsers.Find(p => p.UserName == _userName);
-    //        //return currUser;
-    //    }
-    //    public void AddUser(DLAPI.DO.User _user)
-    //    {
-    //        //DataSource.ListUsers.Add(_user);
-    //    }
-    //    public void UpdateUser(DLAPI.DO.User _user)
-    //    {
-    //        //DLAPI.DO.User currUser = DataSource.ListUsers.Find(p => p.UserName == _user.UserName);
-    //        //currUser.Password = _user.Password;
-    //        //currUser.Admin = _user.Admin;
-    //    }
-    //    public void UpdateUser(string _userName, Action<DLAPI.DO.User> update)
-    //    {
-
-    //    } // Method that knows to updt specific fields in User.
-    //    public void DeleteUser(string _userName)
-    //    {
-    //        //DataSource.ListUsers.Find(p => p.UserName == _userName).Active = false;
-
-    //    }
-    //    public IEnumerable<DLAPI.DO.User> GetAllUsers()
-    //    {
-    //        //return from user in DataSource.ListUsers
-    //        //       select user.Clone();
-    //        return new List<DLAPI.DO.User>();
-    //    }
-    //    public IEnumerable<DLAPI.DO.User> GetAllUsers(Predicate<DLAPI.DO.User> predicate)
-    //    {
-    //        return new List<DLAPI.DO.User>();
-    //        //return from user in DataSource.ListUsers
-    //        //       where predicate(user)
-    //        //       select user.Clone();
-    //    }
-    //    #endregion
-
-    //}
+    sealed class DLXML : IDL    //internal
+    {
+        #region singelton
+        static readonly DLXML instance = new DLXML();
+        static DLXML() { }// static ctor to ensure instance init is done just before first usage
+        DLXML() { } // default => private
+        public static DLXML Instance { get => instance; }// The public Instance property to use
+        #endregion
+
+        #region DS XML Files
+
+        string configPath = @"staticConfigXml.xml"; //XElement
+        string LinesPath = @"LinesXml.xml"; //XMLSerializer
+        string StationsPath = @"StationsXml.xml"; //XMLSerializer
+        string BusesPath = @"BusesXml.xml"; //XMLSerializer
+        string UsersPath = @"UsersXml.xml"; //XMLSerializer
+        string LineStationsPath = @"LineStationsXml.xml"; //XMLSerializer
+        string LinesTripPath = @"LinesTripXml.xml"; //XElement
+        string AdjacentStationsPath = @"AdjacentStationsXml.xml"; //XElement
+
+        #endregion
+
+        #region Bus
+        public void AddBus(DLAPI.DO.Bus _bus)
+        {
+            List<int> list = XMLTools.LoadListFromXMLSerializer<int>(configPath);
+            _bus.LicenceNum = list[1]++;
+            XMLTools.SaveListToXMLSerializer<int>(list, configPath);
+            List<Bus> listBuses = XMLTools.LoadListFromXMLSerializer<Bus>(BusesPath);
+            DLAPI.DO.Bus busToAdd = listBuses.Find(bus => bus.LicenceNum == _bus.LicenceNum);
+            if (busToAdd == null)
+                listBuses.Add(_bus);
+            else if (busToAdd.Active)
+                throw new DO.BadBusException(_bus.LicenceNum, "Bus dousn't exist");
+            XMLTools.SaveListToXMLSerializer(listBuses, BusesPath);
+
+        }
+        public void UpdateBus(DLAPI.DO.Bus _bus)
+        {
+            List<Bus> listBuses = XMLTools.LoadListFromXMLSerializer<Bus>(BusesPath);
+
+            DLAPI.DO.Bus busToUpdate = listBuses.Find(bus => bus.LicenceNum == _bus.LicenceNum && bus.Active);
+            if (busToUpdate != null)
+            {
+                busToUpdate.Active = true;
+                busToUpdate.FromDate = _bus.FromDate;
+                busToUpdate.FuelRemain = _bus.FuelRemain;
+                busToUpdate.TotalTrip = _bus.TotalTrip;
+                busToUpdate.Status = _bus.Status;
+            }
+            else
+                throw new DO.BadBusException(_bus.LicenceNum, "Bus not found");
+            XMLTools.SaveListToXMLSerializer(listBuses, BusesPath);
+
+        }
+        public void DeleteBus(int _licenseNum)
+        {
+            List<Bus> listBuses = XMLTools.LoadListFromXMLSerializer<Bus>(BusesPath);
+            try
+            {
+                listBuses.Find(bus => bus.LicenceNum == _licenseNum && bus.Active).Active = false;
+            }
+            catch (NullReferenceException ex)
+            {
+
+                throw new DO.BadBusException(_licenseNum, "Bus dosen't exist");
+            }
+            XMLTools.SaveListToXMLSerializer(listBuses, BusesPath);
+        }
+        public IEnumerable<DLAPI.DO.Bus> GetAllBuses()
+        {
+            List<Bus> listBuses = XMLTools.LoadListFromXMLSerializer<Bus>(BusesPath);
+            return from bus in listBuses
+                   where bus.Active
+                   select bus;
+        }
+
+        public IEnumerable<object> GetAllproperties(string property)
+        {
+            List<Bus> listBuses = XMLTools.LoadListFromXMLSerializer<Bus>(BusesPath);
+            return from bus in listBuses
+                   where bus.Active
+                   orderby bus.LicenceNum
+                   select this.getPropBus(bus, property);
+        }
+
+
+        #endregion
+
+        #region Station
+        public DLAPI.DO.Station GetStation(int _code)
+        {
+            List<Station> listStations = XMLTools.LoadListFromXMLSerializer<Station>(StationsPath);
+            DLAPI.DO.Station _station = listStations.Find(station => station.Code == _code
+             && station.Active);
+            if (_station != null)
+                return _station;
+            else
+                throw new DO.BadStationCodeException(_code);
+        }
+
+        public void AddStation(DLAPI.DO.Station _station)
+        {
+            List<int> list = XMLTools.LoadListFromXMLSerializer<int>(configPath);
+            _station.Code = list[3]++;
+            List<Station> listStations = XMLTools.LoadListFromXMLSerializer<Station>(StationsPath);
+            listStations.Add(_station);
+            XMLTools.SaveListToXMLSerializer(listStations, StationsPath);
+            XMLTools.SaveListToXMLSerializer<int>(list, configPath);
+
+        }
+        public bool UpdateStation(DLAPI.DO.Station _updetedStation)
+        {
+            List<Station> listStations = XMLTools.LoadListFromXMLSerializer<Station>(StationsPath);
+            DLAPI.DO.Station stationToUpdate = listStations.Find(station => station.Code == _updetedStation.Code);
+            if (stationToUpdate != null)
+            {
+                if (_updetedStation.Code != 0)
+                    stationToUpdate.Code = _updetedStation.Code;
+                if (_updetedStation.Name != "")
+                    stationToUpdate.Name = _updetedStation.Name;
+                if (_updetedStation.Longitude != 0)
+                    stationToUpdate.Longitude = _updetedStation.Longitude;
+                if (_updetedStation.Lattitude != 0)
+                    stationToUpdate.Lattitude = _updetedStation.Lattitude;
+                XMLTools.SaveListToXMLSerializer(listStations, StationsPath);
+                return true;
+            }
+            return false;
+        }
+        public bool DeleteStation(int _code)
+        {
+            List<Station> listStations = XMLTools.LoadListFromXMLSerializer<Station>(StationsPath);
+            DLAPI.DO.Station stationToDelete = listStations.Find(station => station.Code == _code);
+            if (stationToDelete != null)
+            {
+                stationToDelete.Active = false;
+                XMLTools.SaveListToXMLSerializer(listStations, StationsPath);
+                return true;
+            }
+            return false;
+        }
+        public IEnumerable<DLAPI.DO.Station> GetAllStations()
+        {
+            List<Station> listStations = XMLTools.LoadListFromXMLSerializer<Station>(StationsPath);
+            return from station in listStations
+                   where station.Active
+                   select station;
+        }
+        public IEnumerable<DLAPI.DO.Station> GetAllStations(Predicate<DLAPI.DO.Station> predicate)
+        {
+            List<Station> listStations = XMLTools.LoadListFromXMLSerializer<Station>(StationsPath);
+            return from station in listStations
+                   where station.Active && predicate(station)
+                   select station;
+        }
+        public IEnumerable<object> GetAllPropertyStations(string property)
+        {
+            List<Station> listStations = XMLTools.LoadListFromXMLSerializer<Station>(StationsPath);
+            return from station in listStations
+                   where station.Active
+                   orderby station.Code
+                   select getPropStation(station, property);
+        }
+        private object getPropStation(DLAPI.DO.Station _station, string property)
+        {
+            PropertyInfo pinfo = typeof(DLAPI.DO.Station).GetProperty(property);
+            object value = pinfo.GetValue(_station, null);
+            return value;
+        }
+        private object getPropBus(DLAPI.DO.Bus _bus, string property)
+        {
+            PropertyInfo pinfo = typeof(DLAPI.DO.Bus).GetProperty(property);
+            object value = pinfo.GetValue(_bus, null);
+            return value;
+        }
+
+        #endregion
+
+        #region Line
+        public DLAPI.DO.Line GetLine(int _lineID)
+        {
+            List<Line> listLines = XMLTools.LoadListFromXMLSerializer<Line>(LinesPath);
+            DLAPI.DO.Line _line = listLines.Find(line => line.LineID == _lineID
+             && line.Active);
+            if (_line != null)
+                return _line;
+            throw new DO.BadLineIDException(_lineID);
+
+        }
+        public int AddLine(int _code, DLAPI.DO.Areas _area, int _firstStation, int _lastStatoin)
+        {
+            List<int> list = XMLTools.LoadListFromXMLSerializer<int>(configPath);
+            List<Line> listLines = XMLTools.LoadListFromXMLSerializer<Line>(LinesPath);
+            DLAPI.DO.Line newLine = new DLAPI.DO.Line();
+            newLine.Active = true;
+            newLine.Area = _area;
+            newLine.Code = _code;
+            newLine.LineID = list[0]++;
+            newLine.FirstStation = _firstStation;
+            newLine.LastStation = _lastStatoin;
+            listLines.Add(newLine);
+            XMLTools.SaveListToXMLSerializer(listLines, LinesPath);
+            XMLTools.SaveListToXMLSerializer<int>(list, configPath);
+            return newLine.LineID;
+        }
+        public void UpdateLine(int _lineID, int _stationCode, int firstOrLast)
+        {
+            List<Line> listLines = XMLTools.LoadListFromXMLSerializer<Line>(LinesPath);
+            if (firstOrLast == 0)
+                listLines.Find(line => line.LineID == _lineID).FirstStation = _stationCode;
+            else
+                listLines.Find(line => line.LineID == _lineID).LastStation = _stationCode;
+            XMLTools.SaveListToXMLSerializer(listLines, LinesPath);
+        }
+
+        public void UpdateLine(int _lineID, Action<DLAPI.DO.Line> update)// Method that knows to updt specific fields in Line
+        {
+            List<Line> listLines = XMLTools.LoadListFromXMLSerializer<Line>(LinesPath);
+            try
+            {
+                DLAPI.DO.Line _currentLine = listLines.Find(_line => _line.LineID == _lineID);
+                if (_currentLine != null)
+                    update(_currentLine);
+            }
+            catch (DO.BadLineIDException ex)
+            {
+                throw ex;
+            }
+            XMLTools.SaveListToXMLSerializer(listLines, LinesPath);
+        }
+        public void DeleteLine(int _lineID)
+        {
+            List<Line> listLines = XMLTools.LoadListFromXMLSerializer<Line>(LinesPath);
+            DLAPI.DO.Line _line = listLines.Find(line => line.LineID == _lineID);
+            if (_line != null)
+            {
+                _line.Active = false;
+                this.DeleteLineStation(_line.LineID, _line.FirstStation);
+                this.DeleteLineStation(_line.LineID, _line.LastStation);
+            }
+            else
+                throw new DO.BadLineIDException(_lineID);
+            XMLTools.SaveListToXMLSerializer(listLines, LinesPath);
+        }
+        public IEnumerable<DLAPI.DO.Line> GetAllLines()
+        {
+            List<Line> listLines = XMLTools.LoadListFromXMLSerializer<Line>(LinesPath);
+            return from line in listLines
+                   where line.Active
+                   select line;
+        }
+        public IEnumerable<DLAPI.DO.Line> GetAllLines(Predicate<DLAPI.DO.Line> predicate)
+        {
+            List<Line> listLines = XMLTools.LoadListFromXMLSerializer<Line>(LinesPath);
+            return from line in listLines
+                   where predicate(line) && line.Active
+                   select line;
+        }
+        public IEnumerable<object> GetLineListWithSelectedFields(Func<DLAPI.DO.Line, object> generate)
+        {
+            List<Line> listLines = XMLTools.LoadListFromXMLSerializer<Line>(LinesPath);
+            return from line in listLines
+                   where line.Active
+                   select generate(line);
+        }
+        public IEnumerable<object> GetAllPropertyLines(string property)
+        {
+            List<Line> listLines = XMLTools.LoadListFromXMLSerializer<Line>(LinesPath);
+            return from line in listLines
+                   where line.Active
+                   select getPropLine(line, property);
+        }
+        private object getPropLine(DLAPI.DO.Line _line, string property)
+        {
+            PropertyInfo pinfo = typeof(DLAPI.DO.Line).GetProperty(property);
+            object value = pinfo.GetValue(_line, null);
+            return value;
+        }
+
+        #endregion
+
+        #region LineStation
+        public DLAPI.DO.LineStation GetLineStation(int _station, int _lineID)
+        {
+            List<LineStation> listLineStations = XMLTools.LoadListFromXMLSerializer<LineStation>(LineStationsPath);
+            DLAPI.DO.LineStation _lineStation = listLineStations.Find(lineStation => lineStation.Station == _station
+             && lineStation.LineID == _lineID && lineStation.Active);
+            if (_lineStation != null)
+                return _lineStation;
+            throw new DO.BadLineStationException(_lineID, _station);
+        }
+        public void AddLineStation(int _lineID, int _stationCode, int _index)
+        {
+            List<LineStation> listLineStations = XMLTools.LoadListFromXMLSerializer<LineStation>(LineStationsPath);
+            DLAPI.DO.LineStation lineStation = new DLAPI.DO.LineStation()
+            {
+                Active = true,
+                Station = _stationCode,
+                LineStationIndex = _index,
+                LineID = _lineID
+            };
+            listLineStations.Add(lineStation);
+            XMLTools.SaveListToXMLSerializer(listLineStations, LineStationsPath);
+        }
+        public void AddLineStation(DLAPI.DO.LineStation _lineStation)
+        {
+            List<LineStation> listLineStations = XMLTools.LoadListFromXMLSerializer<LineStation>(LineStationsPath);
+            DLAPI.DO.LineStation newLineStation = listLineStations.Find(station => station.Station == _lineStation.Station && station.LineID == _lineStation.LineID);
+            if (newLineStation != null)
+            {
+                if (newLineStation.Active)
+                    throw new DO.BadLineStationException(newLineStation.LineID, newLineStation.Station);
+                newLineStation.LineStationIndex = _lineStation.LineStationIndex;
+                newLineStation.Active = true;
+            }
+            listLineStations.Add(_lineStation);
+            XMLTools.SaveListToXMLSerializer(listLineStations, LineStationsPath);
+        }
+        public void UpdateLineStation(int _lineID, int _stationCode, Action<DLAPI.DO.LineStation> update)
+        {
+            List<LineStation> listLineStations = XMLTools.LoadListFromXMLSerializer<LineStation>(LineStationsPath);
+            DLAPI.DO.LineStation lineStationToUpdate = listLineStations.Find(_lineStation => _lineStation.LineID == _lineID && _lineStation.Station == _stationCode);
+            if (lineStationToUpdate != null)
+                update(lineStationToUpdate);
+            XMLTools.SaveListToXMLSerializer(listLineStations, LineStationsPath);
+        } // Method that knows to updt specific fields in LineStation.
+        public void DeleteLineStation(int _lineID, int _stationCode)
+        {
+            List<LineStation> listLineStations = XMLTools.LoadListFromXMLSerializer<LineStation>(LineStationsPath);
+            listLineStations.Find(lineStation => lineStation.Station == _stationCode
+            && lineStation.LineID == _lineID).Active = false;
+            XMLTools.SaveListToXMLSerializer(listLineStations, LineStationsPath);
+
+        }
+        public void DeleteLineStations(int _stationCode)
+        {
+            List<LineStation> listLineStations = XMLTools.LoadListFromXMLSerializer<LineStation>(LineStationsPath);
+            foreach (var lineStation in listLineStations)
+            {
+                if (lineStation.Active)
+                    if (lineStation.Station == _stationCode)
+                        lineStation.Active = false;
+            }
+            XMLTools.SaveListToXMLSerializer(listLineStations, LineStationsPath);
+        }
+
+        public IEnumerable<DLAPI.DO.LineStation> GetRouteLine(int _lineID)
+        {
+            List<LineStation> listLineStations = XMLTools.LoadListFromXMLSerializer<LineStation>(LineStationsPath);
+            return from lineStation in listLineStations
+                   where lineStation.LineID == _lineID && lineStation.Active
+                   orderby lineStation.LineStationIndex
+                   select lineStation;
+
+        }
+        public IEnumerable<DLAPI.DO.LineStation> GetRouteLine(Predicate<DLAPI.DO.LineStation> predicate)
+        {
+            List<LineStation> listLineStations = XMLTools.LoadListFromXMLSerializer<LineStation>(LineStationsPath);
+            return from lineStation in listLineStations
+                   where predicate(lineStation) && lineStation.Active
+                   select lineStation;
+        }
+
+        public IEnumerable<DLAPI.DO.LineStation> GetAllLineStations(Predicate<DLAPI.DO.LineStation> predicate)
+        {
+            List<LineStation> listLineStations = XMLTools.LoadListFromXMLSerializer<LineStation>(LineStationsPath);
+            return from lineStation in listLineStations
+                   where predicate(lineStation) && lineStation.Active
+                   select lineStation.Clone();
+        }
+
+        #endregion
+
+        #region AdjacentStations
+        public DLAPI.DO.AdjacentStations GetAdjacentStations(int _station1, int _station2)
+        {
+            XElement adjacentStationsRootElem = XMLTools.LoadListFromXMLElement(AdjacentStationsPath);
+            IEnumerable<XElement> List = adjacentStationsRootElem.Elements();
+            AdjacentStations adjacentStationsToGet = (from adjacentStations in adjacentStationsRootElem.Elements()
+                                                      where int.Parse(adjacentStations.Element("Station1").Value) == _station1 && int.Parse(adjacentStations.Element("Station2").Value) == _station2
+                                                      && bool.Parse(adjacentStations.Element("Active").Value)
+                                                      select new AdjacentStations()
+                                                      {
+                                                          Active = bool.Parse(adjacentStations.Element("Active").Value),
+                                                          Station1 = int.Parse(adjacentStations.Element("Station1").Value),
+                                                          Station2 = int.Parse(adjacentStations.Element("Station2").Value),
+                                                          Time = TimeSpan.ParseExact(adjacentStations.Element("Time").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture),
+                                                          Distance = double.Parse(adjacentStations.Element("Distance").Value)
+
+                                                      }).FirstOrDefault();
+
+            if (adjacentStationsToGet != null && adjacentStationsToGet.Active)
+                return adjacentStationsToGet;
+            throw new DO.BadAdjacentStationsException(_station1, _station2);
+        }
+        public double GetDistanceForTwoStations(int _station1, int _station2)
+        {
+            return this.GetAdjacentStations(_station1, _station2).Distance;
+        }
+        public TimeSpan GetTimeForTwoStations(int _station1, int _station2)
+        {
+            return this.GetAdjacentStations(_station1, _station2).Time;
+        }
+        public void AddAdjacentStations(DLAPI.DO.AdjacentStations _adjacentStations)
+        {
+            XElement adjacentStationsRootElem = XMLTools.LoadListFromXMLElement(AdjacentStationsPath);
+            XElement adjacentStationToAdd = (from addAdjacentStations in adjacentStationsRootElem.Elements()
+                                             where int.Parse(addAdjacentStations.Element("Station1").Value) == _adjacentStations.Station1 && int.Parse(addAdjacentStations.Element("Station2").Value) == _adjacentStations.Station2
+                                             && bool.Parse(addAdjacentStations.Element("Active").Value)
+                                             select addAdjacentStations).FirstOrDefault();
+            if (adjacentStationToAdd != null)
+                throw new DO.BadAdjacentStationsException(_adjacentStations.Station1, _adjacentStations.Station2, "LineTrip already exist");
+            XElement newAdjacentStationsAdd = new XElement("AdjacentStations", new XElement("Station1", _adjacentStations.Station1),
+                                        new XElement("Station2", _adjacentStations.Station2),
+                                        new XElement("Distance", _adjacentStations.Distance), new XElement("Active", _adjacentStations.Active), new XElement("Time", _adjacentStations.Time.ToString()));
+            adjacentStationsRootElem.Add(newAdjacentStationsAdd);
+            XMLTools.SaveListToXMLElement(adjacentStationsRootElem, AdjacentStationsPath);
+        }
+        public void DeleteAdjacentStations(int _stationCode)
+        {
+            XElement adjacentStationsRootElem = XMLTools.LoadListFromXMLElement(AdjacentStationsPath);
+            for (int i = 0; i < adjacentStationsRootElem.Elements().Count(); i++)
+            {
+                adjacentStationsRootElem = XMLTools.LoadListFromXMLElement(LinesTripPath);
+                XElement adjacentStationsToDelete = default(XElement);
+                try
+                {
+                    adjacentStationsToDelete = (from adjacentStations in adjacentStationsRootElem.Elements()
+                                                where int.Parse(adjacentStations.Element("Station1").Value) == _stationCode || int.Parse(adjacentStations.Element("Station2").Value) == _stationCode
+                                                && bool.Parse(adjacentStations.Element("Active").Value)
+                                                select adjacentStations).FirstOrDefault();
+                }
+                catch (NullReferenceException ex)
+                {
+                    return;
+
+                }
+                if (adjacentStationsToDelete != null)
+                {
+                    adjacentStationsToDelete.Remove();
+                    XMLTools.SaveListToXMLElement(adjacentStationsRootElem, AdjacentStationsPath);
+                }
+                else
+                    throw new DO.BadAdjacentStationsException(_stationCode, _stationCode, "Coudln't find Adjacent Stations.");
+            }
+        }
+        #endregion
+
+        #region LineTrip
+        public DLAPI.DO.LineTrip GetLineTrip(int _lineID, TimeSpan _startAt)
+        {
+            XElement lineTripsRootElem = XMLTools.LoadListFromXMLElement(LinesTripPath);
+            LineTrip lineTripToGet = (from _lineTrip in lineTripsRootElem.Elements()
+                                      where int.Parse(_lineTrip.Element("LineID").Value) == _lineID && TimeSpan.ParseExact(_lineTrip.Element("StartAt").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture) == _startAt
+                                      select new LineTrip()
+                                      {
+                                          Active = bool.Parse(_lineTrip.Element("Active").Value),
+                                          LineID = int.Parse(_lineTrip.Element("LineID").Value),
+                                          LineTripID = int.Parse(_lineTrip.Element("LineTripID").Value),
+                                          StartAt = TimeSpan.ParseExact(_lineTrip.Element("StartAt").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture)
+                                      }).FirstOrDefault();
+            if (lineTripToGet != null && lineTripToGet.Active)
+                return lineTripToGet;
+            throw new DO.BadLineTripException("Line trip doesn't exist");
+        }
+        public void AddLineTrip(DLAPI.DO.LineTrip _lineTrip)
+        {
+            List<int> list = XMLTools.LoadListFromXMLSerializer<int>(configPath);
+            _lineTrip.LineTripID = list[2]++;
+            XElement lineTripsRootElem = XMLTools.LoadListFromXMLElement(LinesTripPath);
+            XElement lineTripToAdd = (from lineTrip in lineTripsRootElem.Elements()
+                                      where int.Parse(lineTrip.Element("LineID").Value) == _lineTrip.LineID && TimeSpan.ParseExact(lineTrip.Element("StartAt").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture) == _lineTrip.StartAt
+                                      && bool.Parse(lineTrip.Element("Active").Value)
+                                      select lineTrip).FirstOrDefault();
+            if (lineTripToAdd != null)
+                throw new DO.BadLineTripException(_lineTrip.LineID, "LineTrip already exist");
+            XElement newLineTripToAdd = new XElement("LineTrip", new XElement("LineTripID", _lineTrip.LineTripID),
+                                        new XElement("LineID", _lineTrip.LineID),
+                                        new XElement("StartAt", _lineTrip.StartAt.ToString()),
+                                        new XElement("Active", _lineTrip.Active));
+            lineTripsRootElem.Add(newLineTripToAdd);
+            XMLTools.SaveListToXMLElement(lineTripsRootElem, LinesTripPath);
+            XMLTools.SaveListToXMLSerializer<int>(list, configPath);
+
+        }
+        public void UpdateLineTrip(DLAPI.DO.LineTrip _lineTrip)
+        {
+            XElement lineTripsRootElem = XMLTools.LoadListFromXMLElement(LinesTripPath);
+            XElement lineTripToUpdate = (from lineTrip in lineTripsRootElem.Elements()
+                                         where int.Parse(lineTrip.Element("LineTripID").Value) == _lineTrip.LineTripID
+                                         && bool.Parse(lineTrip.Element("Active").Value)
+                                         select lineTrip).FirstOrDefault();
+            if (lineTripToUpdate != null)
+            {
+                lineTripToUpdate.Element("LineTripID").Value = _lineTrip.LineTripID.ToString();
+                lineTripToUpdate.Element("LineID").Value = _lineTrip.LineID.ToString();
+                lineTripToUpdate.Element("StartAt").Value = _lineTrip.StartAt.ToString();
+                lineTripToUpdate.Element("Active").Value = _lineTrip.Active.ToString();
+                XMLTools.SaveListToXMLElement(lineTripsRootElem, LinesTripPath);
+            }
+            else
+                throw new DO.BadLineTripException("Line trip doesn't exist");
+
+        }
+        public void DeleteLineTrip(int _lineTripID)
+        {
+            XElement lineTripsRootElem = XMLTools.LoadListFromXMLElement(LinesTripPath);
+            XElement lineTripToDelete = (from lineTrip in lineTripsRootElem.Elements()
+                                         where int.Parse(lineTrip.Element("LineTripID").Value) == _lineTripID
+                                         && bool.Parse(lineTrip.Element("Active").Value)
+                                         select lineTrip).FirstOrDefault();
+            if (lineTripToDelete != null)
+            {
+                lineTripToDelete.Remove();
+                XMLTools.SaveListToXMLElement(lineTripsRootElem, LinesTripPath);
+            }
+            else
+                throw new DO.BadLineTripException(_lineTripID, "Coudln't find LineTrip.");
+        }
+        public void DeleteLineTripPerLine(int _lineID)
+        {
+            foreach (var lineTrip in this.GetAllLinesTrip())
+            {
+                if (lineTrip.LineID == _lineID)
+                    this.DeleteLineTrip(lineTrip.LineTripID);
+            }
+        }
+        public IEnumerable<DLAPI.DO.LineTrip> GetAllLinesTrip()
+        {
+            XElement lineTripsRootElem = XMLTools.LoadListFromXMLElement(LinesTripPath);
+            IEnumerable<XElement> List = lineTripsRootElem.Elements();
+            return from lineTrip in lineTripsRootElem.Elements()
+                   let _lineTrip = new LineTrip()
+                   {
+                       Active = bool.Parse(lineTrip.Element("Active").Value),
+                       LineID = int.Parse(lineTrip.Element("LineID").Value),
+                       LineTripID = int.Parse(lineTrip.Element("LineTripID").Value),
+                       StartAt = TimeSpan.ParseExact(lineTrip.Element("StartAt").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture)
+                   }
+                   where _lineTrip.Active
+                   orderby _lineTrip.StartAt
+                   select _lineTrip;
+        }
+        public IEnumerable<DLAPI.DO.LineTrip> GetAllLinesTrip(Predicate<DLAPI.DO.LineTrip> predicate)
+        {
+            XElement lineTripsRootElem = XMLTools.LoadListFromXMLElement(LinesTripPath);
+            return from lineTrip in lineTripsRootElem.Elements()
+                   let _lineTrip = new LineTrip()
+                   {
+                       Active = bool.Parse(lineTrip.Element("Active").Value),
+                       LineID = int.Parse(lineTrip.Element("LineID").Value),
+                       LineTripID = int.Parse(lineTrip.Element("LineTripID").Value),
+                       StartAt = TimeSpan.ParseExact(lineTrip.Element("StartAt").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture)
+                   }
+                   where _lineTrip.Active && predicate(_lineTrip)
+                   orderby _lineTrip.StartAt
+                   select _lineTrip;
+        }
+        #endregion
+
+        #region User
+        public DLAPI.DO.User GetUser(string _userName)
+        {
+            List<User> listUsers = XMLTools.LoadListFromXMLSerializer<User>(UsersPath);
+            DLAPI.DO.User currUser = listUsers.Find(p => p.UserName == _userName);
+            return currUser;
+        }
+        public void AddUser(DLAPI.DO.User _user)
+        {
+            List<User> listUsers = XMLTools.LoadListFromXMLSerializer<User>(UsersPath);
+            listUsers.Add(_user);
+            XMLTools.SaveListToXMLSerializer(listUsers, UsersPath);
+        }
+        public void UpdateUser(DLAPI.DO.User _user)
+        {
+            List<User> listUsers = XMLTools.LoadListFromXMLSerializer<User>(UsersPath);
+            DLAPI.DO.User currUser = listUsers.Find(p => p.UserName == _user.UserName);
+            currUser.Password = _user.Password;
+            currUser.Admin = _user.Admin;
+            XMLTools.SaveListToXMLSerializer(listUsers, UsersPath);
+        }
+        public void DeleteUser(string _userName)
+        {
+            List<User> listUsers = XMLTools.LoadListFromXMLSerializer<User>(UsersPath);
+            listUsers.Find(p => p.UserName == _userName).Active = false;
+            XMLTools.SaveListToXMLSerializer(listUsers, UsersPath);
+        }
+        public IEnumerable<DLAPI.DO.User> GetAllUsers()
+        {
+            List<User> listUsers = XMLTools.LoadListFromXMLSerializer<User>(UsersPath);
+            return from user in listUsers
+                   select user;
+        }
+        public IEnumerable<DLAPI.DO.User> GetAllUsers(Predicate<DLAPI.DO.User> predicate)
+        {
+            List<User> listUsers = XMLTools.LoadListFromXMLSerializer<User>(UsersPath);
+            return from user in listUsers
+                   where predicate(user)
+                   select user;
+        }
+        #endregion
+
+    }
 }

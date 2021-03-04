@@ -46,5 +46,15 @@ namespace dotNet5781_PR01_2070_5493
         {
             NavigationService.NavigateTo(new DisplayBusWindow(this.bl));
         }
+
+        private void btnScheduleDisplay_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.NavigateTo(new LineTripWindow(this.bl, true));
+        }
+
+        private void btnUserManagment_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.NavigateTo(new UsersManagmentWindow(this.bl));
+        }
     }
 }

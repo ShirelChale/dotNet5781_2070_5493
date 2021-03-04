@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,14 +23,16 @@ namespace dotNet5781_PR01_2070_5493
     {
         IBL bl;
         BL.BO.Line line;
+        IEnumerable<BL.BO.Line> lines;
         public DisplayLineWindow(IBL _bl)
         {
             InitializeComponent();
             this.bl = _bl;
             try
             {
-                lineDataGrid.ItemsSource = bl.GetAllLines();
-                cbArea.ItemsSource = bl.GetAllPropertyLine("Area");
+                this.lines = bl.GetAllLines();
+                lineDataGrid.ItemsSource = this.lines;
+                cbArea.ItemsSource = Enum.GetValues(typeof(BL.BO.Areas));
                 cbFirstStationCode.ItemsSource = bl.GetAllPropertyLine("FirstStation");
                 cbLastStationCode.ItemsSource = bl.GetAllPropertyLine("LastStation");
                 cbLineCode.ItemsSource = bl.GetAllPropertyLine("Code");
@@ -61,7 +64,8 @@ namespace dotNet5781_PR01_2070_5493
             try
             {
                 int selecteLineID = (int)cbLineID.SelectedValue;
-                lineDataGrid.DataContext = bl.GetAllLines(line => line.LineID == selecteLineID);
+                this.lines = bl.GetAllLines(line => line.LineID == selecteLineID,this.lines);
+                this.lineDataGrid.ItemsSource = this.lines;
             }
             catch (BL.BO.BadLineStationException ex)
             {
@@ -78,7 +82,9 @@ namespace dotNet5781_PR01_2070_5493
             try
             {
                 int selecteLineCode = (int)cbLineCode.SelectedValue;
-                lineDataGrid.DataContext = bl.GetAllLines(line => line.Code == selecteLineCode);
+                this.lines = bl.GetAllLines(line => line.Code == selecteLineCode, this.lines);
+                this.lineDataGrid.ItemsSource = this.lines;
+
             }
             catch (BL.BO.BadLineStationException b)
             {
@@ -95,7 +101,8 @@ namespace dotNet5781_PR01_2070_5493
             try
             {
                 int selecteArea = (int)cbArea.SelectedValue;
-                lineDataGrid.DataContext = bl.GetAllLines(line => (int)line.Area == selecteArea);
+                this.lines= bl.GetAllLines(line => (int)line.Area == selecteArea, this.lines);
+                this.lineDataGrid.ItemsSource = this.lines;
             }
             catch (BL.BO.BadLineStationException c)
             {
@@ -112,7 +119,8 @@ namespace dotNet5781_PR01_2070_5493
             try
             {
                 int selecteFirstStationCode = (int)cbFirstStationCode.SelectedValue;
-                lineDataGrid.DataContext = bl.GetAllLines(selecteFirstStationCode, 0);
+                this.lines = bl.GetAllLines(selecteFirstStationCode, 0, this.lines);
+                this.lineDataGrid.ItemsSource = this.lines;
             }
             catch (BL.BO.BadLineStationException d)
             {
@@ -129,7 +137,8 @@ namespace dotNet5781_PR01_2070_5493
             try
             {
                 int selecteLastStationCode = (int)cbLastStationCode.SelectedValue;
-                lineDataGrid.DataContext = bl.GetAllLines(selecteLastStationCode, 1);
+                this.lines= bl.GetAllLines(selecteLastStationCode, 1, this.lines);
+                this.lineDataGrid.ItemsSource = this.lines;
             }
             catch (BL.BO.BadLineStationException a)
             {
@@ -145,7 +154,8 @@ namespace dotNet5781_PR01_2070_5493
         {
             try
             {
-                lineDataGrid.DataContext = bl.GetAllLines();
+                this.lines = bl.GetAllLines();
+                lineDataGrid.ItemsSource = this.lines;
             }
             catch (Exception g)
             {
@@ -175,12 +185,33 @@ namespace dotNet5781_PR01_2070_5493
             {
                 MessageBox.Show(h.Message);
             }
+            lineDataGrid.DataContext = bl.GetAllLines();
         }
 
         private void btnAddLine_Click(object sender, RoutedEventArgs e)
         {
             AddLineWindow window = new AddLineWindow(this.bl);
             window.Show();
+            window.Closing += Window_Closing;
         }
+
+        private void btnUpdateLine_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateLineWindow window = new UpdateLineWindow(this.bl, this.line);
+            window.Show();
+            window.Closing += Window_Closing;
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            this.lines = bl.GetAllLines();
+            lineDataGrid.ItemsSource = this.lines;
+            this.btnUpdateLine.IsEnabled = false;
+            this.btnDeleteLine.IsEnabled = false;
+        }
+
+        
+
+       
     }
 }

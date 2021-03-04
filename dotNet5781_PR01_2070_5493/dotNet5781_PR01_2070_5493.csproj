@@ -59,6 +59,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AdapterPO.cs" />
+    <Compile Include="AddBusWindow.xaml.cs">
+      <DependentUpon>AddBusWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddLineTripWindow.xaml.cs">
+      <DependentUpon>AddLineTripWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddLineWindow.xaml.cs">
       <DependentUpon>AddLineWindow.xaml</DependentUpon>
     </Compile>
@@ -74,7 +80,16 @@
     <Compile Include="DisplayStationWindow.xaml.cs">
       <DependentUpon>DisplayStationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LineTripWindow.xaml.cs">
+      <DependentUpon>LineTripWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NavigationService.cs" />
+    <Compile Include="PassengerWindow.xaml.cs">
+      <DependentUpon>PassengerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PassengerWindowEntry.xaml.cs">
+      <DependentUpon>PassengerWindowEntry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PO\Station.cs" />
     <Compile Include="RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
@@ -82,11 +97,26 @@
     <Compile Include="ShowLineRodeWindow.xaml.cs">
       <DependentUpon>ShowLineRodeWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SimulationWindow.xaml.cs">
+      <DependentUpon>SimulationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Station_Details_Window.xaml.cs">
       <DependentUpon>Station_Details_Window.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UpdateBusWindow.xaml.cs">
+      <DependentUpon>UpdateBusWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateLineTripWindow.xaml.cs">
+      <DependentUpon>UpdateLineTripWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateLineWindow.xaml.cs">
+      <DependentUpon>UpdateLineWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UpdateStationWindow.xaml.cs">
       <DependentUpon>UpdateStationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UsersManagmentWindow.xaml.cs">
+      <DependentUpon>UsersManagmentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="WorkerWindow.xaml.cs">
       <DependentUpon>WorkerWindow.xaml</DependentUpon>
@@ -94,6 +124,14 @@
     <Compile Include="WorkerWindowEntry.xaml.cs">
       <DependentUpon>WorkerWindowEntry.xaml</DependentUpon>
     </Compile>
+    <Page Include="AddBusWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddLineTripWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddLineWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -114,6 +152,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LineTripWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -126,6 +168,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PassengerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PassengerWindowEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="RegisterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -134,11 +184,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SimulationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Station_Details_Window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UpdateBusWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UpdateLineTripWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UpdateLineWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UpdateStationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UsersManagmentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -172,7 +242,10 @@
     <None Include="Properties\DataSources\BL.BO.Bus.datasource" />
     <None Include="Properties\DataSources\BL.BO.Line.datasource" />
     <None Include="Properties\DataSources\BL.BO.LineStation.datasource" />
+    <None Include="Properties\DataSources\BL.BO.LineTiming.datasource" />
+    <None Include="Properties\DataSources\BL.BO.LineTrip.datasource" />
     <None Include="Properties\DataSources\BL.BO.Station.datasource" />
+    <None Include="Properties\DataSources\BL.BO.User.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -208,6 +281,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Logo White.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Schedule.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Simulation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Users.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Worker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Register.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

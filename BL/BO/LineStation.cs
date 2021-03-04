@@ -11,13 +11,14 @@ namespace BL.BO
     {
 
         public int LineID { get; set; }
-        public DLAPI.DO.Station Station { get; set; }
+        public int Station { get; set; }
         public int LineStationIndex { get; set; }
         public double DistanceFrom { get; set; }
         public TimeSpan TimeFrom { get; set; }
         public override string ToString()
         {
-            return this.Station.Code.ToString();
+            return this.Station.ToString();
         }
+        
     }
 }

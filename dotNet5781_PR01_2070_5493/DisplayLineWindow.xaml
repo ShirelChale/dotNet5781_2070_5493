@@ -24,7 +24,7 @@
             </Grid.RowDefinitions>
             <Button x:Name="btnAddLine" Content="Add line" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Right" Background="#ED6D25"  Margin="0,0,25,0" VerticalAlignment="Center" Grid.Row="1" Width="140" Click="btnAddLine_Click"/>
             <Button x:Name="btnDeleteLine" IsEnabled="False" Content="Delete line" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Left"  Background="#ED6D25"  Margin="25,0,0,0" VerticalAlignment="Center" Grid.Row="1" Width="140" Click="btnDeleteLine_Click"/>
-            <Button x:Name="btnUpdateLine" IsEnabled="False" Content="Update line" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Center" Background="#ED6D25"  Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="1" Width="140"/>
+            <Button x:Name="btnUpdateLine" IsEnabled="False" Content="Update line" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Center" Background="#ED6D25"  Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="1" Width="140" Click="btnUpdateLine_Click"/>
             <DataGrid x:Name="lineDataGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="0,0,0,0" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="lineDataGrid_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn x:Name="lineIDColumn" Header="Line ID" Width="60">
@@ -92,7 +92,7 @@
             <TextBlock HorizontalAlignment="Left" Margin="20,130,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Area:" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="20,170,0,0" Grid.Row="1" TextWrapping="Wrap" Text="First station:" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="20,210,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Last station:" VerticalAlignment="Top"/>
-            <Button Name="btnReset" Content="Reset" HorizontalAlignment="Center" Margin="0,0,0,20" Grid.Row="1" VerticalAlignment="Bottom" Width="50" Click="btnReset_Click"/>
+            <Button Name="btnReset" Background="#4AB648" Foreground="White" Content="Reset" HorizontalAlignment="Center" Margin="0,0,0,20" Grid.Row="1" VerticalAlignment="Bottom" Width="50" Click="btnReset_Click"/>
         </Grid>
     </Grid>
 </Window>

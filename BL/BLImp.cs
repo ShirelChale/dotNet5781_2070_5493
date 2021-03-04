@@ -11,8 +11,16 @@ namespace BL
 
     class BLImp : IBL //internal
     {
-        #region udapter
         IDL dl = DLFactory.GetDL();
+
+        #region singelton
+        static readonly BLImp instance = new BLImp();
+        static BLImp() { }// static ctor to ensure instance init is done just before first usage
+        //BLImp() { } // default => private
+        public static BLImp Instance { get => instance; }// The public Instance property to use
+        #endregion 
+
+        #region Adapter
         public BO.Bus busDoBoAdapter(DLAPI.DO.Bus DO_bus)
         {
             BO.Bus BO_bus = new BO.Bus();
@@ -51,7 +59,7 @@ namespace BL
             }
             try
             {
-                BO_lineStation.Station = dl.GetStation(DO_lineStation.Station);
+                BO_lineStation.Station = dl.GetStation(DO_lineStation.Station).Code;
             }
             catch (DO.BadStationCodeException ex)
             {
@@ -61,6 +69,7 @@ namespace BL
         }
         public BO.Line lineDoBoAdapter(DLAPI.DO.Line DO_line)
         {
+
             BO.Line BO_line = new BO.Line();
             if (DO_line != null)
             {
@@ -81,10 +90,22 @@ namespace BL
             }
             return BO_line;
         }
+
+        public BO.LineTrip lineTripAdapter(DLAPI.DO.LineTrip DO_lineTrip)
+        {
+            BO.LineTrip BO_lineTrip = new BO.LineTrip();
+            if (DO_lineTrip != null)
+                DO_lineTrip.CopyPropertiesTo(BO_lineTrip);
+            DLAPI.DO.Line line = dl.GetLine(DO_lineTrip.LineID);
+            BO_lineTrip.LineCode = line.Code;
+            BO_lineTrip.LastStationName = dl.GetStation(line.LastStation).Name;
+            BO_lineTrip.Area = (BO.Areas)(int)line.Area;
+            return BO_lineTrip;
+        }
         #endregion
 
         #region Line
-        public void AddLine(int _code, IEnumerable<int> _rode, BO.Areas _area=BO.Areas.Jerusalem)
+        public void AddLine(int _code, IEnumerable<int> _rode, BO.Areas _area = BO.Areas.Jerusalem)
         {
             int lineID = dl.AddLine(_code, (DLAPI.DO.Areas)(int)_area, _rode.First(), _rode.Last());
             int index = 0;
@@ -106,8 +127,8 @@ namespace BL
                         double longitude2 = dl.GetStation(stationCode).Longitude;
                         double latitude1 = dl.GetStation(prevStation).Lattitude;
                         double latitude2 = dl.GetStation(stationCode).Lattitude;
-                        _distance = this.distanceCalc(latitude1, longitude1, latitude2, longitude2);
-                        _time = new TimeSpan(0, 0, (int)_distance * 1000 / 20 / 60);
+                        _distance = this.distanceCalc(latitude1, longitude1, latitude2, longitude2) / 1000;
+                        _time = new TimeSpan(0, (int)(_distance * 1.5), 0);
                         adjacentStation = new DLAPI.DO.AdjacentStations()
                         {
                             Active = true,
@@ -133,8 +154,8 @@ namespace BL
             try
             {
                 foreach (var lineStation in this.GetLine(_lineID).StationsLine)
-                    dl.DeleteLineStation(_lineID, lineStation.Station.Code);
-
+                    dl.DeleteLineStation(_lineID, lineStation.Station);
+                dl.DeleteLineTripPerLine(_lineID);
                 dl.DeleteLine(_lineID);
             }
             catch (DO.BadLineIDException ex)
@@ -142,11 +163,55 @@ namespace BL
                 throw new BO.BadLineIDException("Couln't find line", ex);
             }
         }
+        public void DeleteStationFromLines(int _stationCode)
+        {
+            foreach (var line in this.GetAllLines())
+            {
+                if (line.FirstStation.Station == _stationCode || line.LastStation.Station == _stationCode)
+                {
+                    if (line.StationsLine.Count() == 2)
+                        dl.DeleteLine(line.LineID);
+                    else
+                    {
+                        if (line.FirstStation.Station == _stationCode)
+                        {
+                            dl.UpdateLine(line.LineID, line.StationsLine.ElementAt(1).Station, 0);
+                            foreach (var lineStation in line.StationsLine)
+                            {
+                                dl.UpdateLineStation(line.LineID, lineStation.Station, _lineStation => _lineStation.LineStationIndex--);
+                            }
+                        }
+                        if (line.LastStation.Station == _stationCode)
+                            dl.UpdateLine(line.LineID, line.StationsLine.ElementAt(line.StationsLine.Count() - 2).Station, 1);
+                    }
+                }
+                else
+                {
+                    BO.LineStation _currentLineStation = line.StationsLine.ToList().Find(_station => _station.Station == _stationCode);
+                    if (_currentLineStation != null)
+                    {
+                        this.AddAdjacentStations(line.StationsLine.ElementAt(_currentLineStation.LineStationIndex - 1).Station, line.StationsLine.ElementAt(_currentLineStation.LineStationIndex + 1).Station);
+                        dl.UpdateLineStation(line.LineID, line.StationsLine.ElementAt(_currentLineStation.LineStationIndex + 1).Station, _lineStation => _lineStation.LineStationIndex--);
+                    }
+
+                }
+
+            }
+        }
         public BO.Line GetLine(int _lineID)
         {
             return this.lineDoBoAdapter(dl.GetLine(_lineID));
         }
-        public void UpdateLine(int _lineID) { }
+        public void UpdateLine(int _lineID, BO.Areas area = BO.Areas.Jerusalem, int lineCode = -1)
+        {
+            if (lineCode == -1)
+            {
+                DLAPI.DO.Areas updateArea = (DLAPI.DO.Areas)(int)area;
+                dl.UpdateLine(_lineID, line => line.Area = updateArea);
+                return;
+            }
+            dl.GetLine(_lineID).Code = lineCode;
+        }
         public IEnumerable<BO.Line> GetAllLines(BO.Station _station)
         {
             try
@@ -166,6 +231,14 @@ namespace BL
                    where predicate(line)
                    select line;
         }
+        public IEnumerable<BO.Line> GetAllLines(Predicate<BO.Line> predicate, IEnumerable<BO.Line> _lines)
+        {
+            return from line in _lines
+                   where predicate(line)
+                   select line;
+
+        }
+
         public IEnumerable<BO.LinesPerStation> GetAllLinesCodeLastStation(BO.Station _station)
         {
             List<DLAPI.DO.LineStation> lineStationslist = dl.GetRouteLine(lineStation => lineStation.Station == _station.Code).ToList();
@@ -186,11 +259,15 @@ namespace BL
         {
             return dl.GetAllPropertyLines(_property);
         }
-        public IEnumerable<BO.Line> GetAllLines(int stationCode, int firstOrLastStation)
+        public IEnumerable<BO.Line> GetAllLines(int stationCode, int firstOrLastStation, IEnumerable<BO.Line> _lines)
         {
             if (firstOrLastStation == 0)
-                return this.GetAllLines(line => line.FirstStation.Station.Code == stationCode);
-            return this.GetAllLines(line => line.LastStation.Station.Code == stationCode);
+                return from line in _lines
+                       where line.FirstStation.Station == stationCode
+                       select line;
+            return from line in _lines
+                   where line.LastStation.Station == stationCode
+                   select line;
         }
         #endregion
 
@@ -210,28 +287,195 @@ namespace BL
         {
             return this.userDoBoAdapter(dl.GetUser(_userName));
         }
-        public void UpdateUser(string _userName)
+        public void UpdateUser(string _userName, bool _admin)
         {
-
+            DLAPI.DO.User updateUser = dl.GetUser(_userName);
+            updateUser.Admin = _admin;
+            dl.UpdateUser(updateUser);
         }
-        public IEnumerable<BO.User> GetAllUsers(BO.Line _station)
+        public IEnumerable<BO.User> GetAllUsers()
         {
-            return new List<BO.User>();
+            return from user in dl.GetAllUsers()
+                   orderby user.UserName
+                   select this.userDoBoAdapter(user);
         }
         public IEnumerable<BO.User> GetAllUsers(Predicate<BO.User> predicate)
         {
-            return new List<BO.User>();
+            return from user in this.GetAllUsers()
+                   where predicate(user)
+                   orderby user.UserName
+                   select user;
         }
+        public IEnumerable<string> getAllpropertyPerUser()
+        {
+            return from user in dl.GetAllUsers()
+                   orderby user.UserName
+                   select user.UserName;
+        }
+
 
 
         #endregion
 
         #region LineStation
-        public void AddLineStation(int _lineID, DLAPI.DO.Station _currentStation, int _index)
+        private void AddLineStation(int _lineID, DLAPI.DO.Station _currentStation, int _index)
         {
             dl.AddLineStation(_lineID, _currentStation.Code, _index);
         }
-        public void DeleteLineStation(int _lineID, BO.Station _currentStation, BO.Station _prevStation, BO.Station _nextStation) { }
+        public void AddLineStation(int _lineID, int _index, int _currentStationCode)
+        {
+            List<BO.LineStation> list = this.GetRouteLine(this.GetLine(_lineID)).ToList();
+            if (list.Find(lineStatio => lineStatio.Station == _currentStationCode) != null)
+                throw new BO.BadLineStationException("Line station already exist");
+            BO.LineStation prevStation = new BO.LineStation();
+            BO.LineStation nextStation = new BO.LineStation();
+            double distance;
+            DLAPI.DO.AdjacentStations adjacentStation = new DLAPI.DO.AdjacentStations();
+            if (_index != list.First().LineStationIndex)
+            {
+                if (_index == list.Last().LineStationIndex + 1)
+                {
+                    dl.UpdateLine(_lineID, line => line.LastStation = _currentStationCode);
+                }
+                prevStation = list[_index - 1];
+                try
+                {
+                    dl.GetAdjacentStations(prevStation.Station, _currentStationCode);
+                    adjacentStation = dl.GetAdjacentStations(prevStation.Station, _currentStationCode);
+
+                }
+                catch (DO.BadAdjacentStationsException ex)
+                {
+                    DLAPI.DO.Station _station1 = dl.GetStation(prevStation.Station);
+                    DLAPI.DO.Station _station2 = dl.GetStation(_currentStationCode);
+                    distance = this.distanceCalc(_station1.Lattitude, _station1.Longitude,
+                        _station2.Lattitude, _station2.Longitude) / 1000;
+                    adjacentStation = new DLAPI.DO.AdjacentStations()
+                    {
+                        Active = true,
+                        Station1 = _station1.Code,
+                        Station2 = _station2.Code,
+                        Distance = distance,
+                        Time = new TimeSpan(0, (int)(distance * 1.5), 0),
+                    };
+                    dl.AddAdjacentStations(adjacentStation);
+
+                }
+                DLAPI.DO.LineStation newLineStation = new DLAPI.DO.LineStation()
+                {
+                    LineID = _lineID,
+                    Station = dl.GetStation(_currentStationCode).Code,
+                    LineStationIndex = _index,
+                    Active = true
+                };
+                try
+                {
+                    dl.AddLineStation(newLineStation);
+                }
+                catch (DO.BadLineStationException ex)
+                {
+                    throw new BO.BadLineStationException("Line station already exist in this line", ex);
+                }
+
+            }
+            if (_index != list.Last().LineStationIndex + 1)
+            {
+                if (_index == 0)
+                {
+                    DLAPI.DO.LineStation newLineStation = new DLAPI.DO.LineStation()
+                    {
+                        LineID = _lineID,
+                        Station = dl.GetStation(_currentStationCode).Code,
+                        LineStationIndex = _index,
+                        Active = true
+                    };
+                    try
+                    {
+                        dl.AddLineStation(newLineStation);
+                    }
+                    catch (DO.BadLineStationException ex)
+                    {
+                        throw new BO.BadLineStationException("Line station already exist in this line", ex);
+                    }
+                    dl.UpdateLine(_lineID, line => line.FirstStation = _currentStationCode);
+                }
+                nextStation = list[_index];
+                try
+                {
+                    dl.GetAdjacentStations(_currentStationCode, nextStation.Station);
+                    adjacentStation = dl.GetAdjacentStations(_currentStationCode, nextStation.Station);
+                }
+                catch (DO.BadAdjacentStationsException ex)
+                {
+                    DLAPI.DO.Station _station1 = dl.GetStation(_currentStationCode);
+                    DLAPI.DO.Station _station2 = dl.GetStation(nextStation.Station);
+                    distance = this.distanceCalc(_station1.Lattitude, _station1.Longitude,
+                        _station2.Lattitude, _station2.Longitude) / 1000;
+                    adjacentStation = new DLAPI.DO.AdjacentStations()
+                    {
+                        Active = true,
+                        Station1 = _station1.Code,
+                        Station2 = _station2.Code,
+                        Distance = distance,
+                        Time = new TimeSpan(0, (int)(distance * 1.5), 0),
+                    };
+                    dl.AddAdjacentStations(adjacentStation);
+
+
+                }
+
+            }
+            for (int i = _index; i < list.Count; i++)
+            {
+                DLAPI.DO.LineStation lineStationToUpdate = dl.GetLineStation(list[i].Station, list[i].LineID);
+                dl.UpdateLineStation(lineStationToUpdate.LineID, lineStationToUpdate.Station, lineStation => lineStation.LineStationIndex++);
+            }
+        }
+        public void DeleteLineStation(int _lineID, int _currentStationCode)
+        {
+            int currentIndex = dl.GetLineStation(_currentStationCode, _lineID).LineStationIndex;
+            int prevStationIndex = 0;
+            var list = dl.GetRouteLine(_lineID).ToList();
+            if (currentIndex != 0 && currentIndex != list.Last().LineStationIndex)
+            {
+                prevStationIndex = dl.GetLineStation(_currentStationCode, _lineID).LineStationIndex - 1;
+                try
+                {
+                    dl.GetAdjacentStations(list[prevStationIndex].Station, list[prevStationIndex + 2].Station);
+                }
+                catch (DO.BadAdjacentStationsException ex)
+                {
+                    double distance = this.distanceCalc(dl.GetStation(list[prevStationIndex].Station).Lattitude, dl.GetStation(list[prevStationIndex].Station).Longitude,
+                        dl.GetStation(list[prevStationIndex + 2].Station).Lattitude, dl.GetStation(list[prevStationIndex + 2].Station).Longitude) / 1000;
+                    DLAPI.DO.AdjacentStations adjacentStation = new DLAPI.DO.AdjacentStations()
+                    {
+                        Active = true,
+                        Station1 = list[prevStationIndex].Station,
+                        Station2 = list[prevStationIndex + 2].Station,
+                        Distance = distance,
+                        Time = new TimeSpan(0, (int)(distance * 1.5), 0)
+                    };
+                    dl.AddAdjacentStations(adjacentStation);
+                }
+            }
+            dl.DeleteLineStation(_lineID, _currentStationCode);
+            list = dl.GetRouteLine(_lineID).ToList();
+            if (currentIndex != list.Last().LineStationIndex + 1)
+            {
+                for (int i = list.Count - 1; i > prevStationIndex; i--)
+                {
+                    dl.UpdateLineStation(_lineID, list[i].Station, lineStation => lineStation.LineStationIndex--);
+      
+                }
+            }
+            if (currentIndex == 0)
+            {
+                dl.UpdateLine(_lineID, lineStation => lineStation.FirstStation = list[0].Station);
+                dl.GetLineStation(list[0].Station, _lineID).LineStationIndex = 0;
+            }
+            if (currentIndex == list.Last().LineStationIndex + 1)
+                dl.UpdateLine(_lineID, lineStation => lineStation.LastStation = list.Last().Station);
+        }
         public void GetLineStation(int _lineID, BO.Station _currentStation, BO.Station _prevStation, BO.Station _nextStation) { }
         public void UpdateLineStation(int _lineID, BO.Station _currentStation, BO.Station _prevStation, BO.Station _nextStation) { }
         public IEnumerable<BO.LineStation> GetRouteLine(BO.Line _line)
@@ -247,8 +491,8 @@ namespace BL
 
                     if (lineStation.LineStationIndex != 0)
                     {
-                        lineStation.DistanceFrom = dl.GetDistanceForTwoStations(prevLineStation.Station.Code, lineStation.Station.Code);
-                        lineStation.TimeFrom = dl.GetTimeForTwoStations(prevLineStation.Station.Code, lineStation.Station.Code);
+                        lineStation.DistanceFrom = dl.GetDistanceForTwoStations(prevLineStation.Station, lineStation.Station);
+                        lineStation.TimeFrom = dl.GetTimeForTwoStations(prevLineStation.Station, lineStation.Station);
                     }
                     prevLineStation = lineStation;
                     resultRode.Add(lineStation);
@@ -280,7 +524,7 @@ namespace BL
             {
                 if (!result.Active)
                 {
-                    dl.UpdateStation(result.Code, result);
+                    dl.UpdateStation(result);
                     return true;
                 }
                 return false;
@@ -299,9 +543,19 @@ namespace BL
         public void DeleteStation(int _code, string _name) { }
         public bool DeleteStation(BO.Station _station)
         {
+            this.DeleteStationFromLines(_station.Code);
+            dl.DeleteLineStations(_station.Code);
+            try
+            {
+                dl.DeleteAdjacentStations(_station.Code);
+            }
+            catch (BO.BadAdjacentStationsException ex)
+            {
+
+                
+            }
             if (dl.DeleteStation(_station.Code))
                 return true;
-            // TO DO adjacentStation
             return false;
         }
         public BL.BO.Station GetStation(int _code)
@@ -320,7 +574,7 @@ namespace BL
         {
             return dl.GetAllPropertyStations(property);
         }
-        public bool UpdateStation(BL.BO.Station _thisStation, BL.BO.Station _updetedStation)
+        public bool UpdateStation(BL.BO.Station _updetedStation)
         {
             DLAPI.DO.Station updetedStation = new DLAPI.DO.Station()
             {
@@ -330,21 +584,42 @@ namespace BL
                 Longitude = _updetedStation.Longitude,
                 Name = _updetedStation.Name
             };
-            if (dl.UpdateStation(_thisStation.Code, updetedStation))
+            if (dl.UpdateStation(updetedStation))
                 return true;
             return false;
         }
 
-        public IEnumerable<BO.Station> GetAllStations(Predicate<BO.Station> predicate)
+        public IEnumerable<BO.Station> GetAllStations(Predicate<BO.Station> predicate, IEnumerable<BO.Station> _stations)
         {
-            return from station in this.GetAllStations()
+            return from station in _stations
                    where predicate(station)
                    select station;
         }
         #endregion
 
         #region AdjacentStations
-        public void AddAdjacentStations(int _station1, int _station2) { }
+        public void AddAdjacentStations(int _station1, int _station2)
+        {
+            try
+            {
+                dl.GetAdjacentStations(_station1, _station2);
+            }
+            catch (DO.BadAdjacentStationsException ex)
+            {
+                double _distance = this.distanceCalc(dl.GetStation(_station1).Lattitude, dl.GetStation(_station1).Longitude,
+                dl.GetStation(_station2).Lattitude, dl.GetStation(_station2).Longitude);
+                dl.AddAdjacentStations(new DLAPI.DO.AdjacentStations
+                {
+                    Active = true,
+                    Station1 = _station1,
+                    Station2 = _station2,
+                    Distance = _distance,
+                    Time = new TimeSpan(0, (int)(_distance * 1.5), 0)
+                });
+            }
+
+
+        }
         public void DeleteAdjacentStations(BO.Station _station1, BO.Station _station2) { }
         public void GetAdjacentStations(BO.Station _station1, BO.Station _station2) { }
         public void UpdateAdjacentStations(BO.Station _station1, BO.Station _station2) { }
@@ -359,20 +634,207 @@ namespace BL
         #endregion
 
         #region Bus
-        public void AddBus(int _licenceNum) { }
-        public void DeleteBus(int _licenceNum) { }
-        public void GetBus(int _licenceNum) { }
-        public void UpdateBus(int _licenceNum) { }
+        public void AddBus(BO.Bus _bus)
+        {
+            DLAPI.DO.Bus newBus = new DLAPI.DO.Bus()
+            {
+                Active = true,
+                LicenceNum = _bus.LicenceNum,
+                TotalTrip = _bus.TotalTrip,
+                FromDate = _bus.FromDate,
+                FuelRemain = _bus.FuelRemain,
+                Status = (DLAPI.DO.BusStatus)(int)_bus.Status,
+            };
+            try
+            {
+                dl.AddBus(newBus);
+
+            }
+            catch (DO.BadBusException ex)
+            {
+
+                throw new BO.BadBusException(ex.LicenseNum, ex.Message);
+            }
+
+        }
+        public void DeleteBus(int _licenseNum)
+        {
+            try
+            {
+                dl.DeleteBus(_licenseNum);
+            }
+            catch (DO.BadBusException ex)
+            {
+
+                throw new BO.BadBusException(ex.LicenseNum, ex.Message);
+            }
+        }
+        public void GetBus(int _licenseNum) { }
+        public void UpdateBus(BO.Bus _bus)
+        {
+            DLAPI.DO.Bus busToUpdate = new DLAPI.DO.Bus()
+            {
+                Active = true,
+                LicenceNum = _bus.LicenceNum,
+                FromDate = _bus.FromDate,
+                FuelRemain = _bus.FuelRemain,
+                Status = (DLAPI.DO.BusStatus)(int)_bus.Status,
+                TotalTrip = _bus.TotalTrip
+            };
+            try
+            {
+                dl.UpdateBus(busToUpdate);
+
+            }
+            catch (DO.BadBusException ex)
+            {
+
+                throw new BO.BadBusException(ex.LicenseNum, ex.Message);
+            }
+        }
         public IEnumerable<BO.Bus> GetAllBuses()
         {
             return from bus in dl.GetAllBuses()
                    select this.busDoBoAdapter(bus);
         }
-        public IEnumerable<BO.Bus> GetAllBuses(Predicate<BO.Bus> predicate)
+        public IEnumerable<object> GetAllpropertiesToBuses(string property)
         {
-            return new List<BO.Bus>();
+            return dl.GetAllproperties(property);
+        }
+        public IEnumerable<BO.Bus> GetAllBuses(Predicate<BO.Bus> predicate, IEnumerable<BO.Bus> _buses)
+        {
+            return from bus in _buses
+                   where predicate(bus)
+                   select bus;
         }
         #endregion
+
+        #region LineTrip
+        public BO.LineTrip GetLineTrip(int _lineID, TimeSpan _startAt)
+        {
+            try
+            {
+                return this.lineTripAdapter(dl.GetLineTrip(_lineID, _startAt));
+            }
+            catch (DO.BadLineTripException ex)
+            {
+                throw new BO.BadLineTripException(ex.Message);
+            }
+        }
+        public void AddLineTrip(BO.LineTrip _lineTrip)
+        {
+            dl.AddLineTrip(new DLAPI.DO.LineTrip()
+            {
+                Active = true,
+                LineID = _lineTrip.LineID,
+                StartAt = _lineTrip.StartAt
+            });
+        }
+        public void UpdateLineTrip(BO.LineTrip _lineTrip)
+        {
+            try
+            {
+                DLAPI.DO.LineTrip lineTripToUpdate = new DLAPI.DO.LineTrip()
+                {
+                    Active = true,
+                    LineID = _lineTrip.LineID,
+                    LineTripID = _lineTrip.LineTripID,
+                    StartAt = _lineTrip.StartAt
+                };
+                dl.UpdateLineTrip(lineTripToUpdate);
+
+            }
+            catch (DO.BadLineTripException ex)
+            {
+
+                throw new BO.BadLineTripException(ex.Message);
+            }
+        }
+        public void UpdateLineTrip(int _lineID, Action<BO.LineTrip> update)
+        {
+        }
+        public bool DeleteLineTrip(int _lineTripID)
+        {
+            try
+            {
+                dl.DeleteLineTrip(_lineTripID);
+                return true;
+            }
+            catch (DO.BadLineTripException ex)
+            {
+                return false;
+            }
+        }
+        public IEnumerable<BO.LineTrip> GetAllLinesTrip()
+        {
+            return from lineTrip in dl.GetAllLinesTrip()
+                   select this.lineTripAdapter(lineTrip);
+        }
+        public IEnumerable<BO.LineTrip> GetAllLinesTrip(Predicate<BO.LineTrip> predicate)
+        {
+            return from lineTrip in this.GetAllLinesTrip()
+                   where predicate(lineTrip)
+                   select lineTrip;
+        }
+        public IEnumerable<BO.LineTrip> GetAllLinesTrip(Predicate<BO.LineTrip> predicate, IEnumerable<BO.LineTrip> _lineTrips)
+        {
+            return from lineTrip in _lineTrips
+                   where predicate(lineTrip)
+                   select lineTrip;
+        }
+        #endregion
+
+        #region LineTiming
+        public IEnumerable<BO.LineTiming> GetAllLineTimingPerStation(int _stationCode, TimeSpan _currentTime)
+        {
+            List<BO.LineTiming> LineTiminglist = new List<BO.LineTiming>();
+            foreach (var line in this.GetAllLines(this.GetStation(_stationCode)))
+            {
+                var listLineTrip = from lineTrip in this.GetAllLinesTrip(_lineTrip =>
+                  _lineTrip.LineID == line.LineID && _lineTrip.StartAt < _currentTime)
+                                 select lineTrip;
+                foreach (var lineTrip in listLineTrip)
+                {
+                    if ((lineTrip.StartAt + this.calcTotalTimeTrip(lineTrip.LineID, _stationCode)) > _currentTime)
+                        LineTiminglist.Add(this.lineTripToLineTiming(lineTrip, _currentTime, _stationCode));
+
+                }
+
+
+            }
+
+            return LineTiminglist;
+        }
+
+        private BO.LineTiming lineTripToLineTiming(BO.LineTrip _lineTrip, TimeSpan _currentTime, int _stationCode)
+        {
+            BO.LineTiming newLineTiming = new BO.LineTiming()
+            {
+                LineId = _lineTrip.LineID,
+                LineCode = _lineTrip.LineCode,
+                LastStation = _lineTrip.LastStationName,
+                TripStart = _lineTrip.StartAt,
+                ExpectedTimeTillArrive = calcArrival(_currentTime, _lineTrip, _stationCode)
+            };
+            return newLineTiming;
+        }
+        private TimeSpan calcArrival(TimeSpan _currentTime, BO.LineTrip _lineTrip, int _stationCode)
+        {
+            TimeSpan totalTimeTrip = calcTotalTimeTrip(_lineTrip.LineID, _stationCode);
+            TimeSpan expectedTime =totalTimeTrip - (_currentTime - _lineTrip.StartAt);
+            return expectedTime;
+        }
+        private TimeSpan calcTotalTimeTrip(int _lineID, int _stationCode)
+        {
+            TimeSpan totalTime = new TimeSpan(0,0,0);
+            foreach (var lineStation in this.GetRouteLine(this.GetLine(_lineID)))
+            {
+                totalTime=totalTime.Add(lineStation.TimeFrom);
+                if (lineStation.Station == _stationCode)
+                    break;
+            }
+            return totalTime;
+        }
 
         private double distanceCalc(double _latitude1, double _longitude1, double _latitude2, double _longitude2)
         {
@@ -381,5 +843,10 @@ namespace BL
             return sCoord.GetDistanceTo(eCoord);
 
         }
+
     }
+    #endregion
+
+
 }
+

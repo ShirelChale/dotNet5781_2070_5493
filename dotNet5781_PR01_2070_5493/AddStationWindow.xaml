@@ -12,7 +12,7 @@
     </Window.Resources>
     <Grid>
 
-        <Grid x:Name="grid1" VerticalAlignment="Top" Height="180" Width="270" Margin="0,0,0,0" HorizontalAlignment="Left" DataContext="{StaticResource stationViewSource}">
+        <Grid x:Name="grid1" VerticalAlignment="Center" Height="150" Width="250" Margin="0,0,0,0" HorizontalAlignment="Center" DataContext="{StaticResource stationViewSource}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -23,8 +23,6 @@
                 <ColumnDefinition Width="Auto" MinWidth="92.8"/>
                 <ColumnDefinition Width="Auto" MinWidth="167.2"/>
             </Grid.ColumnDefinitions>
-            <Label VerticalAlignment="Center" Grid.Row="0" Margin="3,4,0,16.6" HorizontalAlignment="Left" Grid.Column="0" Content="Code:" Height="25" Width="40"/>
-            <TextBox x:Name="codeTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Code, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="0" Margin="2.4,5,0,17.6" Height="23" HorizontalAlignment="Left" Grid.Column="1" PreviewKeyDown="codeTextBox_PreviewKeyDown"/>
             <Label VerticalAlignment="Center" Grid.Row="1" Margin="3,6.4,0,12.4" HorizontalAlignment="Left" Grid.Column="0" Content="Lattitude:" Height="26" Width="59"/>
             <TextBox x:Name="lattitudeTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Lattitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="1" Margin="2.4,8.4,0,13.4" Height="23" HorizontalAlignment="Left" Grid.Column="1" PreviewKeyDown="lattitudeTextBox_PreviewKeyDown"/>
             <Label VerticalAlignment="Center" Grid.Row="2" Margin="3,9.6,0,9.2" HorizontalAlignment="Left" Grid.Column="0" Content="Longitude:" Height="26" Width="66"/>

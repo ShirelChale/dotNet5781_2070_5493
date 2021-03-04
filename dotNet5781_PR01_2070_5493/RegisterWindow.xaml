@@ -13,7 +13,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid x:Name="innerGrid" Grid.Column="1" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
-            <Image Source="Busi.png" Height="150" Margin="0,0,0,190"/>
+            <Image Source="Register.png" Height="150" Margin="0,0,0,190"/>
             <TextBox Name="tbUserName" Text="User name" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="White"  FontSize="20" Height="40" Background="#4AB648" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Center" Width="150" GotKeyboardFocus="tbUserName_GotKeyboardFocus" LostKeyboardFocus="tbUserName_LostKeyboardFocus"/>
             <TextBox Name="tbPassword" Text="Password" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="White" FontSize="20" Height="40" Background="#4AB648" HorizontalAlignment="Center" Margin="0,170,0,0" VerticalAlignment="Center" Width="150" GotKeyboardFocus="tbPassword_GotKeyboardFocus" LostKeyboardFocus="tbPassword_LostKeyboardFocus"/>
             <TextBox Name="tbPasswordRedo" Text="Redo password" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="White" FontSize="20" Height="40" Background="#4AB648" HorizontalAlignment="Center" Margin="0,290,0,0" VerticalAlignment="Center" Width="150" GotKeyboardFocus="tbPasswordRedo_GotKeyboardFocus" LostKeyboardFocus="tbPasswordRedo_LostKeyboardFocus"/>

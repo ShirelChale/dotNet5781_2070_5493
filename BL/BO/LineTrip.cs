@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace BL.BO
 {
-    public class LineTrip:Line
+    public class LineTrip
     {
-        public int ID { get; set; }
+        public int LineTripID { get; set; }
+        public int LineID { get; set; }
+        public int LineCode { get; set; }
+        public string LastStationName { get; set; }
+        public BO.Areas Area { get; set; }
         public TimeSpan StartAt { get; set; }
-        public TimeSpan Frequency { get; set; }
-        public TimeSpan FinishAt { get; set; }
     }
 }

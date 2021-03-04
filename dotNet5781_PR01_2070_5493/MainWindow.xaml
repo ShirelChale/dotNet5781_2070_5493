@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
         <Grid x:Name="innerGrid" Grid.Column="1" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
             <Image Source="Busi.png" Height="150" Margin="0,0,0,140"/>
-            <Button Name="btnPassword"  Content="Passenger" Foreground="White"  FontSize="24" Height="40" Background="#4AB648" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center" Width="150"/>
+            <Button Name="btnPassword"  Content="Passenger" Foreground="White"  FontSize="24" Height="40" Background="#4AB648" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center" Width="150" Click="btnPassword_Click"/>
             <Button Name="btnWorker" Content="Worker" Foreground="White" FontSize="24" Height="40" Background="#4AB648" HorizontalAlignment="Center" Margin="0,220,0,0" VerticalAlignment="Center" Width="150" Click="btnWorker_Click"/>
             <Button Name="btnRegister" Content="Register" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Center" Background="#3A54A5"  Margin="0,400,0,0" VerticalAlignment="Center" Width="100" Click="btnRegister_Click"/>
         </Grid>

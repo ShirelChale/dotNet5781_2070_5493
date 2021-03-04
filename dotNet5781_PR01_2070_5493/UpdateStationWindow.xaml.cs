@@ -27,47 +27,38 @@ namespace dotNet5781_PR01_2070_5493
             InitializeComponent();
             this.bl = _bl;
             this.originalStation = _station;
+            this.codeTextBlock.Text = _station.Code.ToString();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            BL.BO.Station updatedStation=new BL.BO.Station();
             if (originalStation == null)
                 return;
-            if (int.TryParse(codeTextBox.Text, out int _code))
-            {
-                if (_code.ToString().Length != 6)
-                {
-                    MessageBox.Show("Code must be 6 digits long");
-                    return;
-                }
-                updatedStation.Code = _code;
-            }
-            if (int.TryParse(lattitudeTextBox.Text, out int _lattitude))
+            if (double.TryParse(lattitudeTextBox.Text, out double _lattitude))
             {
                 if (!(_lattitude >= 31 && _lattitude <= 33.3))
                 {
                     MessageBox.Show("lattitude isn't in Israel");
                     return;
                 }
-                updatedStation.Lattitude = _lattitude;
+                this.originalStation.Lattitude = _lattitude;
             }
-            if (int.TryParse(longitudeTextBox.Text, out int _longitude))
+            if (double.TryParse(longitudeTextBox.Text, out double _longitude))
             {
                 if (!(_longitude >= 34.3 && _longitude <= 35.5))
                 {
                     MessageBox.Show("longitude isn't in Israel");
                     return;
                 }
-                updatedStation.Lattitude = _longitude;
+                this.originalStation.Longitude = _longitude;
             }
 
             if (nameTextBox.Text != "")
-                updatedStation.Name = nameTextBox.Text;
-            if (this.bl.UpdateStation(this.originalStation,updatedStation))
+                this.originalStation.Name = nameTextBox.Text;
+            if (this.bl.UpdateStation(this.originalStation))
             {
-                this.Close();
                 MessageBox.Show("Station updated successfully");
+                this.Close();
             }
             else
                 MessageBox.Show("Station not exists");

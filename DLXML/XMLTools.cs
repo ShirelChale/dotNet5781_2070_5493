@@ -11,9 +11,10 @@ using DLAPI.DO;
 namespace DLXML
 
 {
-    class XMLTools
+    public class XMLTools
     {
-        static string dir = @"xml\";
+        static string dir = @"xml";
+
 
         static XMLTools()
         {
@@ -89,7 +90,7 @@ namespace DLXML
             {
                 throw new DO.XMLFileLoadCreateException(filePath, $"fail to load xml file: {filePath}", ex);
             }
-        }
+        } 
 
     }
 }

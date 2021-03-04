@@ -36,5 +36,10 @@ namespace dotNet5781_PR01_2070_5493
         {
             NavigationService.NavigateTo(new RegisterWindow(this.bl));
         }
+
+        private void btnPassword_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.NavigateTo(new PassengerWindowEntry(this.bl));
+        }
     }
 }

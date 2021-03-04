@@ -15,6 +15,20 @@ namespace BL.BO
             base(message, innerException) => Code = ((DO.BadStationCodeException)innerException).Code;
         public override string ToString() => base.ToString() + $", bad station code: {Code}";
     }
+    public class BadBusException : Exception
+    {
+        public int LicenseNum;
+        public BadBusException(int _LicenseNum) : base() { LicenseNum = _LicenseNum; }
+        public BadBusException(int _LicenseNum, string message) :
+            base(message)
+        { LicenseNum = _LicenseNum; }
+        public BadBusException(int _LicenseNum, string message, Exception innerException) :
+            base(message, innerException)
+        { LicenseNum = _LicenseNum; }
+
+        public override string ToString() => base.ToString() + $", bad Licence Number: {LicenseNum}";
+    }
+
 
     [Serializable]
     public class BadLineIDException : Exception
@@ -36,6 +50,11 @@ namespace BL.BO
             lineID = ((DO.BadLineStationException)innerException).lineID;
             stationCode = ((DO.BadLineStationException)innerException).stationCode;
         }
+        public BadLineStationException(string messeage):
+             base(messeage)
+        {
+
+        }
         public override string ToString() => base.ToString() + $", bad line station Line ID: {lineID} and station code: {stationCode}";
     }
     public class BadAdjacentStationsException : Exception
@@ -50,5 +69,14 @@ namespace BL.BO
         }
         public override string ToString() => base.ToString() + $", bad AdjacentStation codes for stations: {station1} and  {station2}";
     }
+
+    public class BadLineTripException : Exception
+    {
+        public int LineTripID;
+        public BadLineTripException(string message) : base(message) { }
+
+        public override string ToString() => base.ToString() + $", bad line trip: {LineTripID }";
+    }
+
 
 }

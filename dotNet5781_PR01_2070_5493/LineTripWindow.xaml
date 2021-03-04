@@ -1,0 +1,83 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:dotNet5781_PR01_2070_5493"
+        xmlns:BO="clr-namespace:BL.BO;assembly=BL" x:Class="dotNet5781_PR01_2070_5493.LineTripWindow"
+        mc:Ignorable="d"
+        Title="LineTripWindow" Height="550" Width="800" WindowStartupLocation="CenterScreen"  >
+    
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="rightGrid" Grid.Column="1" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto"  >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="btnAddLineTrip" Content="Add trip" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Right" Background="#ED6D25"  Margin="0,0,25,0" VerticalAlignment="Center" Grid.Row="1" Width="140" Click="btnAddLineTrip_Click"/>
+            <Button x:Name="btnDeleteLineTrip" IsEnabled="False" Content="Delete trip" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Left"  Background="#ED6D25"  Margin="25,0,0,0" VerticalAlignment="Center" Grid.Row="1" Width="140" Click="btnDeleteLineTrip_Click"/>
+            <Button x:Name="btnUpdateLineTrip" IsEnabled="False" Content="Update trip" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Center" Background="#ED6D25"  Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="1" Width="140" Click="btnUpdateLineTrip_Click"/>
+            <DataGrid x:Name="lineTripDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="0,0,0,0" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="lineTripDataGrid_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn x:Name="areaColumn" Header="Area" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Area}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:Name="startAtColumn" Header="Start At" Width="60">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding StartAt}" Foreground="#ED6D25"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn x:Name="lineCodeColumn" Binding="{Binding LineCode}" Header="Line Code" Width="SizeToHeader"/>
+                    <DataGridTemplateColumn x:Name="lineIDColumn" Header="Line ID" Width="SizeToHeader">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding LineID}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:Name="lastStationNameColumn" Header="Last Station Name" Width="245">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding LastStationName}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+        </Grid>
+        <Button x:Name="btnBack" Width="110" Content="Back to menu" FontSize="16" Background="#3A54A5" Foreground="White" Height="30" HorizontalAlignment="Left" Margin="30,30,0,0" VerticalAlignment="Top" Click="btnBack_Click"/>
+        <Image Source="Schedule.png" Height="100" Margin="0,100,0,0" VerticalAlignment="Top"/>
+        <Grid x:Name="leftGrid" Grid.Column="0" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Center" Grid.Row="1" Foreground="#4AB648" FontFamily="Tahoma" Margin="0,0,0,0" TextWrapping="Wrap" Text="Filters" FontSize="22" VerticalAlignment="Top" TextDecorations="Underline" FontWeight="Bold"/>
+            <ComboBox x:Name="cbLineID" IsEnabled="True" HorizontalAlignment="Center" Grid.Row="1" Margin="70,50,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbLineID_SelectionChanged" />
+            <ComboBox x:Name="cbLineCode" IsEnabled="True" HorizontalAlignment="Center" Grid.Row="1" Margin="70,90,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbLineCode_SelectionChanged" />
+            <ComboBox x:Name="cbArea" IsEnabled="True" HorizontalAlignment="Center" Grid.Row="1" Margin="70,130,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbArea_SelectionChanged" />
+            <ComboBox x:Name="cbFrom" IsEnabled="True" HorizontalAlignment="Center" Grid.Row="1" Margin="70,170,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbFrom_SelectionChanged" />
+            <ComboBox x:Name="cbTo" IsEnabled="True" HorizontalAlignment="Center" Grid.Row="1" Margin="70,210,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbTo_SelectionChanged" />
+            <TextBlock HorizontalAlignment="Left" Margin="20,50,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Line ID:" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="20,90,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Line code:" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="20,130,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Area:" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="20,170,0,0" Grid.Row="1" TextWrapping="Wrap" Text="From:" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="20,210,0,0" Grid.Row="1" TextWrapping="Wrap" Text="To:" VerticalAlignment="Top"/>
+            <Button x:Name="btnReset" Background="#4AB648" Foreground="White" Content="Reset" HorizontalAlignment="Center" Margin="0,0,0,20" Grid.Row="1" VerticalAlignment="Bottom" Width="50" Click="btnReset_Click" />
+        </Grid>
+
+    </Grid>
+</Window>

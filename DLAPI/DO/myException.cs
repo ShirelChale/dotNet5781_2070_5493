@@ -13,20 +13,35 @@ namespace DO
         public BadStationCodeException(int code) : base() => Code = code;
         public BadStationCodeException(int code, string message) :
             base(message) => Code = code;
-        public BadStationCodeException(int code, string message, Exception innerException) : 
+        public BadStationCodeException(int code, string message, Exception innerException) :
             base(message, innerException) => Code = code;
-      
+
         public override string ToString() => base.ToString() + $", bad station id: {Code}";
     }
 
+    public class BadBusException : Exception
+    {
+        public int LicenseNum;
+        public BadBusException(int _LicenseNum) : base() { LicenseNum = _LicenseNum; }
+        public BadBusException(int _LicenseNum, string message) :
+            base(message)
+        { LicenseNum = _LicenseNum; }
+        public BadBusException(int _LicenseNum, string message, Exception innerException) :
+            base(message, innerException)
+        { LicenseNum = _LicenseNum; }
+
+        public override string ToString() => base.ToString() + $", bad Licence Number: {LicenseNum}";
+    }
     public class BadLineIDException : Exception
     {
         public int lineID;
-        public BadLineIDException(int _lineID) : base() { lineID = _lineID; }  
+        public BadLineIDException(int _lineID) : base() { lineID = _lineID; }
         public BadLineIDException(int _lineID, string message) :
-            base(message) { lineID = _lineID; }
-        public BadLineIDException(int _lineID,string message, Exception innerException) :
-            base(message, innerException) { lineID = _lineID; }
+            base(message)
+        { lineID = _lineID; }
+        public BadLineIDException(int _lineID, string message, Exception innerException) :
+            base(message, innerException)
+        { lineID = _lineID; }
 
         public override string ToString() => base.ToString() + $", bad line id: {lineID}";
     }
@@ -40,7 +55,7 @@ namespace DO
         public BadLineStationException(int _lineID, int _stationCode, string message) :
             base(message)
         { lineID = _lineID; stationCode = _stationCode; }
-        public BadLineStationException(int _lineID, int _stationCode,string message, Exception innerException) :
+        public BadLineStationException(int _lineID, int _stationCode, string message, Exception innerException) :
             base(message, innerException)
         { lineID = _lineID; stationCode = _stationCode; }
 
@@ -62,20 +77,33 @@ namespace DO
         public override string ToString() => base.ToString() + $", bad AdjacentStation codes for stations: {station1} and  {station2}";
     }
 
+    public class BadLineTripException : Exception
+    {
+        public int LineTripID;
+        public BadLineTripException(string message) : base(message) { }
+        public BadLineTripException(int _LineTripID) : base() => LineTripID = _LineTripID;
+        public BadLineTripException(int _LineTripID, string message) :
+            base(message) => LineTripID = _LineTripID;
+        public BadLineTripException(int _LineTripID, string message, Exception innerException) :
+            base(message, innerException) => LineTripID = _LineTripID;
+
+        public override string ToString() => base.ToString() + $", bad lineTrip id: {LineTripID}";
+    }
 
 
-    //public class XMLFileLoadCreateException : Exception
-    //{
-    //    public string xmlFilePath;
-    //    public XMLFileLoadCreateException(string xmlPath) : base() { xmlFilePath = xmlPath; }
-    //    public XMLFileLoadCreateException(string xmlPath, string message) :
-    //        base(message)
-    //    { xmlFilePath = xmlPath; }
-    //    public XMLFileLoadCreateException(string xmlPath, string message, Exception innerException) :
-    //        base(message, innerException)
-    //    { xmlFilePath = xmlPath;}
+    public class XMLFileLoadCreateException : Exception
+    {
+        public string xmlFilePath;
+        public XMLFileLoadCreateException(string xmlPath) : base() { xmlFilePath = xmlPath; }
+        public XMLFileLoadCreateException(string xmlPath, string message) :
+            base(message)
+        { xmlFilePath = xmlPath; }
+        public XMLFileLoadCreateException(string xmlPath, string message, Exception innerException) :
+            base(message, innerException)
+        { xmlFilePath = xmlPath; }
 
-    //    public override string ToString() => base.ToString() + $", fail to load or create xml file: {xmlFilePath}";
+        public override string ToString() => base.ToString() + $", fail to load or create xml file: {xmlFilePath}";
+    }
 }
 
 

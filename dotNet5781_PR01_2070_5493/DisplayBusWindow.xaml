@@ -20,10 +20,10 @@
                 <RowDefinition Height="5*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <Button x:Name="btnAddBus" Content="Add bus" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Right" Background="#ED6D25"  Margin="0,0,25,0" VerticalAlignment="Center" Grid.Row="1" Width="140"/>
-            <Button x:Name="btnDeleteBus" Content="Delete bus" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Left"  Background="#ED6D25"  Margin="25,0,0,0" VerticalAlignment="Center" Grid.Row="1" Width="140"/>
-            <Button x:Name="btnUpdateBus" Content="Update bus" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Center" Background="#ED6D25"  Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="1" Width="140"/>
-            <DataGrid x:Name="busDataGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="0,0,0,0" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <Button x:Name="btnAddBus" Content="Add bus" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Right" Background="#ED6D25"  Margin="0,0,25,0" VerticalAlignment="Center" Grid.Row="1" Width="140" Click="btnAddBus_Click"/>
+            <Button x:Name="btnDeleteBus" Content="Delete bus" IsEnabled="False" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Left"  Background="#ED6D25"  Margin="25,0,0,0" VerticalAlignment="Center" Grid.Row="1" Width="140" Click="btnDeleteBus_Click"/>
+            <Button x:Name="btnUpdateBus" Content="Update bus" IsEnabled="False" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Center" Background="#ED6D25"  Margin="0,0,0,0" VerticalAlignment="Center" Grid.Row="1" Width="140" Click="btnUpdateBus_Click"/>
+            <DataGrid x:Name="busDataGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="0,0,0,0" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="busDataGrid_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn x:Name="licenceNumColumn" Header="Licence Num" Width="SizeToHeader">
                         <DataGridTemplateColumn.CellTemplate>
@@ -32,28 +32,28 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn x:Name="statusColumn" Header="Status" Width="SizeToHeader">
+                    <DataGridTemplateColumn x:Name="statusColumn" Header="Status" Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Status}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn x:Name="fromDateColumn" Header="From Date" Width="SizeToHeader">
+                    <DataGridTemplateColumn x:Name="fromDateColumn" Header="From Date" Width="140">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding FromDate}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn x:Name="totalTripColumn" Header="Total Trip" Width="SizeToHeader">
+                    <DataGridTemplateColumn x:Name="totalTripColumn" Header="Total Trip" Width="95">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding TotalTrip}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn x:Name="fuelRemainColumn" Header="Fuel Remain" Width="SizeToHeader">
+                    <DataGridTemplateColumn x:Name="fuelRemainColumn" Header="Fuel Remain" Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding FuelRemain}"/>
@@ -71,12 +71,14 @@
                 <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
             <TextBlock HorizontalAlignment="Center" Grid.Row="1" Foreground="#4AB648" FontFamily="Tahoma" Margin="0,0,0,0" TextWrapping="Wrap" Text="Filters" FontSize="22" VerticalAlignment="Top" TextDecorations="Underline" FontWeight="Bold"/>
-            <ComboBox x:Name="cbLineID" IsEnabled="True" HorizontalAlignment="Center" Grid.Row="1" Margin="70,50,0,0" VerticalAlignment="Top" Width="120"/>
-            <ComboBox x:Name="cbStatus" IsEnabled="True" HorizontalAlignment="Center" Grid.Row="1" Margin="70,90,0,0" VerticalAlignment="Top" Width="120"/>
-            <DatePicker x:Name="dpFromDate" HorizontalAlignment="Center" Margin="70,130,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120"/>
+            <ComboBox x:Name="cbLicenseNum" IsEnabled="True" HorizontalAlignment="Center" Grid.Row="1" Margin="70,50,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbLicenseNum_SelectionChanged"/>
+            <ComboBox x:Name="cbStatus" IsEnabled="True" HorizontalAlignment="Center" Grid.Row="1" Margin="70,90,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbStatus_SelectionChanged"/>
+            <DatePicker x:Name="dpFromDate" HorizontalAlignment="Center" Margin="70,130,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" SelectedDateChanged="dpFromDate_SelectedDateChanged"/>
             <TextBlock HorizontalAlignment="Left" Margin="20,50,0,0" Grid.Row="1" TextWrapping="Wrap" Text="License num:" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="20,90,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Status:" VerticalAlignment="Top"/>
-            <TextBlock HorizontalAlignment="Left" Margin="20,130,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Starting Date:" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="20,130,0,0" Grid.Row="1" TextWrapping="Wrap" Text="From Date:" VerticalAlignment="Top"/>
+            <Button Name="btnReset" Background="#4AB648" Foreground="White" Content="Reset" HorizontalAlignment="Center" Margin="0,0,0,95" Grid.Row="1" VerticalAlignment="Bottom" Width="50" Click="btnReset_Click"/>
+
         </Grid>
     </Grid>
 </Window>

@@ -31,17 +31,24 @@ namespace dotNet5781_PR01_2070_5493
             this.bl = _bl;
             cbCode.ItemsSource = bl.GetAllPropertyStations("Code");
             rodeLine = new List<int>();
-            areaComboBox.ItemsSource= Enum.GetValues(typeof(BL.BO.Areas));
+            areaComboBox.ItemsSource = Enum.GetValues(typeof(BL.BO.Areas));
         }
 
         private void btnAddStation_Click(object sender, RoutedEventArgs e)
         {
             if (this.selectedStationCode != 0)
             {
-                this.rodeLine.Add(this.selectedStationCode);
-                MessageBox.Show("Station added to this line rode.");
+                if (this.rodeLine.FirstOrDefault(code => code == this.selectedStationCode) == 0)
+                {
+                    this.rodeLine.Add(this.selectedStationCode);
+                    MessageBox.Show("Station added to this line rode.");
+                }
+                else
+                {
+                    MessageBox.Show("Station already exist.");
+                }
             }
-            if (int.TryParse(codeTextBox.Text, out this.code) && this.rodeLine.Count>=2)
+            if (int.TryParse(codeTextBox.Text, out this.code) && this.rodeLine.Count >= 2)
                 btnCreateLine.IsEnabled = true;
 
         }
@@ -57,7 +64,7 @@ namespace dotNet5781_PR01_2070_5493
 
         private void btnCreateLine_Click(object sender, RoutedEventArgs e)
         {
-            this.code = int.Parse( codeTextBox.Text);
+            this.code = int.Parse(codeTextBox.Text);
             bl.AddLine(this.code, this.rodeLine, this.area);
             MessageBox.Show("Line added successfully!");
             this.Close();
@@ -66,6 +73,15 @@ namespace dotNet5781_PR01_2070_5493
         private void cbCode_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.selectedStationCode = (int)cbCode.SelectedValue;
+            try
+            {
+                nameTextBlock.Text = bl.GetStation(this.selectedStationCode).Name;
+            }
+            catch (BL.BO.BadLineStationException ex)
+            {
+
+                
+            }
         }
 
         private void areaComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -92,6 +108,6 @@ namespace dotNet5781_PR01_2070_5493
             this.integrityInputCheck(e);
         }
 
-        
+
     }
 }

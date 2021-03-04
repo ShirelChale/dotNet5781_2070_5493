@@ -22,23 +22,59 @@ namespace DL
         #endregion
 
         #region Bus
-        public DLAPI.DO.Bus GetBus(int _licenseNum)
+        public void AddBus(DLAPI.DO.Bus _bus)
         {
-            return new DLAPI.DO.Bus();
+            DLAPI.DO.Bus busToAdd = DataSource.ListBuses.Find(bus => bus.LicenceNum == _bus.LicenceNum);
+            if (busToAdd == null)
+                DataSource.ListBuses.Add(_bus.Clone());
+            else if (busToAdd.Active)
+                throw new DO.BadBusException(_bus.LicenceNum, "Bus dousn't exist");
+
         }
-        public void AddBus(DLAPI.DO.Bus _bus) { }
-        public void UpdateBus(DLAPI.DO.Bus _bus) { }
-        public void UpdateBus(int _licenseNum, Action<DLAPI.DO.Bus> update) { } // Method that knows to updt specific fields in Bus.
-        public void DeleteBus(int _licenseNum) { }
+        public void UpdateBus(DLAPI.DO.Bus _bus)
+        {
+
+
+            DLAPI.DO.Bus busToUpdate = DataSource.ListBuses.Find(bus => bus.LicenceNum == _bus.LicenceNum && bus.Active);
+            if (busToUpdate != null)
+            {
+                busToUpdate.Active = true;
+                busToUpdate.FromDate = _bus.FromDate;
+                busToUpdate.FuelRemain = _bus.FuelRemain;
+                busToUpdate.TotalTrip = _bus.TotalTrip;
+                busToUpdate.Status = _bus.Status;
+            }   
+            else
+                throw new DO.BadBusException(_bus.LicenceNum, "Bus not found");
+        }
+        public void DeleteBus(int _licenseNum)
+        {
+            try
+            {
+                DataSource.ListBuses.Find(bus => bus.LicenceNum == _licenseNum && bus.Active).Active = false;
+            }
+            catch (NullReferenceException ex)
+            {
+
+                throw new DO.BadBusException(_licenseNum, "Bus dosen't exist");
+            }
+        }
         public IEnumerable<DLAPI.DO.Bus> GetAllBuses()
         {
             return from bus in DataSource.ListBuses
+                   where bus.Active
                    select bus.Clone();
         }
-        public IEnumerable<DLAPI.DO.Bus> GetAllBuses(Predicate<DLAPI.DO.Bus> predicate)
+
+        public IEnumerable<object> GetAllproperties(string property)
         {
-            return new List<DLAPI.DO.Bus>();
+            return from bus in DataSource.ListBuses
+                   where bus.Active
+                   orderby bus.LicenceNum
+                   select this.getPropBus(bus, property);
         }
+
+        
         #endregion
 
         #region Station
@@ -47,23 +83,16 @@ namespace DL
             DLAPI.DO.Station _station = DataSource.ListStations.Find(station => station.Code == _code
              && station.Active);
             if (_station != null)
-                return _station;
+                return _station.Clone();
             throw new DO.BadStationCodeException(_code);
         }
-        public IEnumerable<DLAPI.DO.Station> GetStationPerName(string _name)
-        {
-            return from station in DataSource.ListStations
-                   where station.Name == _name && station.Active
-                   select station.Clone();
-        }
-
         public void AddStation(DLAPI.DO.Station _station)
         {
-            DataSource.ListStations.Add(_station);
+            DataSource.ListStations.Add(_station.Clone());
         }
-        public bool UpdateStation(int _thisStationCode, DLAPI.DO.Station _updetedStation)
+        public bool UpdateStation(DLAPI.DO.Station _updetedStation)
         {
-            DLAPI.DO.Station stationToUpdate = DataSource.ListStations.Find(station => station.Code == _thisStationCode);
+            DLAPI.DO.Station stationToUpdate = DataSource.ListStations.Find(station => station.Code == _updetedStation.Code);
             if (stationToUpdate != null)
             {
                 if (_updetedStation.Code != 0)
@@ -79,7 +108,6 @@ namespace DL
             }
             return false;
         }
-        public void UpdateStation(int _code, Action<DLAPI.DO.Station> update) { } // Method that knows to updt specific fields in Station.
         public bool DeleteStation(int _code)
         {
             DLAPI.DO.Station stationToDelete = DataSource.ListStations.Find(station => station.Code == _code);
@@ -114,6 +142,12 @@ namespace DL
             PropertyInfo pinfo = typeof(DLAPI.DO.Station).GetProperty(property);
             object value = pinfo.GetValue(_station, null);
             return value;
+        } 
+        private object getPropBus(DLAPI.DO.Bus _bus, string property)
+        {
+            PropertyInfo pinfo = typeof(DLAPI.DO.Bus).GetProperty(property);
+            object value = pinfo.GetValue(_bus, null);
+            return value;
         }
 
         #endregion
@@ -121,10 +155,10 @@ namespace DL
         #region Line
         public DLAPI.DO.Line GetLine(int _lineID)
         {
-            DLAPI.DO.Line _line= DataSource.ListLines.Find(line => line.LineID == _lineID
-            && line.Active);
+            DLAPI.DO.Line _line = DataSource.ListLines.Find(line => line.LineID == _lineID
+             && line.Active);
             if (_line != null)
-                return _line;
+                return _line.Clone();
             throw new DO.BadLineIDException(_lineID);
 
         }
@@ -134,21 +168,43 @@ namespace DL
             newLine.Active = true;
             newLine.Area = _area;
             newLine.Code = _code;
-            newLine.LineID = DataSource.ListLines.Last().LineID+1;
+            newLine.LineID = DataSource.ListLines.Last().LineID + 1;
             newLine.FirstStation = _firstStation;
             newLine.LastStation = _lastStatoin;
-            DataSource.ListLines.Add(newLine);
+            DataSource.ListLines.Add(newLine.Clone());
             return newLine.LineID;
         }
-        public void UpdateLine(DLAPI.DO.Line _line)
+        public void UpdateLine(int _lineID, int _stationCode, int firstOrLast)
         {
+            if (firstOrLast == 0)
+                DataSource.ListLines.Find(line => line.LineID == _lineID).FirstStation = _stationCode;
+            else
+                DataSource.ListLines.Find(line => line.LineID == _lineID).LastStation = _stationCode;
+
         }
-        public void UpdateLine(int _lineID, Action<DLAPI.DO.Line> update) { } // Method that knows to updt specific fields in Line.
+
+        public void UpdateLine(int _lineID, Action<DLAPI.DO.Line> update)// Method that knows to updt specific fields in Line
+        {
+            try
+            {
+                DLAPI.DO.Line _currentLine = DataSource.ListLines.Find(_line => _line.LineID == _lineID);
+                if (_currentLine != null)
+                    update(_currentLine);
+            }
+            catch (DO.BadLineIDException ex)
+            {
+                throw ex;
+            }
+        }
         public void DeleteLine(int _lineID)
         {
             DLAPI.DO.Line _line = DataSource.ListLines.Find(line => line.LineID == _lineID);
             if (_line != null)
+            {
                 _line.Active = false;
+                this.DeleteLineStation(_line.LineID, _line.FirstStation);
+                this.DeleteLineStation(_line.LineID, _line.LastStation);
+            }
             else
                 throw new DO.BadLineIDException(_lineID);
         }
@@ -156,19 +212,19 @@ namespace DL
         {
             return from line in DataSource.ListLines
                    where line.Active
-                   select line;
+                   select line.Clone();
         }
         public IEnumerable<DLAPI.DO.Line> GetAllLines(Predicate<DLAPI.DO.Line> predicate)
         {
             return from line in DataSource.ListLines
                    where predicate(line) && line.Active
-                   select line;
+                   select line.Clone();
         }
         public IEnumerable<object> GetLineListWithSelectedFields(Func<DLAPI.DO.Line, object> generate)
         {
             return from line in DataSource.ListLines
                    where line.Active
-                   select generate(line);
+                   select generate(line.Clone());
         }
         public IEnumerable<object> GetAllPropertyLines(string property)
         {
@@ -191,28 +247,54 @@ namespace DL
             DLAPI.DO.LineStation _lineStation = DataSource.ListLineStations.Find(lineStation => lineStation.Station == _station
              && lineStation.LineID == _lineID && lineStation.Active);
             if (_lineStation != null)
-                return _lineStation;
-            throw new DO.BadLineStationException(_lineID,_station);
+                return _lineStation.Clone();
+            throw new DO.BadLineStationException(_lineID, _station);
 
         }
-        public void AddLineStation(int _lineID, int _stationCode, int _index) 
+        public void AddLineStation(int _lineID, int _stationCode, int _index)
         {
-            DLAPI.DO.LineStation lineStation= new DLAPI.DO.LineStation()
+            DLAPI.DO.LineStation lineStation = new DLAPI.DO.LineStation()
             {
                 Active = true,
                 Station = _stationCode,
                 LineStationIndex = _index,
                 LineID = _lineID
             };
-            DataSource.ListLineStations.Add(lineStation);
+            DataSource.ListLineStations.Add(lineStation.Clone());
         }
-        public void UpdateLineStation(DLAPI.DO.LineStation _station) { }
-        public void UpdateLineStation(int _lineID, int _stationCode, Action<DLAPI.DO.LineStation> update) { } // Method that knows to updt specific fields in LineStation.
+        public void AddLineStation(DLAPI.DO.LineStation _lineStation)
+        {
+            DLAPI.DO.LineStation newLineStation = DataSource.ListLineStations.Find(station => station.Station == _lineStation.Station && station.LineID == _lineStation.LineID);
+            if (newLineStation != null)
+            {
+                if (newLineStation.Active)
+                    throw new DO.BadLineStationException(newLineStation.LineID, newLineStation.Station);
+                newLineStation.LineStationIndex = _lineStation.LineStationIndex;
+                newLineStation.Active = true;
+            }
+            DataSource.ListLineStations.Add(_lineStation.Clone());
+        }
+        public void UpdateLineStation(int _lineID, int _stationCode, Action<DLAPI.DO.LineStation> update)
+        {
+            DLAPI.DO.LineStation lineStationToUpdate = DataSource.ListLineStations.Find(_lineStation => _lineStation.LineID == _lineID && _lineStation.Station == _stationCode);
+            if (lineStationToUpdate != null)
+                update(lineStationToUpdate);
+        } // Method that knows to updt specific fields in LineStation.
         public void DeleteLineStation(int _lineID, int _stationCode)
         {
             DataSource.ListLineStations.Find(lineStation => lineStation.Station == _stationCode
             && lineStation.LineID == _lineID).Active = false;
         }
+        public void DeleteLineStations(int _stationCode)
+        {
+            foreach (var lineStation in DataSource.ListLineStations)
+            {
+                if (lineStation.Active)
+                    if (lineStation.Station == _stationCode)
+                        lineStation.Active = false;
+            }
+        }
+
         public IEnumerable<DLAPI.DO.LineStation> GetRouteLine(int _lineID)
         {
             return from lineStation in DataSource.ListLineStations
@@ -232,7 +314,7 @@ namespace DL
         {
             return from lineStation in DataSource.ListLineStations
                    where predicate(lineStation) && lineStation.Active
-                   select lineStation;
+                   select lineStation.Clone();
         }
 
         #endregion
@@ -243,8 +325,8 @@ namespace DL
             DLAPI.DO.AdjacentStations _station = DataSource.ListAdjacentStations.Find(station => station.Station1 == _station1
              && station.Station2 == _station2 && station.Active);
             if (_station != null)
-                return _station;
-            throw new DO.BadAdjacentStationsException(_station1,_station2);
+                return _station.Clone();
+            throw new DO.BadAdjacentStationsException(_station1, _station2);
 
 
         }
@@ -256,77 +338,87 @@ namespace DL
         {
             return this.GetAdjacentStations(_station1, _station2).Time;
         }
-        public void AddAdjacentStations(DLAPI.DO.AdjacentStations _adjacentStations) 
-        { 
-            DataSource.ListAdjacentStations.Add(_adjacentStations);
-        }
-        public void UpdateAdjacentStations(DLAPI.DO.AdjacentStations _adjacentStations) { }
-        public void UpdateAdjacentStations(int _station1, int _station2, Action<DLAPI.DO.AdjacentStations> update) { } // Method that knows to updt specific fields in AdjacentStations.
-        public void DeleteAdjacentStations(int _station1, int _station2) { }
-        public IEnumerable<DLAPI.DO.AdjacentStations> GetAllAdjacentStations()
+        public void AddAdjacentStations(DLAPI.DO.AdjacentStations _adjacentStations)
         {
-            return new List<DLAPI.DO.AdjacentStations>();
+            DataSource.ListAdjacentStations.Add(_adjacentStations.Clone());
         }
-        public IEnumerable<DLAPI.DO.AdjacentStations> GetAllAdjacentStations(Predicate<DLAPI.DO.AdjacentStations> predicate)
+        public void DeleteAdjacentStations(int _stationCode)
         {
-            return new List<DLAPI.DO.AdjacentStations>();
+            foreach (var adjacentStation in DataSource.ListAdjacentStations)
+            {
+                if (adjacentStation.Active)
+                    if (adjacentStation.Station1 == _stationCode || adjacentStation.Station2 == _stationCode)
+                        adjacentStation.Active = false;
+            }
         }
-        #endregion
 
-        #region BusOnTrip
-        public DLAPI.DO.BusOnTrip GetBusOnTrip(int _licenseNum)
-        {
-            return new DLAPI.DO.BusOnTrip();
-        }
-        public void AddBusOnTrip(DLAPI.DO.BusOnTrip _busOnTrip) { }
-        public void UpdateBusOnTrip(DLAPI.DO.BusOnTrip _busOnTrip) { }
-        public void UpdateBusOnTrip(int _licenseNum, Action<DLAPI.DO.BusOnTrip> update) { } // Method that knows to updt specific fields in BusOnTrip.
-        public void DeleteBusOnTrip(int _licenseNum) { }
-        public IEnumerable<DLAPI.DO.BusOnTrip> GetAllBusesOnTrip()
-        {
-            return new List<DLAPI.DO.BusOnTrip>();
-        }
-        public IEnumerable<DLAPI.DO.BusOnTrip> GetAllBusesOnTrip(Predicate<DLAPI.DO.BusOnTrip> predicate)
-        {
-            return new List<DLAPI.DO.BusOnTrip>();
-        }
         #endregion
 
         #region LineTrip
-        public DLAPI.DO.LineTrip GetLineTrip(int _lineID)
+        public DLAPI.DO.LineTrip GetLineTrip(int _lineID, TimeSpan _startAt)
         {
-            return new DLAPI.DO.LineTrip();
+            DLAPI.DO.LineTrip lineTrip = DataSource.ListLinesTrip.Find(_lineTrip => _lineTrip.LineID == _lineID
+             && _lineTrip.StartAt == _startAt);
+            if (lineTrip != null && lineTrip.Active)
+                return lineTrip.Clone();
+            throw new DO.BadLineTripException("Line trip doesn't exist");
         }
-        public void AddLineTrip(DLAPI.DO.LineTrip _lineTrip) { }
-        public void UpdateLineTrip(DLAPI.DO.LineTrip _lineTrip) { }
-        public void UpdateLineTrip(int _lineID, Action<DLAPI.DO.LineTrip> update) { } // Method that knows to updt specific fields in LineTrip.
-        public void DeleteLineTrip(int _lineID) { }
+        public void AddLineTrip(DLAPI.DO.LineTrip _lineTrip)
+        {
+            if (DataSource.ListLinesTrip.Find(lineTrip => lineTrip.LineID == _lineTrip.LineID && lineTrip.StartAt == _lineTrip.StartAt) == null)
+            {
+                _lineTrip.LineTripID = Config.LineTripID++;
+                DataSource.ListLinesTrip.Add(_lineTrip.Clone());
+            }
+            else
+                DataSource.ListLinesTrip.Find(lineTrip => lineTrip.LineID == _lineTrip.LineID && lineTrip.StartAt == _lineTrip.StartAt).Active = true;
+        }
+        public void UpdateLineTrip(DLAPI.DO.LineTrip _lineTrip)
+        {
+            try
+            {
+                DataSource.ListLinesTrip.Find(lineTrip => lineTrip.LineTripID == _lineTrip.LineTripID && _lineTrip.Active).StartAt = _lineTrip.StartAt;
+            }
+            catch (NullReferenceException ex)
+            {
+
+                throw new DO.BadLineTripException("Line trip doesn't exist");
+            }
+        }
+        public void DeleteLineTrip(int _lineTripID)
+        {
+
+            try
+            {
+                DataSource.ListLinesTrip.Find(_lineTrip => _lineTrip.LineTripID == _lineTripID).Active = false;
+            }
+            catch (NullReferenceException ex)
+            {
+                throw new DO.BadLineTripException(_lineTripID, "Coudln't find LineTrip.");
+            }
+
+        }
+        public void DeleteLineTripPerLine(int _lineID)
+        {
+            foreach (var lineTrip in this.GetAllLinesTrip())
+            {
+                if (lineTrip.LineID == _lineID)
+                    this.DeleteLineTrip(lineTrip.LineTripID);
+            }
+        }
         public IEnumerable<DLAPI.DO.LineTrip> GetAllLinesTrip()
         {
-            return new List<DLAPI.DO.LineTrip>();
+            return from lineTrip in DataSource.ListLinesTrip
+                   where lineTrip.Active
+                   orderby lineTrip.StartAt
+                   select lineTrip.Clone();
         }
         public IEnumerable<DLAPI.DO.LineTrip> GetAllLinesTrip(Predicate<DLAPI.DO.LineTrip> predicate)
         {
-            return new List<DLAPI.DO.LineTrip>();
-        }
-        #endregion
-
-        #region Trip
-        public DLAPI.DO.Trip GetTrip(string _userName, int _inStationCode, int _outStationCode)
-        {
-            return new DLAPI.DO.Trip();
-        }
-        public void AddTrip(DLAPI.DO.Trip _trip) { }
-        public void UpdateTrip(DLAPI.DO.Trip _trip) { }
-        public void UpdateTrip(string _userName, int _inStationCode, int _outStationCode, Action<DLAPI.DO.Trip> update) { }// Method that knows to updt specific fields in Trip.
-        public void DeleteTrip(string _userName, int _inStationCode, int _outStationCode) { }
-        public IEnumerable<DLAPI.DO.Trip> GetAllTrips()
-        {
-            return new List<DLAPI.DO.Trip>();
-        }
-        public IEnumerable<DLAPI.DO.Trip> GetAllTrips(Predicate<DLAPI.DO.Trip> predicate)
-        {
-            return new List<DLAPI.DO.Trip>();
+            return from lineTrip in DataSource.ListLinesTrip
+                   where lineTrip.Active && predicate(lineTrip)
+                   orderby lineTrip.StartAt
+                   select lineTrip.Clone();
         }
         #endregion
 
@@ -334,12 +426,12 @@ namespace DL
         public DLAPI.DO.User GetUser(string _userName)
         {
             DLAPI.DO.User currUser = DataSource.ListUsers.Find(p => p.UserName == _userName);
-            return currUser;
+            return currUser.Clone();
 
         }
         public void AddUser(DLAPI.DO.User _user)
         {
-            DataSource.ListUsers.Add(_user);
+            DataSource.ListUsers.Add(_user.Clone());
         }
         public void UpdateUser(DLAPI.DO.User _user)
         {
@@ -347,10 +439,6 @@ namespace DL
             currUser.Password = _user.Password;
             currUser.Admin = _user.Admin;
         }
-        public void UpdateUser(string _userName, Action<DLAPI.DO.User> update)
-        {
-
-        } // Method that knows to updt specific fields in User.
         public void DeleteUser(string _userName)
         {
             DataSource.ListUsers.Find(p => p.UserName == _userName).Active = false;

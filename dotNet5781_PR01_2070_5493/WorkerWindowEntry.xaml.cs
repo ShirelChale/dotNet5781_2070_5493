@@ -28,6 +28,8 @@ namespace dotNet5781_PR01_2070_5493
         {
             InitializeComponent();
             this.bl = _bl;
+            this.userName = string.Empty;
+            this.password = string.Empty;
         }
 
         private void tbUserName_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
@@ -50,7 +52,15 @@ namespace dotNet5781_PR01_2070_5493
             if (text.Text == string.Empty)
                 text.Text = "User name";
             else
+            {
                 this.userName = text.Text;
+                this.signInBtnCheck();
+            }
+        }
+        private void signInBtnCheck()
+        {
+            if (this.userName != string.Empty && this.password != string.Empty)
+                btnSignIn.IsEnabled = true;
         }
 
         private void tbPassword_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
@@ -59,7 +69,10 @@ namespace dotNet5781_PR01_2070_5493
             if (text.Text == string.Empty)
                 text.Text = "Password";
             else
+            {
                 this.password = text.Text;
+                this.signInBtnCheck();
+            }
         }
 
         private void btnSignIn_Click(object sender, RoutedEventArgs e)
@@ -68,9 +81,9 @@ namespace dotNet5781_PR01_2070_5493
                 NavigationService.NavigateTo(new WorkerWindow(this.bl));
             else
             {
-                MessageBox.Show("One or more field are wrong");
                 tbPassword.Text = "Password";
                 tbUserName.Text = "User name";
+                btnSignIn.IsEnabled = false;
             }
         }
 
@@ -81,8 +94,18 @@ namespace dotNet5781_PR01_2070_5493
             if (_user != null)
             {
                 if (_user.Password == this.password)
-                    return true;
+                {
+                    if (_user.Admin)
+                        return true;
+                    else
+                    {
+                        MessageBox.Show("You don't have permission to enter!");
+                        return false;
+                    }
+                }
+
             }
+            MessageBox.Show("One or more field are wrong");
             return false;
         }
 

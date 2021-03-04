@@ -26,6 +26,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{11367D49-517B-4B26-8C2F-BDD5F76BD593}"
 	ProjectSection(SolutionItems) = preProject
 		dotNet5781_PR01_2070_5493\bin\Debug\config.xml = dotNet5781_PR01_2070_5493\bin\Debug\config.xml
+		dotNet5781_PR01_2070_5493\bin\Debug\xmlAdjacentStationsXml.xml = dotNet5781_PR01_2070_5493\bin\Debug\xmlAdjacentStationsXml.xml
+		dotNet5781_PR01_2070_5493\bin\Debug\xmlBusesXml.xml = dotNet5781_PR01_2070_5493\bin\Debug\xmlBusesXml.xml
+		dotNet5781_PR01_2070_5493\bin\Debug\xmlLineStationsXml.xml = dotNet5781_PR01_2070_5493\bin\Debug\xmlLineStationsXml.xml
+		dotNet5781_PR01_2070_5493\bin\Debug\xmlLinesTripXml.xml = dotNet5781_PR01_2070_5493\bin\Debug\xmlLinesTripXml.xml
+		dotNet5781_PR01_2070_5493\bin\Debug\xmlLinesXml.xml = dotNet5781_PR01_2070_5493\bin\Debug\xmlLinesXml.xml
+		dotNet5781_PR01_2070_5493\bin\Debug\xmlstaticConfigXml.xml = dotNet5781_PR01_2070_5493\bin\Debug\xmlstaticConfigXml.xml
+		dotNet5781_PR01_2070_5493\bin\Debug\xmlStationsXml.xml = dotNet5781_PR01_2070_5493\bin\Debug\xmlStationsXml.xml
+		dotNet5781_PR01_2070_5493\bin\Debug\xmlUsersXml.xml = dotNet5781_PR01_2070_5493\bin\Debug\xmlUsersXml.xml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLXML", "DLXML\DLXML.csproj", "{3C703239-EE7A-4B88-A2D2-05869600014B}"

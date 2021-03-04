@@ -54,11 +54,11 @@
                 <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
             <TextBlock HorizontalAlignment="Center" Foreground="#4AB648" Grid.Row="1" FontFamily="Tahoma" Margin="0,20,0,0" TextWrapping="Wrap" Text="Filters" FontSize="22" VerticalAlignment="Top" TextDecorations="Underline" FontWeight="Bold"/>
-            <ComboBox Name="cbStationName" IsEnabled="True" HorizontalAlignment="Center" Grid.Row="1" Margin="70,70,0,0" VerticalAlignment="Top" Width="120"/>
+            <ComboBox Name="cbStationName" IsEnabled="True" HorizontalAlignment="Center" Grid.Row="1" Margin="70,70,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbStationName_SelectionChanged"/>
             <ComboBox Name="cbStationCode" IsEnabled="True" HorizontalAlignment="Center" Grid.Row="1" Margin="70,110,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbStationCode_SelectionChanged"/>
             <TextBlock HorizontalAlignment="Left" Margin="20,70,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Station name:" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="20,110,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Station code:" VerticalAlignment="Top"/>
-            <Button Name="btnReset" Content="Reset" HorizontalAlignment="Center" Margin="0,0,0,110" Grid.Row="1" VerticalAlignment="Bottom" Width="50" Click="btnReset_Click"/>
+            <Button Name="btnReset" Background="#4AB648" Foreground="White" Content="Reset" HorizontalAlignment="Center" Margin="0,0,0,110" Grid.Row="1" VerticalAlignment="Bottom" Width="50" Click="btnReset_Click"/>
         </Grid>
     </Grid>
 </Window>

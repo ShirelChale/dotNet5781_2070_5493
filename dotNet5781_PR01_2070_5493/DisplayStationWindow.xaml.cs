@@ -23,13 +23,13 @@ namespace dotNet5781_PR01_2070_5493
     {
         IBL bl;
         BL.BO.Station station;
-        //ObservableCollection<PO.Station> stationsData;
+        IEnumerable<BL.BO.Station> stations;
         public DisplayStationWindow(IBL _bl)
         {
             InitializeComponent();
             this.bl = _bl;
-            //stationsData = new ObservableCollection<PO.Station>();
-            stationDataGrid.ItemsSource = bl.GetAllStations();
+            this.stations= bl.GetAllStations();
+            stationDataGrid.ItemsSource = this.stations;
             cbStationCode.ItemsSource = bl.GetAllPropertyStations("Code");
             cbStationName.ItemsSource = bl.GetAllPropertyStations("Name");
         }
@@ -53,7 +53,10 @@ namespace dotNet5781_PR01_2070_5493
             if (result == MessageBoxResult.OK)
             {
                 if (bl.DeleteStation(this.station))
+                {
                     MessageBox.Show("Station deleted successfully");
+                    stationDataGrid.ItemsSource = bl.GetAllStations();
+                }
                 else
                     MessageBox.Show("Station not exist");
             }
@@ -64,12 +67,25 @@ namespace dotNet5781_PR01_2070_5493
         {
             AddStationWindow window = new AddStationWindow(this.bl);
             window.Show();
+            window.Closing += Window_Closing;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            stationDataGrid.ItemsSource = bl.GetAllStations();
+            cbStationCode.ItemsSource = bl.GetAllPropertyStations("Code");
+            cbStationName.ItemsSource = bl.GetAllPropertyStations("Name");
+            this.btnUpdateStation.IsEnabled = false;
+            this.btnDeleteStation.IsEnabled = false;
         }
 
         private void btnUpdateStation_Click(object sender, RoutedEventArgs e)
         {
+            if (stationDataGrid.SelectedItem == null)
+                return;
             UpdateStationWindow window = new UpdateStationWindow(this.bl, this.station);
             window.Show();
+            window.Closing += Window_Closing;
         }
 
         private void stationDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -84,13 +100,31 @@ namespace dotNet5781_PR01_2070_5493
             int selecteStationCode = (int)cbStationCode.SelectedValue;
             if (selecteStationCode != 0)
             {
-                stationDataGrid.ItemsSource = bl.GetAllStations(station => station.Code == selecteStationCode);
+                this.stations = bl.GetAllStations(station => station.Code == selecteStationCode, this.stations);
+                stationDataGrid.ItemsSource = this.stations;
+
             }
         }
 
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
-            stationDataGrid.ItemsSource = bl.GetAllStations();
+            this.stations = bl.GetAllStations();
+            stationDataGrid.ItemsSource = this.stations;
+
+        }
+
+        private void cbStationName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbStationName.SelectedValue != null)
+            {
+                string selecteStationName = (string)cbStationName.SelectedValue;
+                if (selecteStationName != string.Empty)
+                {
+                    this.stations = bl.GetAllStations(station => station.Name == selecteStationName, this.stations);
+                    stationDataGrid.ItemsSource = this.stations;
+
+                }
+            }
 
         }
     }
