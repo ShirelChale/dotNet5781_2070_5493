@@ -36,6 +36,8 @@ namespace DS
         static DataSource()
         {
             InitAllLists();
+            //seting data in xml fils in first time.
+            #region setting fils
             //XMLTools.SaveListToXMLSerializer(ListStations, StationsPath);
             //XMLTools.SaveListToXMLSerializer(ListLines, LinesPath);
             //XMLTools.SaveListToXMLSerializer(ListBuses, BusesPath);
@@ -49,6 +51,7 @@ namespace DS
             //list.Add(Config.LineTripID);//2
             //list.Add(Config.StationCode);//3
             //XMLTools.SaveListToXMLSerializer(list, configPath);
+            #endregion
         }
 
         static void setlineTripList(string path)

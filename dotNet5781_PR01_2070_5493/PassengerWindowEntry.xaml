@@ -13,7 +13,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid x:Name="innerGrid" Grid.Column="1" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto">
-            <Image Source="Busi.png" Height="150" Margin="0,0,0,140"/>
+            <Image Source="UsersWindow.png" Height="150" Margin="0,0,0,140"/>
             <TextBox Name="tbUserName" Text="User name" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="White"  FontSize="20" Height="40" Background="#4AB648" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center" Width="150" GotKeyboardFocus="tbUserName_GotKeyboardFocus" LostFocus="tbUserName_LostFocus"/>
             <TextBox Name="tbPassword" Text="Password" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Foreground="White" FontSize="20" Height="40" Background="#4AB648" HorizontalAlignment="Center" Margin="0,220,0,0" VerticalAlignment="Center" Width="150" GotKeyboardFocus="tbPassword_GotKeyboardFocus" LostFocus="tbPassword_LostFocus"/>
             <Button Name="btnSignIn" IsEnabled="False" Content="Sign in" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Center" Background="#3A54A5"  Margin="0,400,0,0" VerticalAlignment="Center" Width="100" Click="btnSignIn_Click"/>
