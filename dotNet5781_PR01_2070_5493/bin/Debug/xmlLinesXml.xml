@@ -5,23 +5,23 @@
     <Code>10</Code>
     <Area>Har_Nof</Area>
     <FirstStation>100000</FirstStation>
-    <LastStation>100021</LastStation>
+    <LastStation>100003</LastStation>
     <Active>true</Active>
   </Line>
   <Line>
     <LineID>2</LineID>
     <Code>11</Code>
-    <Area>Har_Nof</Area>
+    <Area>Givat_Shaul</Area>
     <FirstStation>100001</FirstStation>
-    <LastStation>100031</LastStation>
+    <LastStation>100006</LastStation>
     <Active>true</Active>
   </Line>
-  <Line> 
+  <Line>
     <LineID>3</LineID>
     <Code>12</Code>
-    <Area>Givat_Shaul</Area>
+    <Area>Jerusalem</Area>
     <FirstStation>100002</FirstStation>
-    <LastStation>100018</LastStation>
+    <LastStation>100006</LastStation>
     <Active>true</Active>
   </Line>
   <Line>
@@ -35,8 +35,8 @@
   <Line>
     <LineID>5</LineID>
     <Code>14</Code>
-    <Area>Jerusalem</Area>
-    <FirstStation>100015</FirstStation>
+    <Area>Har_Nof</Area>
+    <FirstStation>100004</FirstStation>
     <LastStation>100009</LastStation>
     <Active>true</Active>
   </Line>
@@ -45,31 +45,31 @@
     <Code>15</Code>
     <Area>Givat_Shaul</Area>
     <FirstStation>100005</FirstStation>
-    <LastStation>100002</LastStation>
+    <LastStation>100006</LastStation>
     <Active>true</Active>
   </Line>
   <Line>
     <LineID>7</LineID>
     <Code>16</Code>
-    <Area>Har_Nof</Area>
+    <Area>Givat_Shaul</Area>
     <FirstStation>100006</FirstStation>
-    <LastStation>100007</LastStation>
+    <LastStation>100001</LastStation>
     <Active>true</Active>
   </Line>
   <Line>
     <LineID>8</LineID>
     <Code>17</Code>
-    <Area>Har_Nof</Area>
+    <Area>Jerusalem</Area>
     <FirstStation>100007</FirstStation>
-    <LastStation>100006</LastStation>
+    <LastStation>100036</LastStation>
     <Active>true</Active>
   </Line>
   <Line>
     <LineID>9</LineID>
     <Code>18</Code>
     <Area>Jerusalem</Area>
-    <FirstStation>100002</FirstStation>
-    <LastStation>100003</LastStation>
+    <FirstStation>100008</FirstStation>
+    <LastStation>100002</LastStation>
     <Active>true</Active>
   </Line>
   <Line>
@@ -77,31 +77,7 @@
     <Code>19</Code>
     <Area>Jerusalem</Area>
     <FirstStation>100009</FirstStation>
-    <LastStation>100010</LastStation>
-    <Active>true</Active>
-  </Line>
-  <Line>
-    <LineID>11</LineID>
-    <Code>67</Code>
-    <Area>Har_Nof</Area>
-    <FirstStation>100002</FirstStation>
-    <LastStation>100026</LastStation>
-    <Active>true</Active>
-  </Line>
-  <Line>
-    <LineID>12</LineID>
-    <Code>78</Code>
-    <Area>Jerusalem</Area>
-    <FirstStation>100003</FirstStation>
-    <LastStation>100002</LastStation>
-    <Active>true</Active>
-  </Line>
-  <Line>
-    <LineID>13</LineID>
-    <Code>56</Code>
-    <Area>Har_Nof</Area>
-    <FirstStation>100003</FirstStation>
-    <LastStation>100036</LastStation>
+    <LastStation>100005</LastStation>
     <Active>true</Active>
   </Line>
 </ArrayOfLine>

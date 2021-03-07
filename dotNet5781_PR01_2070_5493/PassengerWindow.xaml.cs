@@ -21,10 +21,11 @@ namespace dotNet5781_PR01_2070_5493
     public partial class PassengerWindow : Window
     {
         IBL bl;
-        public PassengerWindow(IBL _bl)
+        public PassengerWindow(IBL _bl, string _userName)
         {
             InitializeComponent();
             this.bl = _bl;
+            this.lHelloUser.Content = "Hello " + _userName + "!";
         }
 
 

@@ -71,7 +71,7 @@
             <ComboBox x:Name="cbArea" IsEnabled="True" HorizontalAlignment="Center" Grid.Row="1" Margin="70,130,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbArea_SelectionChanged" />
             <ComboBox x:Name="cbFrom" IsEnabled="True" HorizontalAlignment="Center" Grid.Row="1" Margin="70,170,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbFrom_SelectionChanged" />
             <ComboBox x:Name="cbTo" IsEnabled="True" HorizontalAlignment="Center" Grid.Row="1" Margin="70,210,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cbTo_SelectionChanged" />
-            <TextBlock HorizontalAlignment="Left" Margin="20,50,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Line ID:" VerticalAlignment="Top"/>
+            <TextBlock x:Name="tbLineID" HorizontalAlignment="Left" Margin="20,50,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Line ID:" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="20,90,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Line code:" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="20,130,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Area:" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="20,170,0,0" Grid.Row="1" TextWrapping="Wrap" Text="From:" VerticalAlignment="Top"/>

@@ -37,6 +37,8 @@ namespace dotNet5781_PR01_2070_5493
                 btnAddLineTrip.Visibility = Visibility.Hidden;
                 btnDeleteLineTrip.Visibility = Visibility.Hidden;
                 btnUpdateLineTrip.Visibility = Visibility.Hidden;
+                tbLineID.Visibility = Visibility.Hidden;
+                cbLineID.Visibility = Visibility.Hidden;
             }
             this.bl = _bl;
             this.lineTrips = bl.GetAllLinesTrip();

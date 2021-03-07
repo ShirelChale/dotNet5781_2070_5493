@@ -3,638 +3,750 @@
   <AdjacentStations>
     <Station1>100000</Station1>
     <Station2>100001</Station2>
-    <Distance>133.36078175642055</Distance>
-    <Time>03:20:00</Time>
+    <Distance>40.8810876741632</Distance>
+    <Time>00:08:00</Time>
     <Active>true</Active>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100001</Station1>
     <Station2>100002</Station2>
-    <Distance>42.96655528890691</Distance>
-    <Time>01:04:00</Time>
+    <Distance>165.80467055115665</Distance>
+    <Time>00:33:00</Time>
     <Active>true</Active>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100002</Station1>
     <Station2>100003</Station2>
-    <Distance>140.85504597172204</Distance>
-    <Time>03:31:00</Time>
+    <Distance>83.246465198466183</Distance>
+    <Time>00:16:00</Time>
     <Active>true</Active>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100003</Station1>
     <Station2>100004</Station2>
-    <Distance>136.63659500912149</Distance>
-    <Time>03:24:00</Time>
+    <Distance>29.981132543594963</Distance>
+    <Time>00:05:00</Time>
     <Active>true</Active>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100004</Station1>
     <Station2>100005</Station2>
-    <Distance>44.906213925278543</Distance>
-    <Time>01:07:00</Time>
+    <Distance>117.42112276466418</Distance>
+    <Time>00:23:00</Time>
     <Active>true</Active>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100005</Station1>
     <Station2>100006</Station2>
-    <Distance>56.050131137484364</Distance>
-    <Time>01:24:00</Time>
+    <Distance>38.174844420978033</Distance>
+    <Time>00:07:00</Time>
     <Active>true</Active>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100006</Station1>
     <Station2>100007</Station2>
-    <Distance>64.122175986602443</Distance>
-    <Time>01:36:00</Time>
+    <Distance>181.13542854747652</Distance>
+    <Time>00:36:00</Time>
     <Active>true</Active>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100007</Station1>
     <Station2>100008</Station2>
-    <Distance>73.69711896241607</Distance>
-    <Time>01:50:00</Time>
+    <Distance>131.17226301542576</Distance>
+    <Time>00:26:00</Time>
     <Active>true</Active>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100008</Station1>
     <Station2>100009</Station2>
-    <Distance>71.4829989620719</Distance>
-    <Time>01:47:00</Time>
+    <Distance>150.72469773254207</Distance>
+    <Time>00:30:00</Time>
     <Active>true</Active>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100009</Station1>
     <Station2>100010</Station2>
-    <Distance>85.633148479256008</Distance>
-    <Time>02:08:00</Time>
+    <Distance>42.577572190196449</Distance>
+    <Time>00:08:00</Time>
     <Active>true</Active>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100002</Station1>
-    <Station2>100010</Station2>
-    <Distance>7.9937941791719949</Distance>
+    <Station1>100001</Station1>
+    <Station2>100003</Station2>
+    <Distance>84.456539283888631</Distance>
+    <Active>true</Active>
+    <Time>00:16:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100001</Station1>
+    <Station2>100005</Station2>
+    <Distance>56.108485811234452</Distance>
     <Active>true</Active>
     <Time>00:11:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100010</Station1>
-    <Station2>100020</Station2>
-    <Distance>76.370792960570682</Distance>
-    <Active>true</Active>
-    <Time>01:54:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100020</Station1>
-    <Station2>100029</Station2>
-    <Distance>113.3655449183741</Distance>
-    <Active>true</Active>
-    <Time>02:50:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100029</Station1>
-    <Station2>100026</Station2>
-    <Distance>101.87645775576236</Distance>
-    <Active>true</Active>
-    <Time>02:32:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100003</Station1>
-    <Station2>100005</Station2>
-    <Distance>94.968609724083464</Distance>
-    <Active>true</Active>
-    <Time>02:22:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
     <Station1>100005</Station1>
-    <Station2>100010</Station2>
-    <Distance>50.811787160741751</Distance>
-    <Active>true</Active>
-    <Time>01:16:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100010</Station1>
-    <Station2>100036</Station2>
-    <Distance>141.64547039963958</Distance>
-    <Active>true</Active>
-    <Time>03:32:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100003</Station1>
-    <Station2>100035</Station2>
-    <Distance>165.75228321947745</Distance>
-    <Active>true</Active>
-    <Time>04:08:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100035</Station1>
-    <Station2>100034</Station2>
-    <Distance>145.22707744180747</Distance>
-    <Active>true</Active>
-    <Time>03:37:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100034</Station1>
-    <Station2>100036</Station2>
-    <Distance>28.74703863895212</Distance>
-    <Active>true</Active>
-    <Time>00:43:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100000</Station1>
     <Station2>100003</Station2>
-    <Distance>43.505164244811468</Distance>
+    <Distance>140.52884730158587</Distance>
     <Active>true</Active>
-    <Time>01:05:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100003</Station1>
-    <Station2>100001</Station2>
-    <Distance>176.62529023522214</Distance>
-    <Active>true</Active>
-    <Time>04:24:00</Time>
+    <Time>00:28:00</Time>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100001</Station1>
     <Station2>100008</Station2>
-    <Distance>48.797084121843056</Distance>
+    <Distance>23.15196608880288</Distance>
     <Active>true</Active>
-    <Time>01:13:00</Time>
+    <Time>00:04:00</Time>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100008</Station1>
-    <Station2>100016</Station2>
-    <Distance>48.140961368672485</Distance>
+    <Station2>100005</Station2>
+    <Distance>71.176767171785215</Distance>
     <Active>true</Active>
-    <Time>01:12:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100016</Station1>
-    <Station2>100021</Station2>
-    <Distance>152.33447194681875</Distance>
-    <Active>true</Active>
-    <Time>03:48:00</Time>
+    <Time>00:14:00</Time>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100001</Station1>
-    <Station2>100004</Station2>
-    <Distance>44.350417608050755</Distance>
+    <Station2>100010</Station2>
+    <Distance>117.04459162780258</Distance>
     <Active>true</Active>
-    <Time>01:06:00</Time>
+    <Time>00:23:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100004</Station1>
-    <Station2>100002</Station2>
-    <Distance>5.6893563356174068</Distance>
+    <Station1>100010</Station1>
+    <Station2>100008</Station2>
+    <Distance>111.65560380402388</Distance>
+    <Active>true</Active>
+    <Time>00:22:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100002</Station1>
+    <Station2>100006</Station2>
+    <Distance>208.68986537327217</Distance>
+    <Active>true</Active>
+    <Time>00:41:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100002</Station1>
+    <Station2>100012</Station2>
+    <Distance>52.1648833785058</Distance>
+    <Active>true</Active>
+    <Time>00:10:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100012</Station1>
+    <Station2>100006</Station2>
+    <Distance>179.98030127115661</Distance>
+    <Active>true</Active>
+    <Time>00:35:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100002</Station1>
+    <Station2>100018</Station2>
+    <Distance>186.73811380617363</Distance>
+    <Active>true</Active>
+    <Time>00:37:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100018</Station1>
+    <Station2>100012</Station2>
+    <Distance>167.31764127358349</Distance>
+    <Active>true</Active>
+    <Time>00:33:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100002</Station1>
+    <Station2>100024</Station2>
+    <Distance>181.91674911039098</Distance>
+    <Active>true</Active>
+    <Time>00:36:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100024</Station1>
+    <Station2>100018</Station2>
+    <Distance>36.056974876400872</Distance>
+    <Active>true</Active>
+    <Time>00:07:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100003</Station1>
+    <Station2>100006</Station2>
+    <Distance>125.51808045275898</Distance>
+    <Active>true</Active>
+    <Time>00:25:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100003</Station1>
+    <Station2>100011</Station2>
+    <Distance>83.557947943385173</Distance>
+    <Active>true</Active>
+    <Time>00:16:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100011</Station1>
+    <Station2>100006</Station2>
+    <Distance>42.753851482192417</Distance>
     <Active>true</Active>
     <Time>00:08:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100002</Station1>
-    <Station2>100016</Station2>
-    <Distance>82.927049067111767</Distance>
+    <Station1>100003</Station1>
+    <Station2>100015</Station2>
+    <Distance>59.618066267673932</Distance>
     <Active>true</Active>
-    <Time>02:04:00</Time>
+    <Time>00:11:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100016</Station1>
-    <Station2>100026</Station2>
-    <Distance>125.35866168991929</Distance>
+    <Station1>100015</Station1>
+    <Station2>100011</Station2>
+    <Distance>143.17333286048429</Distance>
     <Active>true</Active>
-    <Time>03:08:00</Time>
+    <Time>00:28:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100026</Station1>
-    <Station2>100037</Station2>
-    <Distance>50.401734071679876</Distance>
+    <Station1>100011</Station1>
+    <Station2>100020</Station2>
+    <Distance>62.808130776715856</Distance>
     <Active>true</Active>
-    <Time>01:15:00</Time>
+    <Time>00:12:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100037</Station1>
-    <Station2>100031</Station2>
-    <Distance>124.08380104799878</Distance>
+    <Station1>100020</Station1>
+    <Station2>100006</Station2>
+    <Distance>43.441805345961207</Distance>
     <Active>true</Active>
-    <Time>03:06:00</Time>
+    <Time>00:08:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100016</Station1>
+    <Station1>100024</Station1>
+    <Station2>100003</Station2>
+    <Distance>98.687078344261778</Distance>
+    <Active>true</Active>
+    <Time>00:19:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100011</Station1>
     <Station2>100030</Station2>
-    <Distance>92.1152385595509</Distance>
+    <Distance>68.363987699963175</Distance>
     <Active>true</Active>
-    <Time>02:18:00</Time>
+    <Time>00:13:00</Time>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100030</Station1>
-    <Station2>100026</Station2>
-    <Distance>126.40843910255751</Distance>
+    <Station2>100020</Station2>
+    <Distance>124.3029562286288</Distance>
     <Active>true</Active>
-    <Time>03:09:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100016</Station1>
-    <Station2>100029</Station2>
-    <Distance>75.391593145835145</Distance>
-    <Active>true</Active>
-    <Time>01:53:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100029</Station1>
-    <Station2>100030</Station2>
-    <Distance>27.222948472121072</Distance>
-    <Active>true</Active>
-    <Time>00:40:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100002</Station1>
-    <Station2>100008</Station2>
-    <Distance>46.356493611640794</Distance>
-    <Active>true</Active>
-    <Time>01:09:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100008</Station1>
-    <Station2>100003</Station2>
-    <Distance>136.96732728757783</Distance>
-    <Active>true</Active>
-    <Time>03:25:00</Time>
+    <Time>00:24:00</Time>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100003</Station1>
     <Station2>100013</Station2>
-    <Distance>40.048322685387554</Distance>
+    <Distance>50.576688812877144</Distance>
     <Active>true</Active>
-    <Time>01:00:00</Time>
+    <Time>00:10:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100013</Station1>
+    <Station2>100004</Station2>
+    <Distance>20.601059874966733</Distance>
+    <Active>true</Active>
+    <Time>00:04:00</Time>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100013</Station1>
     <Station2>100018</Station2>
-    <Distance>113.24487667238344</Distance>
+    <Distance>74.682594385167235</Distance>
     <Active>true</Active>
-    <Time>02:49:00</Time>
+    <Time>00:14:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100018</Station1>
+    <Station2>100004</Station2>
+    <Distance>85.303564365916117</Distance>
+    <Active>true</Active>
+    <Time>00:17:00</Time>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100003</Station1>
-    <Station2>100008</Station2>
-    <Distance>136.96732728757783</Distance>
+    <Station2>100021</Station2>
+    <Distance>103.80303660362071</Distance>
     <Active>true</Active>
-    <Time>03:25:00</Time>
+    <Time>00:20:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100008</Station1>
-    <Station2>100004</Station2>
-    <Distance>41.781236136827054</Distance>
-    <Active>true</Active>
-    <Time>01:02:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100016</Station1>
-    <Station2>100004</Station2>
-    <Distance>80.5561747871238</Distance>
-    <Active>true</Active>
-    <Time>02:00:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100008</Station1>
-    <Station2>100023</Station2>
-    <Distance>73.524765173472616</Distance>
-    <Active>true</Active>
-    <Time>01:50:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100023</Station1>
-    <Station2>100016</Station2>
-    <Distance>118.94232652424219</Distance>
-    <Active>true</Active>
-    <Time>02:58:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100023</Station1>
-    <Station2>100032</Station2>
-    <Distance>33.306056955222431</Distance>
-    <Active>true</Active>
-    <Time>00:49:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100032</Station1>
-    <Station2>100016</Station2>
-    <Distance>94.463058376532615</Distance>
-    <Active>true</Active>
-    <Time>02:21:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100023</Station1>
-    <Station2>100038</Station2>
-    <Distance>80.465820283952127</Distance>
-    <Active>true</Active>
-    <Time>02:00:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100038</Station1>
-    <Station2>100032</Station2>
-    <Distance>49.499033607552633</Distance>
-    <Active>true</Active>
-    <Time>01:14:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100005</Station1>
-    <Station2>100009</Station2>
-    <Distance>43.039535028309459</Distance>
-    <Active>true</Active>
-    <Time>01:04:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100015</Station1>
-    <Station2>100004</Station2>
-    <Distance>94.4850753511369</Distance>
-    <Active>true</Active>
-    <Time>02:21:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100005</Station1>
-    <Station2>100022</Station2>
-    <Distance>86.859874817447533</Distance>
-    <Active>true</Active>
-    <Time>02:10:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100022</Station1>
-    <Station2>100009</Station2>
-    <Distance>45.090413435137286</Distance>
-    <Active>true</Active>
-    <Time>01:07:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100022</Station1>
-    <Station2>100029</Station2>
-    <Distance>162.16940809442406</Distance>
-    <Active>true</Active>
-    <Time>04:03:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100029</Station1>
-    <Station2>100009</Station2>
-    <Distance>118.80259773451628</Distance>
-    <Active>true</Active>
-    <Time>02:58:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100006</Station1>
-    <Station2>100004</Station2>
-    <Distance>52.349508057829681</Distance>
-    <Active>true</Active>
-    <Time>01:18:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100004</Station1>
-    <Station2>100009</Station2>
-    <Distance>74.94745683141474</Distance>
-    <Active>true</Active>
-    <Time>01:52:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100006</Station1>
-    <Station2>100002</Station2>
-    <Distance>57.976950503789475</Distance>
-    <Active>true</Active>
-    <Time>01:26:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100002</Station1>
-    <Station2>100007</Station2>
-    <Distance>51.317231764166934</Distance>
-    <Active>true</Active>
-    <Time>01:16:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100003</Station1>
-    <Station2>100007</Station2>
-    <Distance>95.310893245749625</Distance>
-    <Active>true</Active>
-    <Time>02:22:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100002</Station1>
+    <Station1>100021</Station1>
     <Station2>100013</Station2>
-    <Distance>140.44069500235497</Distance>
+    <Distance>60.540195871512644</Distance>
     <Active>true</Active>
-    <Time>03:30:00</Time>
+    <Time>00:12:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100013</Station1>
-    <Station2>100003</Station2>
-    <Distance>40.048322685387554</Distance>
+    <Station1>100021</Station1>
+    <Station2>100024</Station2>
+    <Distance>8.0386593229601591</Distance>
     <Active>true</Active>
-    <Time>01:00:00</Time>
+    <Time>00:01:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100003</Station1>
-    <Station2>100023</Station2>
-    <Distance>63.661845353612939</Distance>
+    <Station1>100024</Station1>
+    <Station2>100013</Station2>
+    <Distance>53.706944405659229</Distance>
     <Active>true</Active>
-    <Time>01:35:00</Time>
+    <Time>00:10:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100023</Station1>
+    <Station1>100005</Station1>
+    <Station2>100001</Station2>
+    <Distance>56.108485811234452</Distance>
+    <Active>true</Active>
+    <Time>00:11:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100005</Station1>
     <Station2>100007</Station2>
-    <Distance>48.588091888031514</Distance>
-    <Active>true</Active>
-    <Time>01:12:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100008</Station1>
-    <Station2>100006</Station2>
-    <Distance>26.285664239639196</Distance>
+    <Distance>198.30611243329062</Distance>
     <Active>true</Active>
     <Time>00:39:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100008</Station1>
-    <Station2>100010</Station2>
-    <Distance>54.080622652649062</Distance>
+    <Station1>100007</Station1>
+    <Station2>100001</Station2>
+    <Distance>142.19912442269242</Distance>
     <Active>true</Active>
-    <Time>01:21:00</Time>
+    <Time>00:28:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100010</Station1>
-    <Station2>100006</Station2>
-    <Distance>65.86092036776455</Distance>
+    <Station1>100007</Station1>
+    <Station2>100011</Station2>
+    <Distance>138.45269020877026</Distance>
     <Active>true</Active>
-    <Time>01:38:00</Time>
+    <Time>00:27:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100009</Station1>
-    <Station2>100003</Station2>
-    <Distance>65.65428592284762</Distance>
+    <Station1>100011</Station1>
+    <Station2>100001</Station2>
+    <Distance>27.335028740317707</Distance>
     <Active>true</Active>
-    <Time>01:38:00</Time>
+    <Time>00:05:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100009</Station1>
-    <Station2>100006</Station2>
-    <Distance>47.618908959915117</Distance>
-    <Active>true</Active>
-    <Time>01:11:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100006</Station1>
-    <Station2>100010</Station2>
-    <Distance>65.86092036776455</Distance>
-    <Active>true</Active>
-    <Time>01:38:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100006</Station1>
-    <Station2>100013</Station2>
-    <Distance>128.06569667316495</Distance>
-    <Active>true</Active>
-    <Time>03:12:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100013</Station1>
-    <Station2>100010</Station2>
-    <Distance>142.59784694058902</Distance>
-    <Active>true</Active>
-    <Time>03:33:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100013</Station1>
-    <Station2>100019</Station2>
-    <Distance>67.306472058563529</Distance>
-    <Active>true</Active>
-    <Time>01:40:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100019</Station1>
-    <Station2>100010</Station2>
-    <Distance>166.60653020160677</Distance>
-    <Active>true</Active>
-    <Time>04:09:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100006</Station1>
-    <Station2>100026</Station2>
-    <Distance>63.92318142529593</Distance>
-    <Active>true</Active>
-    <Time>01:35:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100026</Station1>
-    <Station2>100013</Station2>
-    <Distance>79.580484262632055</Distance>
-    <Active>true</Active>
-    <Time>01:59:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100009</Station1>
+    <Station1>100005</Station1>
     <Station2>100035</Station2>
-    <Distance>100.17087896141091</Distance>
+    <Distance>13.490703405111962</Distance>
     <Active>true</Active>
-    <Time>02:30:00</Time>
+    <Time>00:02:00</Time>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100035</Station1>
     <Station2>100006</Station2>
-    <Distance>54.854819404763013</Distance>
+    <Distance>24.707966851312229</Distance>
     <Active>true</Active>
-    <Time>01:22:00</Time>
+    <Time>00:04:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100013</Station1>
-    <Station2>100030</Station2>
-    <Distance>205.31657731531888</Distance>
+    <Station1>100035</Station1>
+    <Station2>100037</Station2>
+    <Distance>128.09466089135566</Distance>
     <Active>true</Active>
-    <Time>05:07:00</Time>
+    <Time>00:25:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100030</Station1>
+    <Station1>100037</Station1>
+    <Station2>100006</Station2>
+    <Distance>110.53151941423657</Distance>
+    <Active>true</Active>
+    <Time>00:22:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100037</Station1>
+    <Station2>100033</Station2>
+    <Distance>24.504866180333011</Distance>
+    <Active>true</Active>
+    <Time>00:04:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100033</Station1>
+    <Station2>100006</Station2>
+    <Distance>94.396611605049728</Distance>
+    <Active>true</Active>
+    <Time>00:18:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100035</Station1>
+    <Station2>100027</Station2>
+    <Distance>122.76184240262184</Distance>
+    <Active>true</Active>
+    <Time>00:24:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100027</Station1>
+    <Station2>100037</Station2>
+    <Distance>10.37729660588565</Distance>
+    <Active>true</Active>
+    <Time>00:02:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100027</Station1>
+    <Station2>100001</Station2>
+    <Distance>79.622222168853042</Distance>
+    <Active>true</Active>
+    <Time>00:15:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100001</Station1>
+    <Station2>100037</Station2>
+    <Distance>87.214521144032247</Distance>
+    <Active>true</Active>
+    <Time>00:17:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100007</Station1>
+    <Station2>100015</Station2>
+    <Distance>23.806481093743709</Distance>
+    <Active>true</Active>
+    <Time>00:04:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100015</Station1>
+    <Station2>100001</Station2>
+    <Distance>142.35264486782725</Distance>
+    <Active>true</Active>
+    <Time>00:28:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100015</Station1>
     <Station2>100019</Station2>
-    <Distance>227.75889506257059</Distance>
+    <Distance>45.816276143244465</Distance>
     <Active>true</Active>
-    <Time>05:41:00</Time>
+    <Time>00:09:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100003</Station1>
-    <Station2>100002</Station2>
-    <Distance>140.85504597172204</Distance>
+    <Station1>100019</Station1>
+    <Station2>100001</Station2>
+    <Distance>96.999254419015415</Distance>
     <Active>true</Active>
-    <Time>03:31:00</Time>
+    <Time>00:19:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100015</Station1>
+    <Station2>100025</Station2>
+    <Distance>45.16399063765256</Distance>
+    <Active>true</Active>
+    <Time>00:09:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100025</Station1>
+    <Station2>100019</Station2>
+    <Distance>14.913511531130801</Distance>
+    <Active>true</Active>
+    <Time>00:02:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100008</Station1>
+    <Station2>100002</Station2>
+    <Distance>150.85178997153662</Distance>
+    <Active>true</Active>
+    <Time>00:30:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100002</Station1>
+    <Station2>100005</Station2>
+    <Distance>221.1101916542259</Distance>
+    <Active>true</Active>
+    <Time>00:44:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100002</Station1>
+    <Station2>100011</Station2>
+    <Distance>166.79088979584915</Distance>
+    <Active>true</Active>
+    <Time>00:33:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100011</Station1>
+    <Station2>100005</Station2>
+    <Distance>68.049459403295941</Distance>
+    <Active>true</Active>
+    <Time>00:13:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100012</Station1>
+    <Station2>100011</Station2>
+    <Distance>137.28690851411272</Distance>
+    <Active>true</Active>
+    <Time>00:27:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100002</Station1>
+    <Station2>100019</Station2>
+    <Distance>68.953366703076028</Distance>
+    <Active>true</Active>
+    <Time>00:13:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100019</Station1>
+    <Station2>100012</Station2>
+    <Distance>62.347301403072116</Distance>
+    <Active>true</Active>
+    <Time>00:12:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100019</Station1>
+    <Station2>100033</Station2>
+    <Distance>92.5047446261964</Distance>
+    <Active>true</Active>
+    <Time>00:18:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100033</Station1>
+    <Station2>100012</Station2>
+    <Distance>99.919764078223864</Distance>
+    <Active>true</Active>
+    <Time>00:19:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100005</Station1>
+    <Station2>100036</Station2>
+    <Distance>118.71145054647836</Distance>
+    <Active>true</Active>
+    <Time>00:23:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100009</Station1>
+    <Station2>100004</Station2>
+    <Distance>92.0652412956939</Distance>
+    <Active>true</Active>
+    <Time>00:18:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100004</Station1>
+    <Station2>100011</Station2>
+    <Distance>55.300284769676786</Distance>
+    <Active>true</Active>
+    <Time>00:11:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100009</Station1>
+    <Station2>100015</Station2>
+    <Distance>84.931107171239333</Distance>
+    <Active>true</Active>
+    <Time>00:16:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100015</Station1>
+    <Station2>100004</Station2>
+    <Distance>88.77967188032261</Distance>
+    <Active>true</Active>
+    <Time>00:17:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100009</Station1>
+    <Station2>100018</Station2>
+    <Distance>175.68009936815733</Distance>
+    <Active>true</Active>
+    <Time>00:35:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100018</Station1>
+    <Station2>100015</Station2>
+    <Distance>163.50995138945405</Distance>
+    <Active>true</Active>
+    <Time>00:32:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100010</Station1>
+    <Station2>100005</Station2>
+    <Distance>172.16448759759788</Distance>
+    <Active>true</Active>
+    <Time>00:34:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100010</Station1>
+    <Station2>100034</Station2>
+    <Distance>84.070429373720543</Distance>
+    <Active>true</Active>
+    <Time>00:16:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100034</Station1>
+    <Station2>100005</Station2>
+    <Distance>105.95927087806727</Distance>
+    <Active>true</Active>
+    <Time>00:21:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100034</Station1>
+    <Station2>100031</Station2>
+    <Distance>97.93255517560759</Distance>
+    <Active>true</Active>
+    <Time>00:19:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100031</Station1>
+    <Station2>100005</Station2>
+    <Distance>188.42603829411826</Distance>
+    <Active>true</Active>
+    <Time>00:37:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100010</Station1>
+    <Station2>100028</Station2>
+    <Distance>59.952218494865704</Distance>
+    <Active>true</Active>
+    <Time>00:11:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100028</Station1>
+    <Station2>100034</Station2>
+    <Distance>138.86082788153883</Distance>
+    <Active>true</Active>
+    <Time>00:27:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100028</Station1>
+    <Station2>100029</Station2>
+    <Distance>179.89322667466431</Distance>
+    <Active>true</Active>
+    <Time>00:35:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100029</Station1>
+    <Station2>100034</Station2>
+    <Distance>86.154741860120836</Distance>
+    <Active>true</Active>
+    <Time>00:17:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100000</Station1>
+    <Station2>100002</Station2>
+    <Distance>187.39694076520769</Distance>
+    <Active>true</Active>
+    <Time>00:37:00</Time>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100002</Station1>
     <Station2>100001</Station2>
-    <Distance>42.96655528890691</Distance>
+    <Distance>165.80467055115665</Distance>
     <Active>true</Active>
-    <Time>01:04:00</Time>
+    <Time>00:33:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100032</Station1>
-    <Station2>100002</Station2>
-    <Distance>48.529810832838649</Distance>
+    <Station1>100024</Station1>
+    <Station2>100009</Station2>
+    <Distance>153.17340812729239</Distance>
     <Active>true</Active>
-    <Time>01:12:00</Time>
+    <Time>00:30:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100029</Station1>
-    <Station2>100002</Station2>
-    <Distance>41.122129384366104</Distance>
+    <Station1>100009</Station1>
+    <Station2>100003</Station2>
+    <Distance>84.928689349649247</Distance>
     <Active>true</Active>
-    <Time>01:01:00</Time>
+    <Time>00:16:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100003</Station1>
+    <Station2>100002</Station2>
+    <Distance>83.246465198466183</Distance>
+    <Active>true</Active>
+    <Time>00:16:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100002</Station1>
+    <Station2>100021</Station2>
+    <Distance>186.86840919842754</Distance>
+    <Active>true</Active>
+    <Time>00:37:00</Time>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100002</Station1>
     <Station2>100009</Station2>
-    <Distance>79.91642094919338</Distance>
+    <Distance>94.910198574555466</Distance>
     <Active>true</Active>
-    <Time>01:59:00</Time>
+    <Time>00:18:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100009</Station1>
+    <Station2>100021</Station2>
+    <Distance>160.67855676707777</Distance>
+    <Active>true</Active>
+    <Time>00:32:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100004</Station1>
+    <Station2>100002</Station2>
+    <Distance>112.23865293374691</Distance>
+    <Active>true</Active>
+    <Time>00:22:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100001</Station1>
+    <Station2>100009</Station2>
+    <Distance>152.59646529204079</Distance>
+    <Active>true</Active>
+    <Time>00:30:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100027</Station1>
+    <Station2>100002</Station2>
+    <Distance>114.78486887020188</Distance>
+    <Active>true</Active>
+    <Time>00:22:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100009</Station1>
+    <Station2>100001</Station2>
+    <Distance>152.59646529204079</Distance>
+    <Active>true</Active>
+    <Time>00:30:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100025</Station1>
+    <Station2>100002</Station2>
+    <Distance>68.768624404491121</Distance>
+    <Active>true</Active>
+    <Time>00:13:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100025</Station1>
+    <Station2>100009</Station2>
+    <Distance>79.781722902843711</Distance>
+    <Active>true</Active>
+    <Time>00:15:00</Time>
   </AdjacentStations>
   <AdjacentStations>
     <Station1>100009</Station1>
     <Station2>100002</Station2>
-    <Distance>79.91642094919338</Distance>
+    <Distance>94.910198574555466</Distance>
     <Active>true</Active>
-    <Time>01:59:00</Time>
+    <Time>00:18:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100008</Station1>
+    <Station1>100007</Station1>
+    <Station2>100009</Station2>
+    <Distance>61.241198857143218</Distance>
+    <Active>true</Active>
+    <Time>00:12:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100009</Station1>
+    <Station2>100008</Station2>
+    <Distance>150.72469773254207</Distance>
+    <Active>true</Active>
+    <Time>00:30:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>100011</Station1>
     <Station2>100002</Station2>
-    <Distance>46.356493611640794</Distance>
+    <Distance>166.79088979584915</Distance>
     <Active>true</Active>
-    <Time>01:09:00</Time>
+    <Time>00:33:00</Time>
   </AdjacentStations>
   <AdjacentStations>
-    <Station1>100013</Station1>
+    <Station1>100031</Station1>
     <Station2>100002</Station2>
-    <Distance>140.44069500235497</Distance>
+    <Distance>71.1737218938686</Distance>
     <Active>true</Active>
-    <Time>03:30:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100002</Station1>
-    <Station2>100030</Station2>
-    <Distance>66.727744358549614</Distance>
-    <Active>true</Active>
-    <Time>01:40:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100036</Station1>
-    <Station2>100002</Station2>
-    <Distance>139.09994916860612</Distance>
-    <Active>true</Active>
-    <Time>03:28:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100035</Station1>
-    <Station2>100002</Station2>
-    <Distance>54.520543124939429</Distance>
-    <Active>true</Active>
-    <Time>01:21:00</Time>
-  </AdjacentStations>
-  <AdjacentStations>
-    <Station1>100002</Station1>
-    <Station2>100034</Station2>
-    <Distance>110.69550641646262</Distance>
-    <Active>true</Active>
-    <Time>02:46:00</Time>
+    <Time>00:14:00</Time>
   </AdjacentStations>
 </xmlAdjacentStationsXml.xml>

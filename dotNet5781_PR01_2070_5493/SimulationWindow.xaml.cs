@@ -56,6 +56,8 @@ namespace dotNet5781_PR01_2070_5493
 
         private void SimulationTimer_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            this.isTimeRun = false;
+            this.stopwatch.Stop();
             this.tbHours.IsEnabled = true;
             this.tbMinutes.IsEnabled = true;
             this.tbSeconds.IsEnabled = true;
@@ -67,11 +69,16 @@ namespace dotNet5781_PR01_2070_5493
             this.tbHours.Text = string.Empty;
             this.tbMinutes.Text = string.Empty;
             this.tbSeconds.Text = string.Empty;
+            this.currentTime = DateTime.Now.TimeOfDay;
+
         }
 
         private void SimulationTimer_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            this.currentTime = new TimeSpan(this.currentTime.Hours, this.currentTime.Minutes, this.currentTime.Seconds + this.speed);
+            if (this.currentTime.Days >= 1)
+                this.currentTime = new TimeSpan(0, 0, 0);
+            else
+                this.currentTime = new TimeSpan(this.currentTime.Hours, this.currentTime.Minutes, this.currentTime.Seconds + this.speed);
             tbTime.Text = this.currentTime.ToString().Substring(0, 8);
             lineTimingDataGrid.ItemsSource = bl.GetAllLineTimingPerStation(this.stationCode, this.currentTime);
 
@@ -86,7 +93,6 @@ namespace dotNet5781_PR01_2070_5493
                 Thread.Sleep(1000); // Sleep for a second.  
 
             }
-            //e.Cancel = true;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -171,6 +177,7 @@ namespace dotNet5781_PR01_2070_5493
             {
                 this.isTimeRun = false;
                 this.stopwatch.Stop();
+                this.tbTime.Text = DateTime.Now.TimeOfDay.ToString().Substring(0, 8);
             }
 
         }

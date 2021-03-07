@@ -54,7 +54,7 @@ namespace dotNet5781_PR01_2070_5493
         private void btnSignIn_Click(object sender, RoutedEventArgs e)
         {
             if (registrationCheck())
-                NavigationService.NavigateTo(new PassengerWindow(this.bl));
+                NavigationService.NavigateTo(new PassengerWindow(this.bl, this.userName));
             else
             {
                 MessageBox.Show("One or more field are wrong");

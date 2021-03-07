@@ -78,7 +78,7 @@ namespace dotNet5781_PR01_2070_5493
         private void btnSignIn_Click(object sender, RoutedEventArgs e)
         {
             if (registrationCheck())
-                NavigationService.NavigateTo(new WorkerWindow(this.bl));
+                NavigationService.NavigateTo(new WorkerWindow(this.bl, this.userName));
             else
             {
                 tbPassword.Text = "Password";

@@ -2,97 +2,81 @@
 <ArrayOfBus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Bus>
     <LicenceNum>1000000</LicenceNum>
-    <FromDate>2010-03-20T00:00:00</FromDate>
-    <TotalTrip>1675</TotalTrip>
-    <FuelRemain>69</FuelRemain>
+    <FromDate>2019-04-07T00:00:00</FromDate>
+    <TotalTrip>2888</TotalTrip>
+    <FuelRemain>250</FuelRemain>
     <Status>ready</Status>
     <Active>true</Active>
   </Bus>
   <Bus>
     <LicenceNum>1000001</LicenceNum>
-    <FromDate>2013-12-12T00:00:00</FromDate>
-    <TotalTrip>15042</TotalTrip>
-    <FuelRemain>271</FuelRemain>
+    <FromDate>2008-01-10T00:00:00</FromDate>
+    <TotalTrip>5185</TotalTrip>
+    <FuelRemain>1101</FuelRemain>
     <Status>ready</Status>
     <Active>true</Active>
   </Bus>
   <Bus>
     <LicenceNum>1000002</LicenceNum>
-    <FromDate>2014-09-09T00:00:00</FromDate>
-    <TotalTrip>8969</TotalTrip>
-    <FuelRemain>294</FuelRemain>
+    <FromDate>2002-06-01T00:00:00</FromDate>
+    <TotalTrip>992</TotalTrip>
+    <FuelRemain>340</FuelRemain>
     <Status>ready</Status>
     <Active>true</Active>
   </Bus>
   <Bus>
     <LicenceNum>1000003</LicenceNum>
-    <FromDate>2013-05-06T00:00:00</FromDate>
-    <TotalTrip>3284</TotalTrip>
-    <FuelRemain>580</FuelRemain>
+    <FromDate>2004-10-24T00:00:00</FromDate>
+    <TotalTrip>1648</TotalTrip>
+    <FuelRemain>799</FuelRemain>
     <Status>ready</Status>
     <Active>true</Active>
   </Bus>
   <Bus>
     <LicenceNum>1000004</LicenceNum>
-    <FromDate>2008-10-24T00:00:00</FromDate>
-    <TotalTrip>17340</TotalTrip>
-    <FuelRemain>677</FuelRemain>
+    <FromDate>2017-11-26T00:00:00</FromDate>
+    <TotalTrip>17779</TotalTrip>
+    <FuelRemain>108</FuelRemain>
     <Status>ready</Status>
     <Active>true</Active>
   </Bus>
   <Bus>
     <LicenceNum>1000005</LicenceNum>
-    <FromDate>2007-06-20T00:00:00</FromDate>
-    <TotalTrip>13723</TotalTrip>
-    <FuelRemain>902</FuelRemain>
+    <FromDate>2000-03-16T00:00:00</FromDate>
+    <TotalTrip>16176</TotalTrip>
+    <FuelRemain>111</FuelRemain>
     <Status>ready</Status>
     <Active>true</Active>
   </Bus>
   <Bus>
     <LicenceNum>1000006</LicenceNum>
-    <FromDate>2013-05-04T00:00:00</FromDate>
-    <TotalTrip>15121</TotalTrip>
-    <FuelRemain>347</FuelRemain>
+    <FromDate>1999-07-02T00:00:00</FromDate>
+    <TotalTrip>15426</TotalTrip>
+    <FuelRemain>1150</FuelRemain>
     <Status>ready</Status>
     <Active>true</Active>
   </Bus>
   <Bus>
     <LicenceNum>1000007</LicenceNum>
-    <FromDate>2007-06-17T00:00:00</FromDate>
-    <TotalTrip>2817</TotalTrip>
-    <FuelRemain>916</FuelRemain>
+    <FromDate>2016-08-04T00:00:00</FromDate>
+    <TotalTrip>19385</TotalTrip>
+    <FuelRemain>61</FuelRemain>
     <Status>ready</Status>
     <Active>true</Active>
   </Bus>
   <Bus>
     <LicenceNum>1000008</LicenceNum>
-    <FromDate>2019-10-22T00:00:00</FromDate>
-    <TotalTrip>19256</TotalTrip>
-    <FuelRemain>124</FuelRemain>
+    <FromDate>2014-11-22T00:00:00</FromDate>
+    <TotalTrip>8412</TotalTrip>
+    <FuelRemain>159</FuelRemain>
     <Status>ready</Status>
     <Active>true</Active>
   </Bus>
   <Bus>
     <LicenceNum>1000009</LicenceNum>
-    <FromDate>2000-07-07T00:00:00</FromDate>
-    <TotalTrip>19103</TotalTrip>
-    <FuelRemain>1139</FuelRemain>
-    <Status>ready</Status>
-    <Active>true</Active>
-  </Bus>
-  <Bus>
-    <LicenceNum>1000010</LicenceNum>
-    <FromDate>2001-03-01T00:00:00</FromDate>
-    <TotalTrip>900</TotalTrip>
-    <FuelRemain>1200</FuelRemain>
-    <Status>ready</Status>
-    <Active>true</Active>
-  </Bus>
-  <Bus>
-    <LicenceNum>1000011</LicenceNum>
-    <FromDate>2003-04-04T00:00:00</FromDate>
-    <TotalTrip>899</TotalTrip>
-    <FuelRemain>1200</FuelRemain>
+    <FromDate>2009-09-23T00:00:00</FromDate>
+    <TotalTrip>15756</TotalTrip>
+    <FuelRemain>375</FuelRemain>
     <Status>ready</Status>
     <Active>true</Active>
   </Bus>

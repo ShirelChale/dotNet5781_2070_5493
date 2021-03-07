@@ -18,6 +18,8 @@
             <Button Name="btnWorker" Content="Worker" Foreground="White" FontSize="24" Height="40" Background="#4AB648" HorizontalAlignment="Center" Margin="0,220,0,0" VerticalAlignment="Center" Width="150" Click="btnWorker_Click"/>
             <Button Name="btnRegister" Content="Register" Foreground="White" FontSize="20" Height="32" HorizontalAlignment="Center" Background="#3A54A5"  Margin="0,400,0,0" VerticalAlignment="Center" Width="100" Click="btnRegister_Click"/>
         </Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="9" TextWrapping="Wrap" Text="© 2021 Mini Project in Windows Systems, Shirel Chale and Michal Abargel. All rights reserved." Foreground="#3A54A5" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Height="17" Width="383"/>
+
     </Grid>
     
 </Window>

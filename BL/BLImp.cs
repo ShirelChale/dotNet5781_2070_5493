@@ -128,7 +128,7 @@ namespace BL
                         double latitude1 = dl.GetStation(prevStation).Lattitude;
                         double latitude2 = dl.GetStation(stationCode).Lattitude;
                         _distance = this.distanceCalc(latitude1, longitude1, latitude2, longitude2) / 1000;
-                        _time = new TimeSpan(0, (int)(_distance * 1.5), 0);
+                        _time = new TimeSpan(0, (int)(_distance * 0.2), 0);
                         adjacentStation = new DLAPI.DO.AdjacentStations()
                         {
                             Active = true,
@@ -356,7 +356,7 @@ namespace BL
                         Station1 = _station1.Code,
                         Station2 = _station2.Code,
                         Distance = distance,
-                        Time = new TimeSpan(0, (int)(distance * 1.5), 0),
+                        Time = new TimeSpan(0, (int)(distance * 0.2), 0),
                     };
                     dl.AddAdjacentStations(adjacentStation);
 
@@ -417,7 +417,7 @@ namespace BL
                         Station1 = _station1.Code,
                         Station2 = _station2.Code,
                         Distance = distance,
-                        Time = new TimeSpan(0, (int)(distance * 1.5), 0),
+                        Time = new TimeSpan(0, (int)(distance * 0.2), 0),
                     };
                     dl.AddAdjacentStations(adjacentStation);
 
@@ -453,7 +453,7 @@ namespace BL
                         Station1 = list[prevStationIndex].Station,
                         Station2 = list[prevStationIndex + 2].Station,
                         Distance = distance,
-                        Time = new TimeSpan(0, (int)(distance * 1.5), 0)
+                        Time = new TimeSpan(0, (int)(distance * 0.2), 0)
                     };
                     dl.AddAdjacentStations(adjacentStation);
                 }
@@ -465,7 +465,7 @@ namespace BL
                 for (int i = list.Count - 1; i > prevStationIndex; i--)
                 {
                     dl.UpdateLineStation(_lineID, list[i].Station, lineStation => lineStation.LineStationIndex--);
-      
+
                 }
             }
             if (currentIndex == 0)
@@ -552,7 +552,7 @@ namespace BL
             catch (BO.BadAdjacentStationsException ex)
             {
 
-                
+
             }
             if (dl.DeleteStation(_station.Code))
                 return true;
@@ -614,7 +614,7 @@ namespace BL
                     Station1 = _station1,
                     Station2 = _station2,
                     Distance = _distance,
-                    Time = new TimeSpan(0, (int)(_distance * 1.5), 0)
+                    Time = new TimeSpan(0, (int)(_distance * 0.2), 0)
                 });
             }
 
@@ -785,26 +785,31 @@ namespace BL
         #endregion
 
         #region LineTiming
-        public IEnumerable<BO.LineTiming> GetAllLineTimingPerStation(int _stationCode, TimeSpan _currentTime)
+        private IEnumerable<BO.LineTiming> GetAllLineTimingPerStationPriavte(int _stationCode, TimeSpan _currentTime)
         {
             List<BO.LineTiming> LineTiminglist = new List<BO.LineTiming>();
             foreach (var line in this.GetAllLines(this.GetStation(_stationCode)))
             {
                 var listLineTrip = from lineTrip in this.GetAllLinesTrip(_lineTrip =>
                   _lineTrip.LineID == line.LineID && _lineTrip.StartAt < _currentTime)
-                                 select lineTrip;
+                                   select lineTrip;
                 foreach (var lineTrip in listLineTrip)
                 {
                     if ((lineTrip.StartAt + this.calcTotalTimeTrip(lineTrip.LineID, _stationCode)) > _currentTime)
                         LineTiminglist.Add(this.lineTripToLineTiming(lineTrip, _currentTime, _stationCode));
 
                 }
-
-
             }
 
             return LineTiminglist;
         }
+        public IEnumerable<BO.LineTiming> GetAllLineTimingPerStation(int _stationCode, TimeSpan _currentTime)
+        {
+            return from lineTiming in this.GetAllLineTimingPerStationPriavte(_stationCode, _currentTime)
+                   orderby lineTiming.ExpectedTimeTillArrive
+                   select lineTiming;
+        }
+
 
         private BO.LineTiming lineTripToLineTiming(BO.LineTrip _lineTrip, TimeSpan _currentTime, int _stationCode)
         {
@@ -821,15 +826,15 @@ namespace BL
         private TimeSpan calcArrival(TimeSpan _currentTime, BO.LineTrip _lineTrip, int _stationCode)
         {
             TimeSpan totalTimeTrip = calcTotalTimeTrip(_lineTrip.LineID, _stationCode);
-            TimeSpan expectedTime =totalTimeTrip - (_currentTime - _lineTrip.StartAt);
+            TimeSpan expectedTime = totalTimeTrip - (_currentTime - _lineTrip.StartAt);
             return expectedTime;
         }
         private TimeSpan calcTotalTimeTrip(int _lineID, int _stationCode)
         {
-            TimeSpan totalTime = new TimeSpan(0,0,0);
+            TimeSpan totalTime = new TimeSpan(0, 0, 0);
             foreach (var lineStation in this.GetRouteLine(this.GetLine(_lineID)))
             {
-                totalTime=totalTime.Add(lineStation.TimeFrom);
+                totalTime = totalTime.Add(lineStation.TimeFrom);
                 if (lineStation.Station == _stationCode)
                     break;
             }

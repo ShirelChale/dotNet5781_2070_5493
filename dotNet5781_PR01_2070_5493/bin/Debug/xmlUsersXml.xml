@@ -13,14 +13,14 @@
     <Active>true</Active>
   </User>
   <User>
-    <UserName>Michal</UserName>
-    <Password>1234</Password>
+    <UserName>Shirel</UserName>
+    <Password>123</Password>
     <Admin>true</Admin>
     <Active>false</Active>
   </User>
   <User>
-    <UserName>Shirel</UserName>
-    <Password>4567</Password>
+    <UserName>Michal</UserName>
+    <Password>456</Password>
     <Admin>true</Admin>
     <Active>false</Active>
   </User>

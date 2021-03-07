@@ -2,282 +2,282 @@
 <ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Station>
     <Code>100000</Code>
-    <Name>a0</Name>
-    <Longitude>34.668626065677323</Longitude>
-    <Lattitude>31.514187642612583</Lattitude>
+    <Name>גבעת שאול/כתב סופר</Name>
+    <Longitude>35.195972</Longitude>
+    <Lattitude>31.791222</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100001</Code>
-    <Name>a1</Name>
-    <Longitude>34.3905298734971</Longitude>
-    <Lattitude>32.689112904802485</Lattitude>
+    <Name>גבעת שאול/קוטלר</Name>
+    <Longitude>35.194683</Longitude>
+    <Lattitude>31.791653</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100002</Code>
-    <Name>a2</Name>
-    <Longitude>34.235358118654858</Longitude>
-    <Lattitude>32.3258923144666</Lattitude>
+    <Name>גבעת שאול/נג'ארה</Name>
+    <Longitude>35.192721</Longitude>
+    <Lattitude>31.792105</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100003</Code>
-    <Name>a3</Name>
-    <Longitude>34.703040209926215</Longitude>
-    <Lattitude>31.124380852153703</Lattitude>
+    <Name>נג'ארה/בן עוזיאל</Name>
+    <Longitude>35.191168</Longitude>
+    <Lattitude>31.789376</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100004</Code>
-    <Name>a4</Name>
-    <Longitude>34.2876316100767</Longitude>
-    <Lattitude>32.300169334886675</Lattitude>
+    <Name>תחנה מרכזית ירושלים</Name>
+    <Longitude>35.202511</Longitude>
+    <Lattitude>31.788555</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100005</Code>
-    <Name>a5</Name>
-    <Longitude>34.277493924497392</Longitude>
-    <Lattitude>31.896757790770735</Lattitude>
+    <Name>שרי ישראל/חשמונאים</Name>
+    <Longitude>35.206718</Longitude>
+    <Lattitude>31.789799</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100006</Code>
-    <Name>a6</Name>
-    <Longitude>34.805074674917883</Longitude>
-    <Lattitude>32.128113613523595</Lattitude>
+    <Name>שרי ישראל/תורה מציון</Name>
+    <Longitude>35.207763</Longitude>
+    <Lattitude>31.790615</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100007</Code>
-    <Name>a7</Name>
-    <Longitude>34.200217514392087</Longitude>
-    <Lattitude>31.865745407932319</Lattitude>
+    <Name>מלכי ישראל/תחכמוני</Name>
+    <Longitude>35.213136</Longitude>
+    <Lattitude>31.789941</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100008</Code>
-    <Name>a8</Name>
-    <Longitude>34.727166939399751</Longitude>
-    <Lattitude>32.354924119708556</Lattitude>
+    <Name>יחזקאל/הושע</Name>
+    <Longitude>35.218674</Longitude>
+    <Lattitude>31.789689</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100009</Code>
-    <Name>a9</Name>
-    <Longitude>34.678499448894755</Longitude>
-    <Lattitude>31.713942911342691</Lattitude>
+    <Name>הנביאים</Name>
+    <Longitude>35.203348</Longitude>
+    <Lattitude>31.7811578</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100010</Code>
-    <Name>a10</Name>
-    <Longitude>34.152206577897168</Longitude>
-    <Lattitude>32.340823150398592</Lattitude>
+    <Name>שער שכם</Name>
+    <Longitude>35.227712</Longitude>
+    <Lattitude>31.782477</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100011</Code>
-    <Name>a11</Name>
-    <Longitude>34.996327470055</Longitude>
-    <Lattitude>32.0033081308954</Lattitude>
+    <Name>הכותל המערבי</Name>
+    <Longitude>35.233908</Longitude>
+    <Lattitude>31.775614</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100012</Code>
-    <Name>a12</Name>
-    <Longitude>34.364418073727009</Longitude>
-    <Lattitude>31.834447998942085</Lattitude>
+    <Name>מסוף אגד/כנפי  נשרים</Name>
+    <Longitude>35.181048</Longitude>
+    <Lattitude>31.787175</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100013</Code>
-    <Name>a13</Name>
-    <Longitude>34.2886101423244</Longitude>
-    <Lattitude>31.064781822760022</Lattitude>
+    <Name>כנפי נשרים/בקי</Name>
+    <Longitude>35.183872</Longitude>
+    <Lattitude>31.787696</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100014</Code>
-    <Name>a14</Name>
-    <Longitude>34.704933889538488</Longitude>
-    <Lattitude>31.243388724626687</Lattitude>
+    <Name>מגדל דונה/בית הדפוס</Name>
+    <Longitude>35.186547</Longitude>
+    <Lattitude>31.786155</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100015</Code>
-    <Name>a15</Name>
-    <Longitude>34.906894793224936</Longitude>
-    <Lattitude>32.970122828134393</Lattitude>
+    <Name>שאולזון</Name>
+    <Longitude>35.233344</Longitude>
+    <Lattitude>31.780044</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100016</Code>
-    <Name>a16</Name>
-    <Longitude>34.975076814636161</Longitude>
-    <Lattitude>32.733662166508687</Lattitude>
+    <Name>קצנלבוגן</Name>
+    <Longitude>34.645402728880477</Longitude>
+    <Lattitude>32.098483873111419</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100017</Code>
-    <Name>a17</Name>
-    <Longitude>34.928473056260714</Longitude>
-    <Lattitude>31.317774382567858</Lattitude>
+    <Name>חי טייב</Name>
+    <Longitude>34.833560958427171</Longitude>
+    <Lattitude>31.979737569568556</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100018</Code>
-    <Name>a18</Name>
-    <Longitude>34.001763270237376</Longitude>
-    <Lattitude>32.052548474656675</Lattitude>
+    <Name>ברנט/חי טייב</Name>
+    <Longitude>34.236653494293172</Longitude>
+    <Lattitude>32.683478560616948</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100019</Code>
-    <Name>a19</Name>
-    <Longitude>34.993037457574644</Longitude>
-    <Lattitude>31.025831269112338</Lattitude>
+    <Name>רב שפע/שמגר</Name>
+    <Longitude>35.208208</Longitude>
+    <Lattitude>31.794642</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100020</Code>
-    <Name>a20</Name>
-    <Longitude>34.432316087853309</Longitude>
-    <Lattitude>31.697003818907312</Lattitude>
+    <Name>המ"ג/פנים מאירות</Name>
+    <Longitude>34.19180408548182</Longitude>
+    <Lattitude>32.880761891082287</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100021</Code>
-    <Name>a21</Name>
-    <Longitude>34.63812067808496</Longitude>
-    <Lattitude>31.394981090629</Lattitude>
+    <Name>ירמיהו/הצבי</Name>
+    <Longitude>34.548780283214889</Longitude>
+    <Lattitude>32.630888962946315</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100022</Code>
     <Name>a22</Name>
-    <Longitude>34.997394254895575</Longitude>
-    <Lattitude>31.41340465769796</Lattitude>
+    <Longitude>34.603578373139527</Longitude>
+    <Lattitude>31.766876621063275</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100023</Code>
     <Name>a23</Name>
-    <Longitude>34.673324109834304</Longitude>
-    <Lattitude>31.695849277868795</Lattitude>
+    <Longitude>34.2185307462786</Longitude>
+    <Lattitude>31.055509506750624</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100024</Code>
     <Name>a24</Name>
-    <Longitude>34.93352817927186</Longitude>
-    <Lattitude>31.727733780503151</Lattitude>
+    <Longitude>34.5976623681363</Longitude>
+    <Lattitude>32.571546655414416</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100025</Code>
     <Name>a25</Name>
-    <Longitude>34.074321288184414</Longitude>
-    <Lattitude>31.12827840313701</Lattitude>
+    <Longitude>34.2449756787368</Longitude>
+    <Lattitude>31.599294042028159</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100026</Code>
     <Name>a26</Name>
-    <Longitude>34.266964492046725</Longitude>
-    <Lattitude>31.779610399519843</Lattitude>
+    <Longitude>34.854525062187818</Longitude>
+    <Lattitude>31.738820659806404</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100027</Code>
     <Name>a27</Name>
-    <Longitude>34.31031852649074</Longitude>
-    <Lattitude>31.323972137330088</Lattitude>
+    <Longitude>34.709263719017272</Longitude>
+    <Lattitude>31.853517356726115</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100028</Code>
     <Name>a28</Name>
-    <Longitude>34.29877779693286</Longitude>
-    <Lattitude>32.679243019632644</Lattitude>
+    <Longitude>34.128962951772365</Longitude>
+    <Lattitude>31.115437347030007</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100029</Code>
     <Name>a29</Name>
-    <Longitude>34.171512059481586</Longitude>
-    <Lattitude>32.691449698848395</Lattitude>
+    <Longitude>34.248989811748729</Longitude>
+    <Lattitude>32.7286474978219</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100030</Code>
     <Name>a30</Name>
-    <Longitude>34.008961394433378</Longitude>
-    <Lattitude>32.894334939724921</Lattitude>
+    <Longitude>34.586400537093354</Longitude>
+    <Lattitude>31.81474798536615</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100031</Code>
     <Name>a31</Name>
-    <Longitude>34.2035368896106</Longitude>
-    <Lattitude>32.464862975508375</Lattitude>
+    <Longitude>34.658267587264191</Longitude>
+    <Lattitude>31.322510104776597</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100032</Code>
     <Name>a32</Name>
-    <Longitude>34.5343954365395</Longitude>
-    <Lattitude>31.970860562273703</Lattitude>
+    <Longitude>34.771619943329888</Longitude>
+    <Lattitude>32.813208074687608</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100033</Code>
     <Name>a33</Name>
-    <Longitude>34.896479992613422</Longitude>
-    <Lattitude>31.676775399444985</Lattitude>
+    <Longitude>34.966344061291935</Longitude>
+    <Lattitude>32.005617601333938</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100034</Code>
     <Name>a34</Name>
-    <Longitude>34.378051552631916</Longitude>
-    <Lattitude>31.338657715981203</Lattitude>
+    <Longitude>34.895167885765048</Longitude>
+    <Lattitude>32.179111615838067</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100035</Code>
     <Name>a35</Name>
-    <Longitude>34.705216574811011</Longitude>
-    <Lattitude>32.613740055641969</Lattitude>
+    <Longitude>34.426486166392678</Longitude>
+    <Lattitude>32.930436785766126</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100036</Code>
     <Name>a36</Name>
-    <Longitude>34.362419414502767</Longitude>
-    <Lattitude>31.080698617305931</Lattitude>
+    <Longitude>34.907858089966631</Longitude>
+    <Lattitude>32.052921840014363</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100037</Code>
     <Name>a37</Name>
-    <Longitude>34.525607664848494</Longitude>
-    <Lattitude>31.383940036121729</Lattitude>
+    <Longitude>34.814521665132844</Longitude>
+    <Lattitude>31.827081686270926</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100038</Code>
     <Name>a38</Name>
-    <Longitude>34.5765175733606</Longitude>
-    <Lattitude>32.414201368304994</Lattitude>
+    <Longitude>34.250723620527758</Longitude>
+    <Lattitude>31.481110396553348</Lattitude>
     <Active>true</Active>
   </Station>
   <Station>
     <Code>100039</Code>
     <Name>a39</Name>
-    <Longitude>34.907327793029758</Longitude>
-    <Lattitude>31.565000023490285</Lattitude>
+    <Longitude>34.949023785977168</Longitude>
+    <Lattitude>31.653881778313725</Lattitude>
     <Active>true</Active>
   </Station>
 </ArrayOfStation>

@@ -38,19 +38,19 @@ namespace DS
             InitAllLists();
             //seting data in xml fils in first time.
             #region setting fils
-            //XMLTools.SaveListToXMLSerializer(ListStations, StationsPath);
-            //XMLTools.SaveListToXMLSerializer(ListLines, LinesPath);
-            //XMLTools.SaveListToXMLSerializer(ListBuses, BusesPath);
-            //XMLTools.SaveListToXMLSerializer(ListUsers, UsersPath);
-            //XMLTools.SaveListToXMLSerializer(ListLineStations, LineStationsPath);
-            //setadjacentStationsList(AdjacentStationsPath);
-            //setlineTripList(LinesTripPath);
-            //list = new List<int>();
-            //list.Add(Config.LineID);//0
-            //list.Add(Config.LicenceNum);//1
-            //list.Add(Config.LineTripID);//2
-            //list.Add(Config.StationCode);//3
-            //XMLTools.SaveListToXMLSerializer(list, configPath);
+            XMLTools.SaveListToXMLSerializer(ListStations, StationsPath);
+            XMLTools.SaveListToXMLSerializer(ListLines, LinesPath);
+            XMLTools.SaveListToXMLSerializer(ListBuses, BusesPath);
+            XMLTools.SaveListToXMLSerializer(ListUsers, UsersPath);
+            XMLTools.SaveListToXMLSerializer(ListLineStations, LineStationsPath);
+            setadjacentStationsList(AdjacentStationsPath);
+            setlineTripList(LinesTripPath);
+            list = new List<int>();
+            list.Add(Config.LineID);//0
+            list.Add(Config.LicenceNum);//1
+            list.Add(Config.LineTripID);//2
+            list.Add(Config.StationCode);//3
+            XMLTools.SaveListToXMLSerializer(list, configPath);
             #endregion
         }
 
@@ -59,15 +59,15 @@ namespace DS
             XMLTools.LoadListFromXMLElement(path);
             foreach (var item in ListLinesTrip)
             {
-                    AddLineTrip(item);
+                AddLineTrip(item);
             }
-        } 
+        }
         static void setadjacentStationsList(string path)
         {
             XMLTools.LoadListFromXMLElement(path);
             foreach (var item in ListAdjacentStations)
             {
-                    AddAdjacentStations(item);
+                AddAdjacentStations(item);
             }
         }
         static void InitAllLists()
@@ -75,27 +75,11 @@ namespace DS
             setStationsList();
             setListLines();
             ListUsers = new List<User>();
-            ListUsers.Add(new User { Admin = true, Password = "Manager123", UserName = "Manager",Active=true });
-            ListUsers.Add(new User { Admin = false, Password = "pass123", UserName = "pass",Active=true });
+            ListUsers.Add(new User { Admin = true, Password = "Manager123", UserName = "Manager", Active = true });
+            ListUsers.Add(new User { Admin = false, Password = "pass123", UserName = "pass", Active = true });
             busSetting();
             lineTripSetting();
-            //setListLineStation();
         }
-
-        //private static void setListLineStation()
-        //{
-        //    ListLineStations = new List<LineStation>();
-        //    foreach (var line in ListLines)
-        //    {
-        //        if (line != null)
-        //        {
-        //            DLAPI.DO.LineStation newLineStation = new LineStation { LineID = line.LineID, Station = line.FirstStation, LineStationIndex = 0 };
-        //            ListLineStations.Add(newLineStation);
-        //            newLineStation = new LineStation { LineID = line.LineID, Station = line.LastStation, LineStationIndex = 0 };
-        //            ListLineStations.Add(newLineStation);
-        //        }
-        //    }
-        //}
 
         /// <summary>
         /// Sets stations list
@@ -103,16 +87,16 @@ namespace DS
         /// <returns>List of stations</returns>
         private static void setStationsList()
         {
-            
-            ListStations= new List<Station>();//Data
+
+            ListStations = new List<Station>();//Data
             Random randomark = new Random();
 
             for (int i = 0; i < 40; i++)
             {
-                var coord = new GeoCoordinate(randomark.Next(31, 33)+randomark.NextDouble(), randomark.Next(34,35)+ randomark.NextDouble());
+                var coord = new GeoCoordinate(randomark.Next(31, 33) + randomark.NextDouble(), randomark.Next(34, 35) + randomark.NextDouble());
                 DLAPI.DO.Station newStation = new Station();
                 newStation.Code = Config.StationCode++;
-                newStation.Name = 'a'+i.ToString();
+                newStation.Name = 'a' + i.ToString();
                 newStation.Lattitude = coord.Latitude;
                 newStation.Longitude = coord.Longitude;
                 newStation.Active = true;
@@ -139,20 +123,20 @@ namespace DS
                 DLAPI.DO.Line newLine = new DLAPI.DO.Line();
                 newLine.LineID = Config.LineID++;
                 newLine.Code = _lineNum + i;
-                DLAPI.DO.LineStation newLineStation = new LineStation() { LineID = newLine.LineID, Station = ListStations[i].Code, LineStationIndex = 0,Active=true };
+                DLAPI.DO.LineStation newLineStation = new LineStation() { LineID = newLine.LineID, Station = ListStations[i].Code, LineStationIndex = 0, Active = true };
                 ListLineStations.Add(newLineStation);
                 newLine.FirstStation = ListStations[i].Code;
-                newLineStation = new LineStation() { LineID = newLine.LineID, Station = ListStations[i + 1].Code, LineStationIndex = 1,Active=true};
+                newLineStation = new LineStation() { LineID = newLine.LineID, Station = ListStations[i + 1].Code, LineStationIndex = 1, Active = true };
                 ListLineStations.Add(newLineStation);
                 newLine.LastStation = ListStations[i + 1].Code;
                 double _distance = distanceCalc(ListStations[i].Lattitude, ListStations[i].Longitude,
-                    ListStations[i + 1].Lattitude, ListStations[i + 1].Longitude)/1000;
+                    ListStations[i + 1].Lattitude, ListStations[i + 1].Longitude) / 1000;
                 DLAPI.DO.AdjacentStations newAdjacentStation = new AdjacentStations()
                 {
                     Station1 = ListStations[i].Code,
                     Station2 = ListStations[i + 1].Code,
                     Distance = _distance,
-                    Time = new TimeSpan(0,0, (int)(_distance * 0.3)),
+                    Time = new TimeSpan(0, (int)(_distance * 0.2), 0),
                     Active = true
                 };
                 ListAdjacentStations.Add(newAdjacentStation);
@@ -161,12 +145,12 @@ namespace DS
             }
         }
 
-        private static double distanceCalc(double _latitude1, double _longitude1, double _latitude2 ,double _longitude2)
+        private static double distanceCalc(double _latitude1, double _longitude1, double _latitude2, double _longitude2)
         {
             var sCoord = new GeoCoordinate(_latitude1, _longitude1);
-            var eCoord = new GeoCoordinate (_latitude2, _longitude2);
+            var eCoord = new GeoCoordinate(_latitude2, _longitude2);
             return sCoord.GetDistanceTo(eCoord);
-            
+
         }
 
         public static void busSetting()
@@ -178,7 +162,7 @@ namespace DS
                 DateTime _FromDate = new DateTime(rand.Next(1998, 2021), rand.Next(1, 13), rand.Next(1, 28));
                 Bus newBus = new Bus
                 {
-                    Active=true,
+                    Active = true,
                     LicenceNum = Config.LicenceNum++,
                     FromDate = _FromDate,
                     TotalTrip = rand.Next(1, 20000),
@@ -217,7 +201,7 @@ namespace DS
         {
             XElement lineTripsRootElem = XMLTools.LoadListFromXMLElement(LinesTripPath);
             XElement lineTripToAdd = (from lineTrip in lineTripsRootElem.Elements()
-                                      where int.Parse(lineTrip.Element("LineID").Value) == _lineTrip.LineID && TimeSpan.ParseExact(lineTrip.Element("StartAt").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture)==_lineTrip.StartAt
+                                      where int.Parse(lineTrip.Element("LineID").Value) == _lineTrip.LineID && TimeSpan.ParseExact(lineTrip.Element("StartAt").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture) == _lineTrip.StartAt
                                       && bool.Parse(lineTrip.Element("Active").Value)
                                       select lineTrip).FirstOrDefault();
             if (lineTripToAdd != null)
@@ -247,7 +231,7 @@ namespace DS
             XMLTools.SaveListToXMLElement(adjacentStationsRootElem, AdjacentStationsPath);
         }
 
-        
+
     }
 }
 

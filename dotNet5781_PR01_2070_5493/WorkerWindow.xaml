@@ -8,7 +8,7 @@
         Title="WorkerWindow" Height="550" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid>
-            <Button Name="btnSignOut" Content="Sign out" FontSize="16" Background="#ED6D25" Foreground="White" Height="30" HorizontalAlignment="right" Margin="0,30,30,0" VerticalAlignment="Top" Width="75" Click="btnSignOut_Click" />
+            <Button Name="btnSignOut" Content="Sign out" FontSize="16" Background="#ED6D25" Foreground="White" Height="30" HorizontalAlignment="Left" Margin="30,30,30,0" VerticalAlignment="Top" Width="75" Click="btnSignOut_Click" />
             <Grid Height="250" Width="700" VerticalAlignment="Top" Margin="0,50,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -46,5 +46,8 @@
             </Grid>
 
         </Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="9" TextWrapping="Wrap" Text="© 2021 Mini Project in Windows Systems, Shirel Chale and Michal Abargel. All rights reserved." Foreground="#3A54A5" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Height="17" Width="383"/>
+        <Label x:Name="lHelloUser" HorizontalAlignment="Left" Height="30" Margin="120,30,0,0"  Foreground="#3A54A5" FontSize="20" FontFamily="Tahoma" VerticalAlignment="Top" Width="250"/>
+
     </Grid>
 </Window>

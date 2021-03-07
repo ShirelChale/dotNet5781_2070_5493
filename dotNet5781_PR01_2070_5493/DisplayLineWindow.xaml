@@ -94,5 +94,7 @@
             <TextBlock HorizontalAlignment="Left" Margin="20,210,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Last station:" VerticalAlignment="Top"/>
             <Button Name="btnReset" Background="#4AB648" Foreground="White" Content="Reset" HorizontalAlignment="Center" Margin="0,0,0,20" Grid.Row="1" VerticalAlignment="Bottom" Width="50" Click="btnReset_Click"/>
         </Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="9" TextWrapping="Wrap" Text="© 2021 Mini Project in Windows Systems, Shirel Chale and Michal Abargel. All rights reserved." Foreground="#3A54A5" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Height="17" Width="383"/>
+
     </Grid>
 </Window>

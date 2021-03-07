@@ -21,10 +21,11 @@ namespace dotNet5781_PR01_2070_5493
     public partial class WorkerWindow : Window
     {
         IBL bl;
-        public WorkerWindow(IBL _bl)
+        public WorkerWindow(IBL _bl, string _userName)
         {
             InitializeComponent();
             this.bl = _bl;
+            this.lHelloUser.Content = "Hello " + _userName + "!";
         }
 
         private void btnSignOut_Click(object sender, RoutedEventArgs e)

@@ -20,8 +20,9 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
+
             <TextBlock x:Name="tbTime" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" FontSize="30" Text="00:00:00" VerticalAlignment="Center" Foreground="#ED6D25" FontWeight="Bold" />
-            <DataGrid x:Name="lineTimingDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="0,0,0,0" Grid.Row="1" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid x:Name="lineTimingDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="0,86,-0.2,27.8" RowDetailsVisibilityMode="VisibleWhenSelected" Grid.RowSpan="2">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn x:Name="lineCodeColumn" Header="Line number" Width="SizeToHeader">
                         <DataGridTemplateColumn.CellTemplate>
@@ -71,6 +72,8 @@
             <TextBlock HorizontalAlignment="Center" Margin="75,210,0,0" Grid.Row="1" TextWrapping="Wrap" Text="x" VerticalAlignment="Top"/>
             <Button x:Name="btnStartOrStop" IsEnabled="False" Content="Start" Background="#ED6D25" VerticalContentAlignment="Center" Height="25" FontSize="16" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="1" Margin="0,0,0,20" Width="50" Click="btnStartOrStop_Click"/>
         </Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="9" TextWrapping="Wrap" Text="© 2021 Mini Project in Windows Systems, Shirel Chale and Michal Abargel. All rights reserved." Foreground="#3A54A5" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Height="17" Width="383"/>
+
     </Grid>
 
 </Window>

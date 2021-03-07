@@ -25,7 +25,8 @@ namespace dotNet5781_PR01_2070_5493
         List<int> Minutes;
         BL.BO.LineTrip newLineTrip;
         bool[] fieldSelected;
-
+        int hour;
+        int minutes;
         public AddLineTripWindow(IBL _bl)
         {
             InitializeComponent();
@@ -39,6 +40,8 @@ namespace dotNet5781_PR01_2070_5493
             cbHour.ItemsSource = this.Hours;
             cbMinutes.ItemsSource = this.Minutes;
             this.fieldSelected = new bool[3] { false, false, false };
+            this.minutes = 0;
+            this.hour = 0;
         }
 
         private void settingTime()
@@ -85,8 +88,8 @@ namespace dotNet5781_PR01_2070_5493
 
         private void cbHour_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int hour = (int)cbHour.SelectedItem;
-            this.newLineTrip.StartAt += new TimeSpan(hour, 0, 0);
+            this.hour = (int)cbHour.SelectedItem;
+            this.newLineTrip.StartAt = new TimeSpan(this.hour, this.minutes, 0);
             this.fieldSelected[1] = true;
             if (this.check())
                 btnCreateLineTrip.IsEnabled = true;
@@ -95,8 +98,8 @@ namespace dotNet5781_PR01_2070_5493
 
         private void cbMinutes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int minutes = (int)cbMinutes.SelectedItem;
-            this.newLineTrip.StartAt += new TimeSpan(0, minutes, 0);
+            this.minutes = (int)cbMinutes.SelectedItem;
+            this.newLineTrip.StartAt = new TimeSpan(this.hour, this.minutes, 0);
             this.fieldSelected[2] = true;
             if (this.check())
                 btnCreateLineTrip.IsEnabled = true;
